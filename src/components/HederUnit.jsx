@@ -14,7 +14,7 @@ import SearchBox from './Forms/SearchBox';
 import getStaticPage from '@/helper/staticPage';
 
 
-const HeaderUnit = ({hospital}) => {
+const HeaderUnit = ({ hospital }) => {
   const [selectedLangLoc, setselectedLangLoc] = useState([]);
   const [allLanguages, setAllLanguage] = useState([]); // Store all language;
   const [allLocations, setAllLocations] = useState([]); // Store all locations;
@@ -55,7 +55,7 @@ const HeaderUnit = ({hospital}) => {
       // console.log(LangLoc, "in header");
       setselectedLangLoc(LangLoc);
 
-      if (hospital) 
+      if (hospital)
         setSpeciality(await getSpecialityData.getHeaderSpecialityByHospital({ LangLoc, hospital }))
       else
         setSpeciality(await getSpecialityData.getHeaderSpeciality({ LangLoc }))
@@ -96,9 +96,9 @@ const HeaderUnit = ({hospital}) => {
 
   useEffect(() => {
 
-    let logoURL=getBaseUrl(true, true);
-    if(hospital)
-      logoURL=logoURL+"/hospital/"+hospital;
+    let logoURL = getBaseUrl(true, true);
+    if (hospital)
+      logoURL = logoURL + "/hospital/" + hospital;
     setLogoUrl(logoURL)
 
   }, [hospital])
@@ -252,7 +252,7 @@ const HeaderUnit = ({hospital}) => {
                               const colIndex = Math.floor(i / perColumn);
                               columns[colIndex].push(
                                 <li key={i}>
-                                  <a href={`${basePath}/speciality/${s?.speciality?.slug}${hospital?'?hospital='+hospital:''}`}>
+                                  <a href={`${basePath}/speciality/${s?.speciality?.slug}${hospital ? '?hospital=' + hospital : ''}`}>
                                     <span>
                                       <img src={s.speciality?.iconImage?.url ? process.env.NEXT_PUBLIC_IMAGE_URL + s.speciality?.iconImage.url : "/img/no-image.jpg"} alt={s?.title} className="img-fluid" />
                                     </span>
@@ -274,14 +274,14 @@ const HeaderUnit = ({hospital}) => {
                         }
                       </div>
                       <div className="from-btn text-center">
-                        <a href={`${basePath}/speciality${hospital?'?hospital='+hospital:''}`} className="btn w-auto d-inline-block px-5">
+                        <a href={`${basePath}/speciality${hospital ? '?hospital=' + hospital : ''}`} className="btn w-auto d-inline-block px-5">
                           View All
                         </a>
                       </div>
 
                     </div>
                   </li>
-                  <li><a href={`${basePath}/doctor${hospital?'?hospital='+hospital:''}`} className="anchor-menu">{staticTexts['Find a Doctor']}</a></li>
+                  <li><a href={`${basePath}/doctor${hospital ? '?hospital=' + hospital : ''}`} className="anchor-menu">{staticTexts['Find a Doctor']}</a></li>
                   <li><a href={`${basePathOnlyLang}/visa-medical`} className="anchor-menu">{staticTexts['Visa Medical']}</a></li>
                   <li className="menu-item-has-children show-submenu d-lg-inline-block d-none">
                     <a href={basePathOnlyLang + "/hospital"} className="anchor-menu">{staticTexts['Locations']}</a>
@@ -306,7 +306,7 @@ const HeaderUnit = ({hospital}) => {
                                     className={`tab ${selectedLoc?.slug === loc.slug ? 'active' : ''}`}
                                     data-tab={"tab" + i} key={loc.documentId}
                                   >
-                                    <a href={basePathOnlyLang + "/" + loc?.slug}>{loc?.title} <i className="fa-solid fa-chevron-right"></i></a>
+                                    <a href={loc?.slug !== "ip" ? basePathOnlyLang + "/" + loc?.slug : "#"}>{loc?.title} <i className="fa-solid fa-chevron-right"></i></a>
                                   </div>
                                 })
                               }
@@ -378,7 +378,7 @@ const HeaderUnit = ({hospital}) => {
                               <div className={`accordion-item ${isOpen ? "active" : ""}`} key={index}>
                                 <div className="accordion-header" onClick={() => toggleAccordion(index)}>
                                   <h3>
-                                    <a href={basePathOnlyLang + "/" + l.slug}>{l.title}</a>
+                                    <a href={l?.slug !== "ip" ? basePathOnlyLang + "/" + l?.slug : "#"}>{l.title}</a>
                                   </h3>
                                   <div className="accordion-icon"></div>
                                 </div>
@@ -746,7 +746,7 @@ const HeaderUnit = ({hospital}) => {
 
               <div className="appointment-btn d-lg-block d-none me-4">
                 <button className="btn" type="submit"
-                  onClick={() => { location.href = `${basePath}/book-an-appointment${hospital?'?hospital='+hospital:''}` }}>
+                  onClick={() => { location.href = `${basePath}/book-an-appointment${hospital ? '?hospital=' + hospital : ''}` }}>
                   {staticTexts['Book An Appointment']}
                 </button>
               </div>

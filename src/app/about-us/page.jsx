@@ -235,7 +235,7 @@ const AboutUs = async () => {
                                 </div>
                                 <div className="row mb-3">
                                     {
-                                        allLeaderPromoters.slice(0, 8).map((l, i) => {
+                                        allLeaderPromoters.map((l, i) => {
                                             return <div className="col-md-3 col-6 mb-4" key={i}>
                                                 <div className="expert-card" data-aos="fade-right">
                                                     <div className="card border-0 p-lg-4 p-0">
@@ -264,7 +264,7 @@ const AboutUs = async () => {
                                 </div>
                                 <div className="row mb-3">
                                     {
-                                        allLeaderBoardofDirectors.slice(0, 8).map((l, i) => {
+                                        allLeaderBoardofDirectors.map((l, i) => {
                                             return <div className="col-md-3 col-6 mb-4" key={i}>
                                                 <div className="expert-card" data-aos="fade-right">
                                                     <div className="card border-0 p-lg-4 p-0">
@@ -293,7 +293,7 @@ const AboutUs = async () => {
                                 </div>
                                 <div className="row mb-3">
                                     {
-                                        allLeaderSeniorManagement.slice(0, 8).map((l, i) => {
+                                        allLeaderSeniorManagement.map((l, i) => {
                                             return <div className="col-md-3 col-6 mb-4" key={i}>
                                                 <div className="expert-card" data-aos="fade-right">
                                                     <div className="card border-0 p-lg-4 p-0">
@@ -322,7 +322,7 @@ const AboutUs = async () => {
                                 </div>
                                 <div className="row mb-3">
                                     {
-                                        allLeaderClinicalLeaders.slice(0, 8).map((l, i) => {
+                                        allLeaderClinicalLeaders.map((l, i) => {
                                             return <div className="col-md-3 col-6 mb-4" key={i}>
                                                 <div className="expert-card" data-aos="fade-right">
                                                     <div className="card border-0 p-lg-4 p-0">

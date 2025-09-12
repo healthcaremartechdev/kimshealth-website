@@ -300,7 +300,7 @@ const HeaderCorporate = ({ hospital }) => {
                                     className={`tab ${selectedLoc?.slug === loc.slug ? 'active' : ''}`}
                                     data-tab={"tab" + i} key={loc.documentId}
                                   >
-                                    <a href={basePathOnlyLang + "/" + loc?.slug}>{loc?.title} <i className="fa-solid fa-chevron-right"></i></a>
+                                    <a href={loc?.slug !== "ip" ? basePathOnlyLang + "/" + loc?.slug : "#"}>{loc?.title} <i className="fa-solid fa-chevron-right"></i></a>
                                   </div>
                                 })
                               }
@@ -373,7 +373,7 @@ const HeaderCorporate = ({ hospital }) => {
                               <div className={`accordion-item ${isOpen ? "active" : ""}`} key={index}>
                                 <div className="accordion-header" onClick={() => toggleAccordion(index)}>
                                   <h3>
-                                    <a href={basePathOnlyLang + "/" + l.slug}>{l.title}</a>
+                                    <a href={l?.slug !== "ip" ? basePathOnlyLang + "/" + l?.slug : "#"}>{l.title}</a>
                                   </h3>
                                   <div className="accordion-icon"></div>
                                 </div>
@@ -420,7 +420,7 @@ const HeaderCorporate = ({ hospital }) => {
                       </div>
                     </div>
                   </li>
-                  
+
                   <li><a href={`${basePathOnlyLang}/international-patient`} className="anchor-menu">
                     {staticTexts['International Patients']}</a></li>
 
