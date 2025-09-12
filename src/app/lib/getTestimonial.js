@@ -42,6 +42,26 @@ const testimonialData = {
         return res.data;
     },
 
+    getBySpecialityWithDefault: async ({ id, langLoc }) => {
+        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/testimonials?populate=*&filters[testimonialType][$contains]=Video&filters[specialities][id][$eq]=${id}&pagination[start]=0&pagination[limit]=4&filters[locations][id][$eq]=${langLoc.loc.id}&sort=manageAppearance.orderInMasterList:asc,title:asc`;
+        const req = await fetch(url);
+        const res = await req.json();
+
+        
+
+        if(res.data.length===0)
+        {
+            const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/testimonials?populate=*&pagination[start]=0&pagination[limit]=4&filters[testimonialType][$contains]=Video&filters[locations][id][$eq]=${langLoc.loc.id}&filters[manageAppearance][showInFeaturedList][$eq]=true&sort=manageAppearance.orderInFeaturedList:asc,title:asc`;
+
+            const req = await fetch(url);
+            const res = await req.json();
+
+            return res.data;
+        }
+        else
+            return res.data;
+    },
+
     getByProcedure: async ({ id, langLoc }) => {
         const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/testimonials?populate=*&filters[testimonialType][$contains]=Video&filters[procedures][id][$eq]=${id}&pagination[start]=0&pagination[limit]=4&sort=manageAppearance.orderInMasterList:asc,title:asc`;
         const req = await fetch(url);

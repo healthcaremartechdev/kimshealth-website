@@ -53,7 +53,7 @@ const SpecialityDetails = async ({ params, searchParams }) => {
     const testimonialDataSet = {
         sectionTitle: data.testimonialSection?.title,
         buttonText: 'View All', buttonURL: `${baseUrl + "/testimonial?speciality=" + data.speciality?.slug}`,
-        data: await testimonialData.getBySpeciality({ id: data.speciality.id, langLoc: getLangLoc }),
+        data: await testimonialData.getBySpecialityWithDefault({ id: data.speciality.id, langLoc: getLangLoc }),
         baseUrl: baseUrl
     }
     const blogDataSet = {
@@ -65,7 +65,7 @@ const SpecialityDetails = async ({ params, searchParams }) => {
     const docTalkDataSet = {
         sectionTitle: data.doctorTalk?.title,
         buttonText: 'View All', buttonURL: `${baseUrl + "/doctor-talk?speciality=" + data.speciality?.slug}`,
-        data: await doctorTalkData.getBySpeciality({ id: data.speciality.id, langLoc: getLangLoc }),
+        data: await doctorTalkData.getBySpecialityWithDefault({ id: data.speciality.id, langLoc: getLangLoc }),
         baseUrl: baseUrl
     }
 

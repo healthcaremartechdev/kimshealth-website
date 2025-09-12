@@ -31,7 +31,7 @@ const SpecialityDetails = async ({ params, searchParams }) => {
 
     const allSubSpeciality = await getSpecialityData.getAllSubSpeciality({ langLoc: getLangLoc, id: data.speciality?.id });
 
-    const selectedHospital=URLParams.hospital?URLParams.hospital:"";
+    const selectedHospital = URLParams.hospital ? URLParams.hospital : "";
 
     // const allDiseas = await diseaseData.getAll({langLoc: getLangLoc, URLParams:URLParams})
     // const allProcedure = await procedureData.getAll({langLoc: getLangLoc, URLParams:URLParams})
@@ -46,14 +46,14 @@ const SpecialityDetails = async ({ params, searchParams }) => {
     // ::::::::: ALL DATA SETS :::::::::
     const expertDataSet = {
         sectionTitle: data.expertSection?.title,
-        buttonText: 'View All', buttonURL: `${baseUrl + "/doctor?speciality=" + data.speciality?.slug +`${URLParams.hospital?'&hospital='+URLParams.hospital:''}`}`,
-        data: await doctorData.getBySpecialityAndHospital({ id: data.speciality.id, hospital:selectedHospital, langLoc: getLangLoc }),
+        buttonText: 'View All', buttonURL: `${baseUrl + "/doctor?speciality=" + data.speciality?.slug + `${URLParams.hospital ? '&hospital=' + URLParams.hospital : ''}`}`,
+        data: await doctorData.getBySpecialityAndHospital({ id: data.speciality.id, hospital: selectedHospital, langLoc: getLangLoc }),
         baseUrl: baseUrl
     };
     const testimonialDataSet = {
         sectionTitle: data.testimonialSection?.title,
         buttonText: 'View All', buttonURL: `${baseUrl + "/testimonial?speciality=" + data.speciality?.slug}`,
-        data: await testimonialData.getBySpeciality({ id: data.speciality.id, langLoc: getLangLoc }),
+        data: await testimonialData.getBySpecialityWithDefault({ id: data.speciality.id, langLoc: getLangLoc }),
         baseUrl: baseUrl
     }
     const blogDataSet = {
@@ -65,7 +65,7 @@ const SpecialityDetails = async ({ params, searchParams }) => {
     const docTalkDataSet = {
         sectionTitle: data.doctorTalk?.title,
         buttonText: 'View All', buttonURL: `${baseUrl + "/doctor-talk?speciality=" + data.speciality?.slug}`,
-        data: await doctorTalkData.getBySpeciality({ id: data.speciality.id, langLoc: getLangLoc }),
+        data: await doctorTalkData.getBySpecialityWithDefault({ id: data.speciality.id, langLoc: getLangLoc }),
         baseUrl: baseUrl
     }
 
@@ -153,8 +153,6 @@ const SpecialityDetails = async ({ params, searchParams }) => {
                             <div className="details-card-wrapper pb-5">
                                 <div className="owl-carousel owl-theme sub-speciality-slide2 position-relative" style={{ zIndex: "99" }}>
 
-                                    
-                                    
                                     {
                                         allSubSpeciality.map((subS, index) => (
                                             subS?.manageAppearance?.viewingMode === "Popup" ? (
