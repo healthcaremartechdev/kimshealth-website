@@ -54,7 +54,7 @@ const BlogDetails = async ({ params }) => {
                                                 <div className="details-heading">
                                                     <div className="row">
                                                         <div className="col-md-4 ">
-                                                            <img src={docData?.doctorImage.url ? process.env.NEXT_PUBLIC_IMAGE_URL + docData.doctorImage?.url : "/img/no-image.jpg"} alt={docData?.name} className="img-fluid" />
+                                                            <img src={docData?.doctorImage?.url ? process.env.NEXT_PUBLIC_IMAGE_URL + docData.doctorImage?.url : "/img/no-image.jpg"} alt={docData?.name} className="img-fluid" />
                                                         </div>
                                                         <div className="col-md-8 my-auto">
                                                             <h3>{`${docData.salutation ? docData.salutation + " " : ""}${docData.name}`}</h3>
@@ -76,7 +76,7 @@ const BlogDetails = async ({ params }) => {
                                                                             }${docData?.name}&location=${docData?.locations?.[0]?.slug === "generic"
                                                                                 ? docData?.locations?.[1]?.slug
                                                                                 : docData?.locations?.[0]?.slug
-                                                                            }&hospital=${docData?.hospitals?.[0]?.slug}`}
+                                                                            }&hospital=${docData?.hospitals?.[0]?.slug}&speciality=${docData?.specialities?.[0]?.slug}`}
                                                                         className="hospital-primarybtn"
                                                                     >
                                                                         {staticText['Book An Appointment']}
@@ -143,11 +143,15 @@ const BlogDetails = async ({ params }) => {
                                                         })}
                                                     </h4>
                                                     <div className="mt-4 mb-4">
-                                                        <a href={basePath + "/book-an-appointment?doctor=" + docData?.slug} className="hospital-primarybtn ">{staticText['Book An Appointment']}</a>
+                                                        <a href={`${basePath}/book-an-appointment/?doctor=${docData?.salutation ? docData?.salutation + " " : ""
+                                                            }${docData?.name}&location=${docData?.locations?.[0]?.slug === "generic"
+                                                                ? docData?.locations?.[1]?.slug
+                                                                : docData?.locations?.[0]?.slug
+                                                            }&hospital=${docData?.hospitals?.[0]?.slug}&speciality=${docData?.specialities?.[0]?.slug}`} className="hospital-primarybtn ">{staticText['Book An Appointment']}</a>
                                                     </div>
                                                 </div>
                                                 <div className="col-12 mb-3">
-                                                    <img src={docData.doctorImage.url ? process.env.NEXT_PUBLIC_IMAGE_URL + docData.doctorImage?.url : "/img/no-image.jpg"} alt={docData?.name} className="img-fluid" />
+                                                    <img src={docData.doctorImage?.url ? process.env.NEXT_PUBLIC_IMAGE_URL + docData.doctorImage?.url : "/img/no-image.jpg"} alt={docData?.name} className="img-fluid" />
                                                 </div>
                                             </div>
                                         </div>

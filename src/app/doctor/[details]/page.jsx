@@ -92,7 +92,7 @@ const DoctorDetails = async ({ params }) => {
                                                         }${data?.name}&location=${data?.locations[0]?.slug === "generic"
                                                             ? data?.locations[1]?.slug
                                                             : data?.locations[0]?.slug
-                                                        }&hospital=${data?.hospitals[0]?.slug}`}
+                                                        }&hospital=${data?.hospitals[0]?.slug}&speciality=${data?.specialities?.[0]?.slug}`}
                                                     className="form-btn mt-3 d-block text-center text-light"
                                                 >
                                                     {staticText["Book An Appointment"]}

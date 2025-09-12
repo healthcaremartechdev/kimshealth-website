@@ -68,7 +68,7 @@ const ExpertCarousel = ({ dataSet }) => {
                                                             }${d?.name}&location=${d?.locations?.[0]?.slug === "generic"
                                                                 ? d?.locations?.[1]?.slug
                                                                 : d?.locations?.[0]?.slug
-                                                            }&hospital=${d?.hospitals?.[0]?.slug}`}
+                                                            }&hospital=${d?.hospitals?.[0]?.slug}&speciality=${d?.specialities?.[0]?.slug}`}
                                                         className="btn"
                                                     >
                                                         {staticTexts["Appointment"]}
