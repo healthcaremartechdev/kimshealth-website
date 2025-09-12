@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify';
 const Header = ({ hospital }) => {
   const [activeHospital, setActiveHospital] = useState(hospital);
 
+  
   // cookies
   const loc = Cookies.get("systemLocation") ? JSON.parse(Cookies.get("systemLocation")) : "";
   const lang = Cookies.get("systemLang") ? JSON.parse(Cookies.get("systemLang")) : "";
