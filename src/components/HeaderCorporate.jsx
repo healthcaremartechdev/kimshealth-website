@@ -356,8 +356,6 @@ const HeaderCorporate = ({ hospital }) => {
                     </div>
                   </li>
 
-                  <li><a href={`${basePathOnlyLang}/international-patient`} className="anchor-menu">
-                    {staticTexts['International Patients']}</a></li>
 
                   <li className="menu-item-has-children show-submenu d-lg-none d-block">
                     <a href={basePath + "/hospital"}>{staticTexts['Locations']}</a>
@@ -422,6 +420,9 @@ const HeaderCorporate = ({ hospital }) => {
                       </div>
                     </div>
                   </li>
+                  
+                  <li><a href={`${basePathOnlyLang}/international-patient`} className="anchor-menu">
+                    {staticTexts['International Patients']}</a></li>
 
                   <li className="menu-item-has-children show-submenu quicklink-header">
                     <a href="#" className="anchor-menu">{staticTexts['About Us']}</a>

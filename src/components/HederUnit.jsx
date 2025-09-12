@@ -283,8 +283,6 @@ const HeaderUnit = ({hospital}) => {
                   </li>
                   <li><a href={`${basePath}/doctor${hospital?'?hospital='+hospital:''}`} className="anchor-menu">{staticTexts['Find a Doctor']}</a></li>
                   <li><a href={`${basePathOnlyLang}/visa-medical`} className="anchor-menu">{staticTexts['Visa Medical']}</a></li>
-                  <li><a href={`${basePathOnlyLang}/international-patient`} className="anchor-menu">
-                    {staticTexts['International Patients']}</a></li>
                   <li className="menu-item-has-children show-submenu d-lg-inline-block d-none">
                     <a href={basePathOnlyLang + "/hospital"} className="anchor-menu">{staticTexts['Locations']}</a>
                     <div className="sub-menu ">
@@ -427,6 +425,8 @@ const HeaderUnit = ({hospital}) => {
                       </div>
                     </div>
                   </li>
+                  <li><a href={`${basePathOnlyLang}/international-patient`} className="anchor-menu">
+                    {staticTexts['International Patients']}</a></li>
 
                   <li className="menu-item-has-children show-submenu quicklink-header">
                     <a href="#" className="anchor-menu">{staticTexts['About Us']}</a>
