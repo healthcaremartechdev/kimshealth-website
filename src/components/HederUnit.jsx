@@ -239,7 +239,7 @@ const HeaderUnit = ({ hospital }) => {
               <div className="mobile_primary" id="primary-nav">
                 <ul className="menu-navigation" id="menu-main-navigation-1">
                   <li className="menu-item-has-children show-submenu">
-                    <a href={basePath + "/speciality"} className="anchor-menu">{staticTexts['Specialities']}</a>
+                    <a href={`${basePath}/speciality${hospital ? '?hospital=' + hospital : ''}`} className="anchor-menu">{staticTexts['Specialities']}</a>
                     <div className="sub-menu">
                       <div className="row mb-4">
                         {
