@@ -57,7 +57,7 @@ const ExcellenceCarousel = ({ dataSet }) => {
                                                 <p>{e.overviewSection.details}</p>
                                                 <div className="main-btn">
                                                     <span className='read-more'>
-                                                        {staticTexts['Read More']} <span><i className="fa-solid fa-arrow-right"></i></span>
+                                                        Read More <span><i className="fa-solid fa-arrow-right"></i></span>
                                                     </span>
                                                 </div>
                                             </div>
