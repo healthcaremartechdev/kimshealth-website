@@ -6213,6 +6213,7 @@ select option:hover {
   -webkit-box-orient: unset;
   overflow: visible;
   white-space: normal;      /* ensures full text wraps */
+  min-height: 50px;
 }
 
 .expert-section .card-content.leader-card-content {
