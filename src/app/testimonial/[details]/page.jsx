@@ -87,11 +87,12 @@ const TestimonialDetails = async ({ params }) => {
                                             </div>
                                             <div className="doctor-catagory">
                                                 <p>
-                                                    {
+                                                    {/* {
                                                         data.specialities?.map((st, _) => (
                                                             st.title + (data.specialities.length - 1 !== _ ? ", " : '')
                                                         ))
-                                                    }
+                                                    } */}
+                                                    {data.specialities[0]?.title}
                                                 </p>
                                             </div>
                                         </div>
