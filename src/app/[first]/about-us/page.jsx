@@ -229,6 +229,7 @@ const AboutUs = async () => {
                             <div className="main-heading">
                                 <h2>{pageContent[8].title}</h2>
                             </div>
+                            
                             {allLeaderPromoters.length > 0 && <>
                                 <div className="sub-heading mb-3">
                                 <h4>{staticText['Promoters']}</h4>
@@ -245,9 +246,10 @@ const AboutUs = async () => {
                                                                     className="img-fluid w-100" alt={l.name} />
                                                             </a>
                                                         </div>
-                                                        <div className="card-content">
+                                                        <div className="card-content leader-card-content">
                                                             <h4>{l.name}</h4>
-                                                            <p>{l.designation}</p>
+                                                            <p className='no-clamp'>{l.designation}</p>
+                                                            <p>{staticText['Promoters']}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -276,7 +278,7 @@ const AboutUs = async () => {
                                                         </div>
                                                         <div className="card-content">
                                                             <h4>{l.name}</h4>
-                                                            <p>{l.designation}</p>
+                                                            <p className='no-clamp'>{l.designation}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -305,7 +307,7 @@ const AboutUs = async () => {
                                                         </div>
                                                         <div className="card-content">
                                                             <h4>{l.name}</h4>
-                                                            <p>{l.designation}</p>
+                                                            <p className='no-clamp'>{l.designation}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -334,7 +336,7 @@ const AboutUs = async () => {
                                                         </div>
                                                         <div className="card-content">
                                                             <h4>{l.name}</h4>
-                                                            <p>{l.designation}</p>
+                                                            <p className='no-clamp'>{l.designation}</p>
                                                         </div>
                                                     </div>
                                                 </div>

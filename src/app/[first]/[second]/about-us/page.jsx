@@ -77,20 +77,20 @@ const AboutUs = async () => {
                                             </div>
                                         </div>
 
-                                       
+
                                     </div>
-                                     <div className="col-md-6 details-proceduce-banner-right-col">
-                                            <div className="owl-carousel owl-theme hospital-details-slider">
-                                                {
-                                                    pageContent[1]?.bannerItem?.map((b, i) => {
-                                                        return <div className="item" key={i}>
-                                                            <img src={b.bannerImageDesktop?.url ? process.env.NEXT_PUBLIC_IMAGE_URL + b.bannerImageDesktop?.url : '/img/no-image.jpg'}
-                                                                alt="" className="img-fluid w-100" />
-                                                        </div>
-                                                    })
-                                                }
-                                            </div>
+                                    <div className="col-md-6 details-proceduce-banner-right-col">
+                                        <div className="owl-carousel owl-theme hospital-details-slider">
+                                            {
+                                                pageContent[1]?.bannerItem?.map((b, i) => {
+                                                    return <div className="item" key={i}>
+                                                        <img src={b.bannerImageDesktop?.url ? process.env.NEXT_PUBLIC_IMAGE_URL + b.bannerImageDesktop?.url : '/img/no-image.jpg'}
+                                                            alt="" className="img-fluid w-100" />
+                                                    </div>
+                                                })
+                                            }
                                         </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -231,7 +231,7 @@ const AboutUs = async () => {
                             </div>
                             {allLeaderPromoters.length > 0 && <>
                                 <div className="sub-heading mb-3">
-                                <h4>{staticText['Promoters']}</h4>
+                                    <h4>{staticText['Promoters']}</h4>
                                 </div>
                                 <div className="row mb-3">
                                     {
@@ -245,9 +245,10 @@ const AboutUs = async () => {
                                                                     className="img-fluid w-100" alt={l.name} />
                                                             </a>
                                                         </div>
-                                                        <div className="card-content">
+                                                        <div className="card-content leader-card-content">
                                                             <h4>{l.name}</h4>
-                                                            <p>{l.designation}</p>
+                                                            <p className='no-clamp'>{l.designation}</p>
+                                                            <p>{staticText['Promoters']}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -260,7 +261,7 @@ const AboutUs = async () => {
 
                             {allLeaderBoardofDirectors.length > 0 && <>
                                 <div className="sub-heading mb-3">
-                                <h4>{staticText['Board of Directors']}</h4>
+                                    <h4>{staticText['Board of Directors']}</h4>
                                 </div>
                                 <div className="row mb-3">
                                     {
@@ -276,7 +277,7 @@ const AboutUs = async () => {
                                                         </div>
                                                         <div className="card-content">
                                                             <h4>{l.name}</h4>
-                                                            <p>{l.designation}</p>
+                                                            <p className='no-clamp'>{l.designation}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -305,7 +306,7 @@ const AboutUs = async () => {
                                                         </div>
                                                         <div className="card-content">
                                                             <h4>{l.name}</h4>
-                                                            <p>{l.designation}</p>
+                                                            <p className='no-clamp'>{l.designation}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -334,7 +335,7 @@ const AboutUs = async () => {
                                                         </div>
                                                         <div className="card-content">
                                                             <h4>{l.name}</h4>
-                                                            <p>{l.designation}</p>
+                                                            <p className='no-clamp'>{l.designation}</p>
                                                         </div>
                                                     </div>
                                                 </div>

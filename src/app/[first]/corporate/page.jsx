@@ -228,7 +228,7 @@ const Investor = async () => {
                {pageContent[4]?.item[0]?.title && <div className="line-divider"> </div>}
 
 
-                {pageContent[4]?.item[0]?.title &&  <section className="section journal-section">
+                {pageContent[5].title &&  <section className="section journal-section">
                     <div className="container">
                         <div className="main-heading">
                             <h2>{pageContent[5]?.title}</h2>

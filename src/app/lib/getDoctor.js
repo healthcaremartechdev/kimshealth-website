@@ -132,7 +132,7 @@ const doctorData = {
 
 
     getBySpeciality: async ({ id, langLoc }) => {
-        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-details?populate=*&filters[specialities][id][$eq]=${id}&filters[locations][id][$eq]=${langLoc.loc.id}&sort=manageAppearance.orderInMasterList:desc,name:asc`;
+        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-details?populate=*&filters[specialities][id][$eq]=${id}&filters[locations][id][$eq]=${langLoc.loc.id}&sort=manageAppearance.orderInMasterList:asc,name:asc`;
         const req = await fetch(url);
         const res = await req.json();
 
@@ -146,7 +146,7 @@ const doctorData = {
             ? `&filters[hospitals][slug][$eq]=${hospital}`
             : ``
 
-        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-details?populate=*&filters[specialities][id][$eq]=${id}${hospitalFilter}&filters[locations][id][$eq]=${langLoc.loc.id}&sort=manageAppearance.orderInMasterList:desc,name:asc`;
+        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-details?populate=*&filters[specialities][id][$eq]=${id}${hospitalFilter}&filters[locations][id][$eq]=${langLoc.loc.id}&sort=manageAppearance.orderInMasterList:asc,name:asc`;
         const req = await fetch(url);
         const res = await req.json();
 

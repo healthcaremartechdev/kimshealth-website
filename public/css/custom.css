@@ -6206,3 +6206,15 @@ select option:hover {
   width: 50px;
   transition: .3s ease;
 }
+
+.expert-section .card-content p.no-clamp {
+  display: block;           /* removes -webkit-box */
+  -webkit-line-clamp: unset;
+  -webkit-box-orient: unset;
+  overflow: visible;
+  white-space: normal;      /* ensures full text wraps */
+}
+
+.expert-section .card-content.leader-card-content {
+  min-height: 125px;
+}
