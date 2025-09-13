@@ -47,11 +47,9 @@ const testimonialData = {
         const req = await fetch(url);
         const res = await req.json();
 
-        
-
         if(res.data.length===0)
         {
-            const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/testimonials?populate=*&pagination[start]=0&pagination[limit]=4&filters[testimonialType][$contains]=Video&filters[locations][id][$eq]=${langLoc.loc.id}&filters[manageAppearance][showInFeaturedList][$eq]=true&sort=manageAppearance.orderInFeaturedList:asc,title:asc`;
+            const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/testimonials?populate=*&pagination[start]=0&pagination[limit]=4&filters[testimonialType][$contains]=Video&sort=manageAppearance.orderInFeaturedList:asc,title:asc`;
 
             const req = await fetch(url);
             const res = await req.json();

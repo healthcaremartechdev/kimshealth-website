@@ -58,9 +58,10 @@ const doctorTalkData = {
         const req = await fetch(url);
         const res = await req.json();
 
+
         if(res.data.length===0)
         {
-            const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-talks?populate=*&pagination[start]=0&pagination[limit]=25&filters[locations][id][$eq]=${langLoc.loc.id}&sort=manageAppearance.orderInFeaturedList:asc,title:asc`;
+            const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-talks?populate=*&pagination[start]=0&pagination[limit]=25&sort=manageAppearance.orderInFeaturedList:asc,title:asc`;
 
             const req = await fetch(url);
             const res = await req.json();
@@ -68,6 +69,7 @@ const doctorTalkData = {
 
             const shuffled = res.data.sort(() => 0.5 - Math.random());
             const randomThree = shuffled.slice(0, 3);
+
 
             return randomThree;
         }
