@@ -156,7 +156,7 @@ const HeaderCorporate = ({ hospital }) => {
             </div>
             <div className="header-contact d-flex align-items-center justify-content-center position-relative">
               <ul>
-                <li><a href={`${basePath}/about-us`}>{staticTexts['About Us']}</a></li>
+                <li><a href={`${basePath}/about-us${hospital ? '?hospital=' + hospital : ''}`}>{staticTexts['About Us']}</a></li>
                 {/* <li><a href={`${basePath}/career`}>{staticTexts['Career']}</a></li> */}
                 <li><a href={`${basePath}/at-home-services`}>{staticTexts['Home Care']}</a></li>
                 {/* <li><a href={`${basePath}/second-opinion`}>{staticTexts['Second Opinion']}</a></li> */}
@@ -432,7 +432,7 @@ const HeaderCorporate = ({ hospital }) => {
                           <div className="sub-menu-details">
                             <ul>
                               <li>
-                                <a href={basePath + "/about-us"}>{staticTexts['Overview']}</a>
+                                <a href={`${basePath}/about-us${hospital ? '?hospital=' + hospital : ''}`}>{staticTexts['Overview']}</a>
                               </li>
                               <li>
                                 <a href={basePath + "/leadership"}>{staticTexts['Leadership']}</a>
