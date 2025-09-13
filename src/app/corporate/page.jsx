@@ -119,7 +119,7 @@ const Investor = async () => {
                 {pageContent[2].title && <div className="line-divider"> </div>}
 
 
-                <section className="section">
+                {pageContent[3].title && <section className="section">
                     <div className="container">
                         <div className="main-heading">
                             <h2>{pageContent[3].title}</h2>
@@ -173,8 +173,8 @@ const Investor = async () => {
 
                         <CorporateForm />
                     </div>
-                </section>
-                <div className="line-divider"> </div>
+                </section>}
+                {pageContent[3].title && <div className="line-divider"> </div>}
 
 
                 {pageContent[4]?.item[0]?.title && <section className="section journal-section">

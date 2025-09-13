@@ -55,7 +55,7 @@ const Investor = async () => {
                         </div>
                     </section>
 
-                    <section className="section expert-section">
+                    {pageContent[1].title && <section className="section expert-section">
                         <div className="container">
                             <div className="main-heading">
                                 <h2>{pageContent[1].title}</h2>
@@ -82,11 +82,11 @@ const Investor = async () => {
                                 }
                             </div>
                         </div>
-                    </section>
+                    </section>}
 
-                    <div className="line-divider"></div>
+                   {pageContent[1].title && <div className="line-divider"></div>}
 
-                    <section className="section expert-section">
+                   {pageContent[2].title && <section className="section expert-section">
                         <div className="container">
                             <div className="main-heading">
                                 <h2>{pageContent[2].title}</h2>
@@ -113,18 +113,18 @@ const Investor = async () => {
                                 }
                             </div>
                         </div>
-                    </section>
+                    </section>}
 
                 </div>
+                {pageContent[2].title && <div className="line-divider"> </div>}
 
 
-                <div className="line-divider"> </div>
-                <section className="section">
+                {pageContent[3].title && <section className="section">
                     <div className="container">
                         <div className="main-heading">
                             <h2>{pageContent[3].title}</h2>
                         </div>
-                        <div className="row">
+                        {pageContent[3].title && <div className="row">
                             {
                                 pageContent[3].socomer?.map((sp, i) => (
                                     <div className="col-md-6" key={i}>
@@ -169,15 +169,15 @@ const Investor = async () => {
                                 ))
                             }
 
-                        </div>
+                        </div>}
 
                         <CorporateForm />
                     </div>
-                </section>
+                </section>}
+                {pageContent[3].title && <div className="line-divider"> </div>}
 
 
-                <div className="line-divider"> </div>
-                <section className="section journal-section">
+                {pageContent[4]?.item[0]?.title && <section className="section journal-section">
                     <div className="container">
                         <div className="main-heading">
                             <h2>{pageContent[4]?.item[0]?.title}</h2>
@@ -224,11 +224,11 @@ const Investor = async () => {
                         </div>
 
                     </div>
-                </section>
+                </section>}
+               {pageContent[4]?.item[0]?.title && <div className="line-divider"> </div>}
 
 
-                <div className="line-divider"> </div>
-                <section className="section journal-section">
+                {pageContent[4]?.item[0]?.title &&  <section className="section journal-section">
                     <div className="container">
                         <div className="main-heading">
                             <h2>{pageContent[5]?.title}</h2>
@@ -238,9 +238,7 @@ const Investor = async () => {
                             dangerouslySetInnerHTML={{ __html: pageContent[5]?.details }}>
                         </div>
                     </div>
-
-                </section>
-
+                </section>}
 
             </div>
             <Footer />
@@ -248,4 +246,4 @@ const Investor = async () => {
     )
 }
 
-export default Investor
+export default Investor;
