@@ -248,7 +248,7 @@ const AboutUs = async () => {
                                                         </div>
                                                         <div className="card-content leader-card-content">
                                                             <h4>{l.name}</h4>
-                                                            <p className='no-clamp'>{l.designation}</p>
+                                                            {/* <p className='no-clamp'>{l.designation}</p> */}
                                                             <p>{staticText['Promoters']}</p>
                                                         </div>
                                                     </div>

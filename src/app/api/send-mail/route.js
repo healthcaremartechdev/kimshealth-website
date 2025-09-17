@@ -95,10 +95,10 @@ const emailFrom = {
 export async function POST(req) {
 
   try {
-    const { data, formType, sub, attachment, filename, locationData } = await req.json();
+    const { data, formType, subject, attachment, filename, docmentFilename, docmentAttachment, prescriptionFilename, prescriptionAttachment, locationData } = await req.json();
     const cookieStore = await cookies();
     const getLoc = JSON.parse(cookieStore.get("systemLocation")?.value);
-    let loc = locationData? locationData: getLoc.slug;
+    let loc = locationData ? locationData : getLoc.slug;
 
     if (!data || !loc || !formType) {
       return res.json({ err: "Fill the required fields" }, { status: 400 });
@@ -125,24 +125,50 @@ export async function POST(req) {
     const mailOptions = {
       from: emailFrom[loc],
       to: recipients.join(","),
-      // cc: "mohit@healthcaremartech.com", // CC
-      // bcc: "sbhadipchanda@gmail.com", // hidden recipient
-      subject: !sub ? `${formType}` : `${formType} : ${sub}`,
+      //cc: "mohit@healthcaremartech.com", // CC
+      //bcc: "sbhadipchanda@gmail.com", // hidden recipient
+      subject: !subject ? `${formType}` : `${formType} : ${subject}`,
       html: data,
     };
 
-    console.log(!sub ? `${formType}` : `${formType} : ${sub}`,)
+    console.log(!subject ? `${formType}` : `${formType} : ${subject}`,)
 
-    // only add attachments if available
+
+    mailOptions.attachments = [];
+
+    // first attachment
     if (attachment && filename) {
-      mailOptions.attachments = [
-        {
-          filename: filename,
-          content: attachment.split("base64,")[1],
-          encoding: "base64"
-        }
-      ];
+      mailOptions.attachments.push({
+        filename: filename,
+        content: attachment.split("base64,")[1],
+        encoding: "base64"
+      });
     }
+
+    // second attachment
+    if (docmentFilename && docmentAttachment) {
+      mailOptions.attachments.push({
+        filename: docmentFilename,
+        content: docmentAttachment.split("base64,")[1],
+        encoding: "base64"
+      });
+    }
+
+    // third attachment
+    if (prescriptionFilename && prescriptionAttachment) {
+      mailOptions.attachments.push({
+        filename: prescriptionFilename,
+        content: prescriptionAttachment.split("base64,")[1],
+        encoding: "base64"
+      });
+    }
+
+    // remove empty array if no attachments
+    if (mailOptions.attachments.length === 0) {
+      delete mailOptions.attachments;
+    }
+
+    console.log(mailOptions)
 
     const info = await transporter.sendMail(mailOptions);
 

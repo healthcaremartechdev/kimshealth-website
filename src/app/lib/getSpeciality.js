@@ -302,7 +302,7 @@ const getSpecialityData = {
         // Actual Data
         for (let i = 0; i < pages; i++) {
             const start = i * limit;
-            const url = `${baseUrl}/specialty-details?populate[0]=speciality&filters[locations][id][$eq]=${langLoc.loc.id}&populate[1]=manageAppearance&filters[manageAppearance][showingFooter][$eq]=true&pagination[start]=${start}&pagination[limit]=${limit}&sort=manageAppearance.orderInMasterList:asc,title:asc`;
+            const url = `${baseUrl}/specialty-details?populate[0]=speciality&filters[locations][id][$eq]=${langLoc.loc.id}&populate[1]=manageAppearance&filters[manageAppearance][showingFooter][$eq]=true&pagination[start]=${start}&pagination[limit]=${limit}&sort=manageAppearance.footerOrder:asc,manageAppearance.orderInMasterList:asc,title:asc`;
             const res = await fetch(url);
             const json = await res.json();
             data = [...data, ...json.data];

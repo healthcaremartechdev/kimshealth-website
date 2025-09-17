@@ -5,6 +5,7 @@ import getStaticText from '@/app/lib/getStaticTextServer';
 import { getBaseUrl } from '@/app/lib/getBaseUrl';
 import Breadcrumb from '@/components/Breadcrumb';
 import getCurrentLangLoc from '@/app/lib/getCurrentLangLoc';
+import { marked } from 'marked';
 
 
 const Faqs = async () => {
@@ -58,8 +59,7 @@ const Faqs = async () => {
                                                     </button>
                                                 </h2>
                                                 <div id={`collapse${index}`} className={`accordion-collapse collapse ${index === 0 ? "show" : ""}`} data-bs-parent="#accordionExample">
-                                                    <div className="accordion-body">
-                                                        {data.answer}
+                                                    <div className="accordion-body main-list" dangerouslySetInnerHTML={{ __html: marked(data.answer || "") || "" }}>
                                                     </div>
                                                 </div>
                                             </div>

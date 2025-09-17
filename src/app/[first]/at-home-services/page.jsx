@@ -10,6 +10,8 @@ import homeServices from '@/app/lib/getHomeServices';
 import getStaticText from '@/app/lib/getStaticTextServer';
 import Breadcrumb from '@/components/Breadcrumb';
 import getCurrentLangLoc from '@/app/lib/getCurrentLangLoc';
+import { marked } from 'marked';
+import Form1 from '@/components/Forms/Form1';
 
 
 const HomeServices = async () => {
@@ -18,7 +20,7 @@ const HomeServices = async () => {
     const data = await getStaticPageContent("at-home-services");
     const pageContent = data?.data[0]?.pageContent;
     const pageMeta = data?.data[0]?.metaSection;
-    const homeServiceData = await homeServices.getAll({langLoc:getLangLoc});
+    const homeServiceData = await homeServices.getAll({ langLoc: getLangLoc });
     let staticTexts = await getStaticText();
 
 
@@ -65,7 +67,7 @@ const HomeServices = async () => {
                             <div className="row mb-lg-5">
                                 <div className="col-md-5 mb-lg-0 mb-4 order-lg-1 order-2">
                                     <div className="details-right-col text-center">
-                                        <img src={pageContent[1].thumbnail?.url ? process.env.NEXT_PUBLIC_IMAGE_URL + pageContent[1].thumbnail?.url : "/img/no-image.jpg"}alt="" className="img-fluid w-100" />
+                                        <img src={pageContent[1].thumbnail?.url ? process.env.NEXT_PUBLIC_IMAGE_URL + pageContent[1].thumbnail?.url : "/img/no-image.jpg"} alt="" className="img-fluid w-100" />
                                         {/* <iframe width="100%" height="315" src={`https://www.youtube.com/embed/${pageContent[1].videoId}?si=uQi_tVy9LN6UaOhE`} title={"KIMSHEALTH"} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe> */}
                                         <h5>{pageContent[1].title}</h5>
                                         <p>{pageContent[1].subTitle}</p>
@@ -108,6 +110,28 @@ const HomeServices = async () => {
                             </div>
                         </div>
                     </section>
+
+
+                    {pageContent[4]?.title && <div className="line-divider"> </div>}
+                    {pageContent[4]?.title && <section className="section">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-8 sub-heading order-lg-2 order-1 mb-lg-0 mb-3">
+                                    <div className="main-heading">
+                                        <h2 className="mb-lg-1">{pageContent[4]?.title}</h2>
+                                        <h3 className="mb-lg-3">{pageContent[4]?.subTitle}</h3>
+                                    </div>
+                                    <div className='main-heading sub-heading main-list' dangerouslySetInnerHTML={{ __html: marked(pageContent[4]?.details || "") || "" }}></div>
+                                </div>
+                                <div className="col-md-4 sub-heading order-lg-2 order-1 mb-lg-0 mb-3">
+                                    <div className="association-form-card mb-0"  id="bookNowForm" >
+                                        <Form1 title={"GET A CALLBACK FROM OUR HEALTH ADVISOR"} type={"Health At Home Services"} />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>}
 
                     {/* <div className="line-divider"></div>
                     <TestimonialSection dataSet={testimonialDataSet} />

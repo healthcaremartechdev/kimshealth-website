@@ -141,7 +141,7 @@ $('.hospital-details-slider2').owlCarousel({
 // })
 
 $('.exellence').owlCarousel({
-    loop: true,
+    loop: false,
     margin: 10,
     autoplay: false,
     nav: true,
@@ -628,10 +628,10 @@ $(".datepicker").datepicker({
 //     $(this).data('DateTimePicker').date(time);
 // });
 
-$('.counter').counterUp({
-    delay: 10,
-    time: 1000
-});
+// $('.counter').counterUp({
+//     delay: 10,
+//     time: 1000
+// });
 
 // ...existing code...
 // document.querySelectorAll(".phone-international").forEach(function (input) {

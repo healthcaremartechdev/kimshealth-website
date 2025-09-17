@@ -25,7 +25,7 @@ import FormInternationalMiddle from '@/components/Forms/FormInternationalMiddle'
 const InternationalPage = async () => {
     const getLangLoc = await getCurrentLangLoc()
     const basePath = await getBaseUrl(true, true);
-    const field = "populate[0]=pageContent&populate[1]=pageContent.bannerItem&populate[2]=pageContent.bannerItem.bannerImageDesktop&populate[3]=pageContent.bannerItem.bannerImageMobile&populate[4]=metaSection&populate[5]=pageContent.highlightButtonItem&populate[6]=pageContent.highlightButtonItem.iconImage&populate[7]=pageContent.logoSlider&populate[8]=pageContent.logoSlider.image&populate[9]=pageContent.uspItem&populate[10]=pageContent.uspItem.image&populate[11]=pageContent.uspItem.icon&populate[12]=pageContent.contentCard&populate[13]=pageContent.contentCard.image&populate[14]=pageContent.thumbnail&populate[15]=pageContent.file";
+    const field = "populate[0]=pageContent&populate[1]=pageContent.bannerItem&populate[2]=pageContent.bannerItem.bannerImageDesktop&populate[3]=pageContent.bannerItem.bannerImageMobile&populate[4]=metaSection&populate[5]=pageContent.highlightButtonItem&populate[6]=pageContent.highlightButtonItem.iconImage&populate[7]=pageContent.logoSlider&populate[8]=pageContent.logoSlider.image&populate[9]=pageContent.uspItem&populate[10]=pageContent.uspItem.image&populate[11]=pageContent.uspItem.icon&populate[12]=pageContent.contentCard&populate[13]=pageContent.contentCard.image&populate[14]=pageContent.thumbnail&populate[15]=pageContent.file&populate[16]=pageContent.faqData";
     const data = await getStaticPageContent("international-patient", field);
     const pageContent = data?.data[0]?.pageContent;
     const pageMeta = data?.data[0]?.metaSection;
@@ -62,6 +62,7 @@ const InternationalPage = async () => {
         baseUrl: basePath
     }
 
+    console.log(pageContent)
 
     return (
         <>
@@ -518,6 +519,38 @@ const InternationalPage = async () => {
 
                     <div className="line-divider"></div>
                     <BlogCarousel dataSet={blogDataSet} />
+
+
+                    <div className="line-divider"></div>
+                    <section className="section">
+                        <div className="container">
+                            <div className="main-heading main-list sub-heading">
+                                <h2>{pageContent[14]?.title}</h2>
+                            </div>
+
+                            <div className="faq-card p-4">
+                                <div className="accordion" id="accordionExample">
+                                    {
+                                        pageContent[14]?.faqData?.map((data, index) => {
+                                            return <div className="accordion-item" key={index}>
+                                                <h2 className="accordion-header">
+                                                    <button className={`accordion-button ${index === 0 ? "" : "collapsed"}`} type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`}
+                                                        aria-expanded={`${index === 0 ? "true" : "false"}`} aria-controls={`collapse${index}`}>
+                                                        <span>{data.question}</span>
+                                                    </button>
+                                                </h2>
+                                                <div id={`collapse${index}`} className={`accordion-collapse collapse ${index === 0 ? "show" : ""}`} data-bs-parent="#accordionExample">
+                                                    <div className="accordion-body main-list" dangerouslySetInnerHTML={{ __html: marked(data.answer || "") || "" }}>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        })
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
 

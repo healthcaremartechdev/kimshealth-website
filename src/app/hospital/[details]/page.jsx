@@ -290,7 +290,7 @@ const HospitalDetails = async ({ params }) => {
                                 </a>
                             </div>
                             <div className="cta-col">
-                                <a href={basePath + "/health-package"}>
+                                <a href={hptData.healthCheckup?hptData.healthCheckup:"#"}>
                                     <div className="cta-diff">
                                         <div className="d-flex align-items-center justify-content-center">
                                             <img src="/img/health.png" alt="" />
@@ -349,7 +349,7 @@ const HospitalDetails = async ({ params }) => {
                                 </a>
                             </div>
                             <div className="cta-col">
-                                <a href={basePath + "/health-package"}>
+                                <a href={hptData.healthCheckup?hptData.healthCheckup:"#"}>
                                     <div className="cta-diff">
                                         <div className="d-flex align-items-center justify-content-center">
                                             <img src="/img/opinion.png" alt="" />

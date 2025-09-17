@@ -179,7 +179,7 @@ const Footer = () => {
                     <div className="row justify-content-between">
                         <div className="col-md-3">
                             <div className="footer-logo">
-                                <img src="/img/logo.png" className="img-fluid" alt="" />
+                                <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${locationData?.logo?.url}`} className="img-fluid" alt="KIMSHEALTH" />
                             </div>
 
                             <div className="location mt-lg-4">
@@ -481,7 +481,7 @@ const Footer = () => {
                     <div className="row">
                         <div className="col-md-3 col-6 mb-4">
                             <div className="footer-logo">
-                                <img src="/img/logo.png" className="img-fluid" alt="" />
+                                <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${locationData?.logo?.url}`} className="img-fluid" alt="KIMSHEALTH" />
                             </div>
                         </div>
 

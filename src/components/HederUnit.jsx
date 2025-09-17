@@ -155,7 +155,7 @@ const HeaderUnit = ({ hospital }) => {
           <div className="container d-flex align-items-center justify-content-between">
             <div className="navbar-logo py-2 ">
               <a href={activeLogoUrl}>
-                <img src="/img/logo.png" alt="" className="img-fluid" />
+                <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${locationData?.logo?.url}`} alt="KIMSHEALTH" className="img-fluid" />
               </a>
             </div>
             <div className="header-contact d-flex align-items-center justify-content-center position-relative">
@@ -233,7 +233,7 @@ const HeaderUnit = ({ hospital }) => {
             <nav className="header-menu-container justify-content-lg-end">
               <div className="navbar-brand">
                 <a href={activeLogoUrl} className="text-decoration-none">
-                  <img src="/img/logo.png" height="55" className="img-fluid" />
+                  <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${locationData?.logo?.url}`} alt='KIMSHEALTH' height="55" className="img-fluid" />
                 </a>
               </div>
               <div className="mobile_primary" id="primary-nav">
@@ -458,9 +458,12 @@ const HeaderUnit = ({ hospital }) => {
 
 
 
-                  <li className="quicklink-header">
+                  {staticPageChecker['telehealth'] && (<li className="quicklink-header">
                     <a target='_blank' href="https://consult.bestdocapp.com/home/KIMSTVM?version=new" className="anchor-menu">{staticTexts['Telehealth']}</a>
-                  </li>
+                  </li>)}
+                  {staticPageChecker['teletriage'] && (<li className="quicklink-header">
+                    <a href={basePath + "/teletriage"} className="anchor-menu">{staticTexts['Teletriage']}</a>
+                  </li>)}
                   {staticPageChecker['corporate'] && (<li className="quicklink-header">
                     <a href={basePath + "/corporate"} className="anchor-menu">{staticTexts['Corporate']}</a>
                   </li>)}
@@ -556,6 +559,21 @@ const HeaderUnit = ({ hospital }) => {
                                   </a>
                                 </li>
                               )}
+
+                              {staticPageChecker['internal-medicine-foundation-programme'] && (
+                                <li>
+                                  <a href={basePath + "/internal-medicine-foundation-programme"}>
+                                    {staticTexts['Internal Medicine Foundation Programme']}
+                                  </a>
+                                </li>
+                              )}
+                              {staticPageChecker['excel-paces'] && (
+                                <li>
+                                  <a href={"https://excelpaces.com"} target='_blank'>
+                                    {staticTexts['Excel Paces']}
+                                  </a>
+                                </li>
+                              )}
                               {staticPageChecker['emergency-medicine-program'] && (
                                 <li>
                                   <a href={basePath + "/emergency-medicine-program"}>
@@ -586,7 +604,7 @@ const HeaderUnit = ({ hospital }) => {
                               )}
                               {staticPageChecker['nursing-recruitment'] && (
                                 <li>
-                                  <a href={basePath + "#"}>
+                                  <a href={basePath + "/nursing-recruitment"}>
                                     {staticTexts['Nursing Recruitment']}
                                   </a>
                                 </li>
@@ -625,9 +643,14 @@ const HeaderUnit = ({ hospital }) => {
                     </li>
                   )}
 
-                  {/* <li className="quicklink-header">
-                        <a href={basePath + "#"}>{staticTexts['Careers']}</a>
-                      </li> */}
+                  {staticPageChecker['career'] && (
+                    <li className="quicklink-header">
+                      <a href={basePath + "/career"}>
+                        {staticTexts['Careers']}
+                      </a>
+                    </li>
+                  )}
+
 
                   {staticPageChecker['blog'] && (
                     <li className="quicklink-header">
@@ -779,9 +802,12 @@ const HeaderUnit = ({ hospital }) => {
                           </li>
                         </ul>
                       </li> */}
-                      <li>
+                      {staticPageChecker['telehealth'] && (<li>
                         <a target='_blank' href="https://consult.bestdocapp.com/home/KIMSTVM?version=new" className="menu-item ">{staticTexts['Telehealth']}</a>
-                      </li>
+                      </li>)}
+                      {staticPageChecker['teletriage'] && (<li>
+                        <a href={basePath + "/teletriage"} className="menu-item">{staticTexts['Teletriage']}</a>
+                      </li>)}
                       {staticPageChecker['corporate'] && (<li>
                         <a href={basePath + "/corporate"} className="menu-item">{staticTexts['Corporate']}</a>
                       </li>)}
@@ -862,6 +888,20 @@ const HeaderUnit = ({ hospital }) => {
                               </a>
                             </li>
                           )}
+                          {staticPageChecker['internal-medicine-foundation-programme'] && (
+                            <li className="submenu-item">
+                              <a href={basePath + "/internal-medicine-foundation-programme"}>
+                                {staticTexts['Internal Medicine Foundation Programme']}
+                              </a>
+                            </li>
+                          )}
+                          {staticPageChecker['excel-paces'] && (
+                            <li className="submenu-item">
+                              <a href={"https://excelpaces.com"} target='_blank'>
+                                {staticTexts['Excel Paces']}
+                              </a>
+                            </li>
+                          )}
                           {staticPageChecker['emergency-medicine-program'] && (
                             <li className="submenu-item">
                               <a href={basePath + "/emergency-medicine-program"}>
@@ -890,10 +930,13 @@ const HeaderUnit = ({ hospital }) => {
                               </a>
                             </li>
                           )}
-
-                          {/* <li className="submenu-item">
-                                <a href={basePath + "#"}>{staticTexts['Nursing Recruitment']}</a>
-                              </li> */}
+                          {staticPageChecker['nursing-recruitment'] && (
+                            <li className="submenu-item">
+                              <a href={basePath + "/nursing-recruitment"}>
+                                {staticTexts['Nursing Recruitment']}
+                              </a>
+                            </li>
+                          )}
 
                           {staticPageChecker['paramedical-courses'] && (
                             <li className="submenu-item">
@@ -925,12 +968,13 @@ const HeaderUnit = ({ hospital }) => {
                           </a>
                         </li>
                       )}
-
-                      {/* <li>
-                          <a href={basePath + "#"} className="menu-item ">
+                      {staticPageChecker['career'] && (
+                        <li>
+                          <a href={basePath + "/career"} className="menu-item ">
                             {staticTexts['Careers']}
                           </a>
-                        </li> */}
+                        </li>
+                      )}
 
                       {staticPageChecker['blog'] && (
                         <li>

@@ -884,7 +884,7 @@ header {
     border-bottom: 1px solid #b71c2b;
 }
 
-.main-btn-speciality  {
+.main-btn-speciality {
     font-size: 16px;
     font-weight: 600;
     color: #b71c2b;
@@ -4719,6 +4719,54 @@ li.chat-ic::before {
     margin-top: 5px;
 }
 
+.csr-initiative-logo-card img {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 100%;
+
+}
+
+.csr-initiative-logo-img {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.csr-initiative-logo-card p {
+    font-size: 16px;
+    color: #000;
+    line-height: 22px;
+    margin-top: 5px;
+}
+
+.csr-initiative-logo-card h4 {
+    font-size: 17px;
+    color: #b71c2b;
+    line-height: 22px;
+    margin-top: 5px;
+}
+
+
+
+
+
+
+
+
+
+.csr-initiative-card h4 {
+    font-size: 19px;
+    color: #b71c2b;
+    line-height: 22px;
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+.csr-initiative-card p {
+    font-size: 16px;
+    color: #000;
+    line-height: 22px;
+    margin-top: 5px;
+}
+
 
 
 
@@ -6160,15 +6208,17 @@ select option:hover {
     margin-bottom: 20px !important;
 }
 
-.expert-doc-listing-box.custom-z-indexing{
+.expert-doc-listing-box.custom-z-indexing {
     position: relative;
-    z-index: -1 ;
+    z-index: -1;
 }
-.search-data ul li{
+
+.search-data ul li {
     position: relative;
     padding-left: 1rem;
 }
-.search-data ul li::before{
+
+.search-data ul li::before {
     content: '';
     position: absolute;
     top: 39%;
@@ -6178,44 +6228,71 @@ select option:hover {
     background: #c71d22;
     border-radius: 100%;
 }
-.custom-min-height-content h4{
+
+.custom-min-height-content h4 {
     min-height: 44px;
     display: block !important;
 }
 
 .homepage-slider.owl-carousel .owl-nav button.owl-prev {
-  position: absolute;
-  top: 35%;
-  left: 55px;
-  display: block;
-  background: #ffffff;
-  border-radius: 50%;
-  transition: .3s ease;
-  height: 50px;
-  width: 50px;
+    position: absolute;
+    top: 35%;
+    left: 55px;
+    display: block;
+    background: #ffffff;
+    border-radius: 50%;
+    transition: .3s ease;
+    height: 50px;
+    width: 50px;
 }
 
 .homepage-slider.owl-carousel .owl-nav button.owl-next {
-  position: absolute;
-  top: 35%;
-  right: 55px;
-  background: #ffffff;
-  border-radius: 50%;
-  display: block;
-  height: 50px;
-  width: 50px;
-  transition: .3s ease;
+    position: absolute;
+    top: 35%;
+    right: 55px;
+    background: #ffffff;
+    border-radius: 50%;
+    display: block;
+    height: 50px;
+    width: 50px;
+    transition: .3s ease;
 }
 
 .expert-section .card-content p.no-clamp {
-  display: block;           /* removes -webkit-box */
-  -webkit-line-clamp: unset;
-  -webkit-box-orient: unset;
-  overflow: visible;
-  white-space: normal;      /* ensures full text wraps */
-  min-height: 50px;
+    display: block;
+    /* removes -webkit-box */
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: unset;
+    overflow: visible;
+    white-space: normal;
+    /* ensures full text wraps */
+    min-height: 50px;
+}
+
+
+
+.imt-foundation .card-content p.no-clamp {
+    display: block;
+    /* removes -webkit-box */
+    -webkit-line-clamp: unset;
+    -webkit-box-orient: unset;
+    overflow: scroll;
+    white-space: normal;
+    /* ensures full text wraps */
+    max-height: 138px;
+}
+
+.imt-foundation .card-top img {
+    /*! object-fit: cover; */
+    /*! height: 200px; */
+    object-position: center;
+    transition: .3s ease-in;
 }
 
 .expert-section .card-content.leader-card-content {
-  min-height: 125px;
+    min-height: 125px;
+}
+
+a.form-btn {
+    padding: 11px 20px;
 }
