@@ -43,8 +43,8 @@ const InternationalPage = async () => {
 
     const testimonialDataSet = {
         sectionTitle: pageContent[11]?.title,
-        buttonText: 'View All', buttonURL: `${basePath + "/testimonial"}`,
-        data: await testimonialData.getFeaturedAll({ langLoc: getLangLoc }),
+        buttonText: 'View All', buttonURL: `${basePath + "/testimonial?location=ip"}`,
+        data: await testimonialData.getInternationalAll({ langLoc: getLangLoc }),
         baseUrl: basePath
     }
 

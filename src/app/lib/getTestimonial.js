@@ -16,7 +16,11 @@ const testimonialData = {
             ? `&filters[diseases][slug][$eq]=${URLParams.disease}`
             : ``;
 
-        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/testimonials?populate=*${specialityFilter}${hospitalFilter}${procedureFilter}${diseaseFilter}&filters[locations][id][$eq]=${langLoc.loc.id}&pagination[start]=${start}&pagination[limit]=${limit}&filters[testimonialType][$contains]=Video&sort=date:desc,manageAppearance.orderInMasterList:asc,title:asc`;
+        const locationFilter = URLParams?.location
+            ? `&filters[locations][slug][$eq]=${URLParams.location}`
+            : `&filters[locations][id][$eq]=${langLoc.loc.id}`;
+
+        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/testimonials?populate=*${specialityFilter}${hospitalFilter}${procedureFilter}${diseaseFilter}${locationFilter}&pagination[start]=${start}&pagination[limit]=${limit}&filters[testimonialType][$contains]=Video&sort=date:desc,manageAppearance.orderInMasterList:asc,title:asc`;
 
 
         const req = await fetch(url);
@@ -78,6 +82,15 @@ const testimonialData = {
 
     getFeaturedAll: async ({ langLoc }) => {
         const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/testimonials?populate=*&pagination[start]=0&pagination[limit]=4&filters[testimonialType][$contains]=Video&filters[locations][id][$eq]=${langLoc.loc.id}&filters[manageAppearance][showInFeaturedList][$eq]=true&sort=manageAppearance.orderInFeaturedList:asc,title:asc`;
+
+        const req = await fetch(url);
+        const res = await req.json();
+
+        return res.data;
+    },
+
+    getInternationalAll: async ({ langLoc }) => {
+        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/testimonials?populate=*&pagination[start]=0&pagination[limit]=4&filters[testimonialType][$contains]=Video&filters[locations][slug][$eq]=ip&filters[manageAppearance][showInFeaturedList][$eq]=true&sort=manageAppearance.orderInFeaturedList:asc,title:asc`;
 
         const req = await fetch(url);
         const res = await req.json();
