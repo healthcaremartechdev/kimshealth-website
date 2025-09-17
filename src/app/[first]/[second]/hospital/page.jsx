@@ -175,7 +175,7 @@ const Hospital = async () => {
                                     </div>
                                     <div className="row">
                                         {
-                                            medicalCenter?.slice(0, medicalCenter.length - 2)?.map((h, index) => {
+                                            medicalCenter?.map((h, index) => {
                                                 return <div className="col-md-4 mb-4" key={index}>
                                                     <div className="custom-hospital-top-card">
                                                         <div className="hospital-img">
@@ -201,56 +201,6 @@ const Hospital = async () => {
                                                                 <div className="d-flex align-items-center">
                                                                     <img src="/img/google.png" alt="Google Logo" className="me-2" />
                                                                     <div className="star-rating" data-rating="4.7">
-                                                                        {
-                                                                            Array.from({ length: h.rating }).map((r, index) => {
-                                                                                return index + 1 < h.rating - 1 ?
-                                                                                    <i className="fa fa-solid fa-star ms-1" style={{ color: "#ffc107" }} key={index}></i>
-                                                                                    : <i key={index} className={`fa fa-solid ms-1 ${Number.isInteger(h.rating) ? 'fa-star' : 'fa-star-half'}`} style={{ color: "#ffc107" }}></i>
-                                                                            })
-                                                                        }
-                                                                        {h.rating}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div className="d-lg-flex d-block align-items-center justify-content-between pt-3">
-                                                                <a href={baseURLOnlyLang + "/" + h.location?.slug + "/hospital/" + h.slug} className="btn mb-lg-0 mb-2 hospital-primarybtn">{staticText['View Details']}</a>
-                                                                <a href={baseURL + "/book-an-appointment?location="+h.location?.slug} className="btn mb-lg-0 mb-3 hospital-secondarybtn">{staticText['Appointment']}</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            })
-                                        }
-
-                                        {
-                                            medicalCenter.slice(medicalCenter.length - 2,).map((h, index) => {
-                                                return <div className="col-md-6 mb-4" key={index}>
-                                                    <div className="custom-hospital-top-card">
-                                                        <div className="hospital-img">
-                                                            <a href={baseURL + "/" + h.location?.slug + "/hospital/" + h.slug}>
-                                                                <img src={process.env.NEXT_PUBLIC_IMAGE_URL + h.featuredImage.url} 
-                                                                alt={h.title} className="img-fluid w-100" />
-                                                            </a>
-                                                        </div>
-                                                        <div className="hospital-content">
-                                                            <ul>
-                                                                <li className="hospital-icon-custom">{h.title}</li>
-                                                                <li className="location-icon-custom">{h.address}</li>
-                                                                <li className="telephone-icon-custom">{h.contactNo}</li>
-                                                            </ul>
-                                                            <div className="d-lg-flex d-block align-items-center justify-content-between py-2 " style={{ borderBottom: "1px solid #fff" }}>
-                                                                <div className="hospital-content mb-lg-0 mb-3 p-0">
-                                                                    <ul>
-                                                                        <li className="mb-0 send-custom-icon">
-                                                                            <a href={h.mapURL} target='_blank'>{staticText['Get Direction']}</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div className="d-flex align-items-center">
-                                                                    <img src="/img/google.png" alt="Google Logo" className="me-2" />
-                                                                    <div className="star-rating" data-rating="4.7">
-
                                                                         {
                                                                             Array.from({ length: h.rating }).map((r, index) => {
                                                                                 return index + 1 < h.rating - 1 ?
