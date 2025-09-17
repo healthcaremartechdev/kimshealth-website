@@ -385,16 +385,28 @@ const HospitalDetails = async ({ params }) => {
                                         </ul>
                                         <div className="d-flex align-items-center mt-2">
                                             <img src="/img/google.png" alt="Google Logo" className="me-2" />
-                                            <div className="star-rating" data-rating="4.7">
+
+                                            <div className="star-rating" data-rating={hptData.rating}>
                                                 {
-                                                    Array.from({ length: hptData.rating }).map((r, index) => {
-                                                        return index + 1 < hptData.rating - 1 ?
-                                                            <i className="fa fa-solid fa-star ms-1" style={{ color: "#ffc107" }} key={index}></i>
-                                                            : <i key={index} className={`fa fa-solid ms-1 ${Number.isInteger(hptData.rating) ? 'fa-star' : 'fa-star-half'}`} style={{ color: "#ffc107" }}></i>
+                                                    Array.from({ length: 5 }, (_, index) => {
+                                                        const starValue = index + 1;
+
+                                                        if (starValue <= Math.floor(hptData.rating)) {
+                                                            // full star
+                                                            return <i key={index} className="fa fa-solid fa-star ms-1" style={{ color: "#ffc107" }}></i>;
+                                                        } else if (starValue === Math.floor(hptData.rating) + 1 && !Number.isInteger(hptData.rating)) {
+                                                            // half star
+                                                            return <i key={index} className="fa fa-solid fa-star-half-stroke ms-1" style={{ color: "#ffc107" }}></i>;
+                                                        } else {
+                                                            // empty star
+                                                            return <i key={index} className="fa fa-regular fa-star ms-1" style={{ color: "#ffc107" }}></i>;
+                                                        }
                                                     })
                                                 }
-                                                {hptData.rating}
+                                                <span className="ms-2">{hptData.rating}</span>
                                             </div>
+
+                                            
                                         </div>
                                     </div>
                                 </div>
