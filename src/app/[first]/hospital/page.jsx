@@ -78,23 +78,31 @@ const Hospital = async () => {
                                                                 </div>
                                                                 <div className="d-flex align-items-center">
                                                                     <img src="/img/google.png" alt="Google Logo" className="me-2" />
-                                                                    <div className="star-rating" data-rating="4.7">
-
+                                                                    <div className="star-rating" data-rating={h.rating}>
                                                                         {
-                                                                            Array.from({ length: h.rating }).map((r, index) => {
-                                                                                return index + 1 < h.rating - 1 ?
-                                                                                    <i className="fa fa-solid fa-star ms-1" style={{ color: "#ffc107" }} key={index}></i>
-                                                                                    : <i key={index} className={`fa fa-solid ms-1 ${Number.isInteger(h.rating) ? 'fa-star' : 'fa-star-half'}`} style={{ color: "#ffc107" }}></i>
+                                                                            Array.from({ length: 5 }, (_, index) => {
+                                                                                const starValue = index + 1;
+
+                                                                                if (starValue <= Math.floor(h.rating)) {
+                                                                                    // full star
+                                                                                    return <i key={index} className="fa fa-solid fa-star ms-1" style={{ color: "#ffc107" }}></i>;
+                                                                                } else if (starValue === Math.floor(h.rating) + 1 && !Number.isInteger(h.rating)) {
+                                                                                    // half star
+                                                                                    return <i key={index} className="fa fa-solid fa-star-half-stroke ms-1" style={{ color: "#ffc107" }}></i>;
+                                                                                } else {
+                                                                                    // empty star
+                                                                                    return <i key={index} className="fa fa-regular fa-star ms-1" style={{ color: "#ffc107" }}></i>;
+                                                                                }
                                                                             })
                                                                         }
-                                                                        {h.rating}
+                                                                        <span className="ms-2">{h.rating}</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
 
                                                             <div className="d-lg-flex d-block align-items-center justify-content-between pt-3">
                                                                 <a href={baseURLOnlyLang + "/" + h.location?.slug + "/hospital/" + h.slug} className="btn mb-lg-0 mb-2 hospital-primarybtn">{staticText['View Details']}</a>
-                                                                <a href={baseURL + "/book-an-appointment?location="+h.location?.slug} className="btn mb-lg-0 mb-3 hospital-secondarybtn">{staticText['Appointment']}</a>
+                                                                <a href={baseURL + "/book-an-appointment?location=" + h.location?.slug} className="btn mb-lg-0 mb-3 hospital-secondarybtn">{staticText['Appointment']}</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -111,8 +119,8 @@ const Hospital = async () => {
                                                 <div className="custom-hospital-top-card">
                                                     <div className="hospital-img">
                                                         <a href={baseURL + "/" + h.location?.slug + "/hospital/" + h.slug}>
-                                                            <img src={process.env.NEXT_PUBLIC_IMAGE_URL + h.featuredImage?.url} 
-                                                            alt={h.title}className="img-fluid w-100" />
+                                                            <img src={process.env.NEXT_PUBLIC_IMAGE_URL + h.featuredImage?.url}
+                                                                alt={h.title} className="img-fluid w-100" />
                                                         </a>
                                                     </div>
                                                     <div className="hospital-content">
@@ -132,22 +140,31 @@ const Hospital = async () => {
                                                             </div>
                                                             <div className="d-flex align-items-center">
                                                                 <img src="/img/google.png" alt="Google Logo" className="me-2" />
-                                                                <div className="star-rating" data-rating="4.7">
+                                                                <div className="star-rating" data-rating={h.rating}>
                                                                     {
-                                                                        Array.from({ length: h.rating }).map((r, index) => {
-                                                                            return index + 1 < h.rating - 1 ?
-                                                                                <i className="fa fa-solid fa-star ms-1" style={{ color: "#ffc107" }} key={index}></i>
-                                                                                : <i key={index} className={`fa fa-solid ms-1 ${Number.isInteger(h.rating) ? 'fa-star' : 'fa-star-half'}`} style={{ color: "#ffc107" }}></i>
+                                                                        Array.from({ length: 5 }, (_, index) => {
+                                                                            const starValue = index + 1;
+
+                                                                            if (starValue <= Math.floor(h.rating)) {
+                                                                                // full star
+                                                                                return <i key={index} className="fa fa-solid fa-star ms-1" style={{ color: "#ffc107" }}></i>;
+                                                                            } else if (starValue === Math.floor(h.rating) + 1 && !Number.isInteger(h.rating)) {
+                                                                                // half star
+                                                                                return <i key={index} className="fa fa-solid fa-star-half-stroke ms-1" style={{ color: "#ffc107" }}></i>;
+                                                                            } else {
+                                                                                // empty star
+                                                                                return <i key={index} className="fa fa-regular fa-star ms-1" style={{ color: "#ffc107" }}></i>;
+                                                                            }
                                                                         })
                                                                     }
-                                                                    {h.rating}
+                                                                    <span className="ms-2">{h.rating}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
 
                                                         <div className="d-lg-flex d-block align-items-center justify-content-between pt-3">
                                                             <a href={baseURLOnlyLang + "/" + h.location?.slug + "/hospital/" + h.slug} className="btn mb-lg-0 mb-2 hospital-primarybtn">{staticText['View Details']}</a>
-                                                            <a href={baseURL + "/book-an-appointment?location="+h.location?.slug} className="btn mb-lg-0 mb-3 hospital-secondarybtn">{staticText['Appointment']}</a>
+                                                            <a href={baseURL + "/book-an-appointment?location=" + h.location?.slug} className="btn mb-lg-0 mb-3 hospital-secondarybtn">{staticText['Appointment']}</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -200,22 +217,31 @@ const Hospital = async () => {
                                                                 </div>
                                                                 <div className="d-flex align-items-center">
                                                                     <img src="/img/google.png" alt="Google Logo" className="me-2" />
-                                                                    <div className="star-rating" data-rating="4.7">
+                                                                    <div className="star-rating" data-rating={h.rating}>
                                                                         {
-                                                                            Array.from({ length: h.rating }).map((r, index) => {
-                                                                                return index + 1 < h.rating - 1 ?
-                                                                                    <i className="fa fa-solid fa-star ms-1" style={{ color: "#ffc107" }} key={index}></i>
-                                                                                    : <i key={index} className={`fa fa-solid ms-1 ${Number.isInteger(h.rating) ? 'fa-star' : 'fa-star-half'}`} style={{ color: "#ffc107" }}></i>
+                                                                            Array.from({ length: 5 }, (_, index) => {
+                                                                                const starValue = index + 1;
+
+                                                                                if (starValue <= Math.floor(h.rating)) {
+                                                                                    // full star
+                                                                                    return <i key={index} className="fa fa-solid fa-star ms-1" style={{ color: "#ffc107" }}></i>;
+                                                                                } else if (starValue === Math.floor(h.rating) + 1 && !Number.isInteger(h.rating)) {
+                                                                                    // half star
+                                                                                    return <i key={index} className="fa fa-solid fa-star-half-stroke ms-1" style={{ color: "#ffc107" }}></i>;
+                                                                                } else {
+                                                                                    // empty star
+                                                                                    return <i key={index} className="fa fa-regular fa-star ms-1" style={{ color: "#ffc107" }}></i>;
+                                                                                }
                                                                             })
                                                                         }
-                                                                        {h.rating}
+                                                                        <span className="ms-2">{h.rating}</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
 
                                                             <div className="d-lg-flex d-block align-items-center justify-content-between pt-3">
                                                                 <a href={baseURLOnlyLang + "/" + h.location?.slug + "/hospital/" + h.slug} className="btn mb-lg-0 mb-2 hospital-primarybtn">{staticText['View Details']}</a>
-                                                                <a href={baseURL + "/book-an-appointment?location="+h.location?.slug} className="btn mb-lg-0 mb-3 hospital-secondarybtn">{staticText['Appointment']}</a>
+                                                                <a href={baseURL + "/book-an-appointment?location=" + h.location?.slug} className="btn mb-lg-0 mb-3 hospital-secondarybtn">{staticText['Appointment']}</a>
                                                             </div>
                                                         </div>
                                                     </div>
