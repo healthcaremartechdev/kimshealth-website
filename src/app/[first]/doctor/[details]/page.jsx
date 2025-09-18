@@ -180,7 +180,52 @@ const DoctorDetails = async ({ params }) => {
                         </div>
                     </section>}
 
+                    <div className="line-divider"></div>
+                    {data.timings && data.timings.title && (<section className="section primary-table">
+                        <div className="container">
 
+                            <div className="row justify-content-between" data-aos="fade-down">
+                                <div className="col-md-3 col-8">
+                                    <div className="main-heading">
+                                        <h2>{data.timings.title}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row justify-content-center">
+                                <div className="col-md-12">
+                                    <div className="table-responsive">
+                                        <figure className="table">
+                                            <table className="table align-middle">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Monday</th>
+                                                        <th>Tuesday</th>
+                                                        <th>Wednesday</th>
+                                                        <th>Thursday</th>
+                                                        <th>Friday</th>
+                                                        <th>Saturday</th>
+                                                        <th>Sunday</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>{data.timings.monday || <p className='text-danger'>Not Available</p>}</td>
+                                                        <td>{data.timings.tuesday || <p className='text-danger'>Not Available</p>}</td>
+                                                        <td>{data.timings.wednesday || <p className='text-danger'>Not Available</p>}</td>
+                                                        <td>{data.timings.thursday || <p className='text-danger'>Not Available</p>}</td>
+                                                        <td>{data.timings.friday || <p className='text-danger'>Not Available</p>}</td>
+                                                        <td>{data.timings.saturday || <p className='text-danger'>Not Available</p>}</td>
+                                                        <td>{data.timings.sunday || <p className='text-danger'>Not Available</p>}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>)}
+                    
                     <div className="line-divider"></div>
                     <DocTalk dataSet={docTalkDataSet} />
 
