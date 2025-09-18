@@ -6296,3 +6296,16 @@ select option:hover {
 a.form-btn {
     padding: 11px 20px;
 }
+
+.file-input-label.estimate-upload{
+    border: 1px solid #b71c2b;
+}
+.form-btn.reverse-btn{
+    background-color: #fff;
+    border: 1px solid #b71c2b;
+    color: #b71c2b;
+}
+.form-btn.reverse-btn:hover{
+    background-color: #b71c2b;
+    color: #fff !important;
+}

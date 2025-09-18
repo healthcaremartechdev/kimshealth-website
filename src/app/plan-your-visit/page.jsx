@@ -63,7 +63,7 @@ const PlanYourVisit = async () => {
                                     <section className="section">
                                         <div className="container">
                                             <div className="main-heading sub-heading">
-                                                {/* <h2>{pageContent[2].title}</h2> */}
+                                                <h2>{pageContent[2].title}</h2>
                                                 <div dangerouslySetInnerHTML={{ __html: pageContent[2].details || "" } || ""}></div>
                                             </div>
                                         </div>

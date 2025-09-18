@@ -96,6 +96,7 @@ const GetAnEstimateForm = ({ pageContent, URLParams }) => {
 
         fetchTexts();
 
+
     }, []);
 
 
@@ -167,15 +168,11 @@ const GetAnEstimateForm = ({ pageContent, URLParams }) => {
     const getSpeciality = async ({ lang, loc }) => {
 
         const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
-
-        const locationFilter = loc
-            ? `&filters[locations][slug][$eq]=${loc}`
-            : ``;
-
         // Get total count
-        const initialReq = await fetch(`${baseUrl}/specialty-details?${locationFilter}`);
+        const initialReq = await fetch(`${baseUrl}/specialities`);
         const initialRes = await initialReq.json();
         const totalCount = initialRes.meta.pagination.total;
+
 
         const limit = 100;
         const pages = Math.ceil(totalCount / limit);
@@ -184,7 +181,8 @@ const GetAnEstimateForm = ({ pageContent, URLParams }) => {
         // Actual Data
         for (let i = 0; i < pages; i++) {
             const start = i * limit;
-            const url = `${baseUrl}/specialty-details?populate=*&pagination[start]=${start}&pagination[limit]=${limit}${locationFilter}&filters[speciality][specialities][$null]=true&sort=title:asc`;
+            const url = `${baseUrl}/specialities?populate=*&filters[specialities][$null]=true&pagination[start]=${start}&pagination[limit]=${limit}&sort=title:asc`;
+
             const res = await fetch(url);
             const json = await res.json();
             data = [...data, ...json.data];
@@ -336,7 +334,7 @@ const GetAnEstimateForm = ({ pageContent, URLParams }) => {
                                                             <div className="file-input-group">
                                                                 <input type="file" maxLength="100" id="file-input"
                                                                     className="form-control file-input__input" onChange={ConvertBase64FileDocument} />
-                                                                <label htmlFor="file-input" className="file-input-label">
+                                                                <label htmlFor="file-input" className="file-input-label estimate-upload">
                                                                     <i className="icon-docs"></i>
                                                                     <span>{formData.docmentFilename ? formData.docmentFilename : staticText['Upload Your Documents/Scans']}</span>
                                                                 </label>
@@ -355,7 +353,7 @@ const GetAnEstimateForm = ({ pageContent, URLParams }) => {
                                                             <div className="file-input-group">
                                                                 <input type="file" maxLength="100" id="file-input2"
                                                                     className="form-control file-input__input" onChange={ConvertBase64FilePrescription} />
-                                                                <label htmlFor="file-input2" className="file-input-label">
+                                                                <label htmlFor="file-input2" className="file-input-label estimate-upload">
                                                                     <i className="icon-docs"></i>
                                                                     <span>{formData.prescriptionFilename ? formData.prescriptionFilename : staticText['Upload Medical Prescription']}</span>
                                                                 </label>
