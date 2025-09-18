@@ -1,24 +1,27 @@
 import Cookies from "js-cookie";
 
 export const getBaseUrl = (lang = false, loc = false) => {
-    let langFromStorage;
-    let locationFromStorage;
-    let baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  let langFromStorage;
+  let locationFromStorage;
 
-    langFromStorage = JSON.parse(Cookies.get("systemLang"));
-    locationFromStorage = JSON.parse(Cookies.get("systemLocation"));
+  // Always use current browser URL instead of env
+  let baseUrl = `${window.location.protocol}//${window.location.host}`;
 
-    
-    
-    if (lang && langFromStorage.default === false) {
-        baseUrl = `${baseUrl}/${langFromStorage.slug}`;
-    }
-    
-    if (loc && locationFromStorage.default === false) {
-        baseUrl = `${baseUrl}/${locationFromStorage.slug}`;
-    }
+  try {
+    langFromStorage = JSON.parse(Cookies.get("systemLang") || "{}");
+    locationFromStorage = JSON.parse(Cookies.get("systemLocation") || "{}");
+  } catch (e) {
+    langFromStorage = {};
+    locationFromStorage = {};
+  }
 
-    
-    return baseUrl;
+  if (lang && langFromStorage.default === false && langFromStorage.slug) {
+    baseUrl = `${baseUrl}/${langFromStorage.slug}`;
+  }
 
-}
+  if (loc && locationFromStorage.default === false && locationFromStorage.slug) {
+    baseUrl = `${baseUrl}/${locationFromStorage.slug}`;
+  }
+
+  return baseUrl;
+};

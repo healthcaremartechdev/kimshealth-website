@@ -24,7 +24,6 @@ const Speciality = async ({ searchParams }) => {
         langLoc: getLangLoc, URLParams: URLParams
     });
 
-    console.log(allSpecility)
 
     return (
         <>
@@ -96,7 +95,7 @@ const Speciality = async ({ searchParams }) => {
 
                             <div className="col-md-3">
                                 <div className='association-left-col sticky-from'>
-                                    <a href={baseUrlOnlyLang + "/" + pageContent[3].card1Hyperlink}>
+                                    <a href={baseURL + "/" + pageContent[3].card1Hyperlink}>
                                         <div className="key-master-book-appointment-btn mb-1">
                                             <div className="key-master-book-appointment-content">
                                                 <img src={pageContent[3]?.card1Icon?.url ? process.env.NEXT_PUBLIC_IMAGE_URL + pageContent[3].card1Icon.url : "/img/doctor.svg"} alt="" className="img-fluid" />
@@ -108,7 +107,7 @@ const Speciality = async ({ searchParams }) => {
                                     </a>
 
 
-                                    <a href={baseUrlOnlyLang + "/" + pageContent[3].card2Hyperlink}>
+                                    <a href={baseURL + "/" + pageContent[3].card2Hyperlink}>
                                         <div className="key-master-book-appointment-btn mb-1">
                                             <div className="key-master-book-appointment-content">
                                                 <img src={pageContent[3]?.card2Icon?.url ? process.env.NEXT_PUBLIC_IMAGE_URL + pageContent[3].card2Icon.url : "/img/calender.svg"} alt="" className="img-fluid" />
