@@ -735,6 +735,13 @@ const HeaderUnit = ({ hospital }) => {
                                   </a>
                                 </li>
                               )}
+                              {staticPageChecker['quality-focus'] && (
+                                <li>
+                                  <a href={basePath + "/quality-focus"}>
+                                    {staticTexts['Quality Focus']}
+                                  </a>
+                                </li>
+                              )}
                               {staticPageChecker['privacy-policy'] && (
                                 <li>
                                   <a href={basePath + "/privacy-policy"}>
@@ -1062,6 +1069,13 @@ const HeaderUnit = ({ hospital }) => {
                             <li className="submenu-item">
                               <a href={basePath + "/donor-information"}>
                                 {staticTexts['Donor Information']}
+                              </a>
+                            </li>
+                          )}
+                          {staticPageChecker['quality-focus'] && (
+                            <li className="submenu-item">
+                              <a href={basePath + "/quality-focus"}>
+                                {staticTexts['Quality Focus']}
                               </a>
                             </li>
                           )}

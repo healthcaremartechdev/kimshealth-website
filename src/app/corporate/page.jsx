@@ -153,7 +153,7 @@ const Investor = async () => {
                                                                     {sp.socomerItem.map((spI, j) => (
                                                                         <li key={j}>
                                                                             - {spI.title}
-                                                                            <a href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${spI.file?.url}`} target="_blank" rel="noopener noreferrer">
+                                                                            <a href={spI.file?.url ? `${process.env.NEXT_PUBLIC_IMAGE_URL}${spI.file.url}` : spI.link}  target="_blank" rel="noopener noreferrer">
                                                                                 <i className="custom-download"></i>{spI.buttonText}
                                                                             </a>
                                                                         </li>

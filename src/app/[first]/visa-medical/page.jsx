@@ -5,6 +5,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import getStaticText from '@/app/lib/getStaticTextServer';
 import getCurrentLangLoc from '@/app/lib/getCurrentLangLoc';
 import VisaMedicalTab from '@/components/VisaMedicalTab';
+import { marked } from 'marked';
 
 const VisaMedical = async () => {
     const getLangLoc = await getCurrentLangLoc()
@@ -35,6 +36,19 @@ const VisaMedical = async () => {
                     </section>
 
                     <VisaMedicalTab pageContent={pageContent}/>
+                    <section className="section association-section">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <div className="main-heading sub-heading">
+                                        <h2>{pageContent[6].title}</h2>
+                                        <div dangerouslySetInnerHTML={{ __html: marked(pageContent[6].details) || "" } || ""}></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
             <Footer />
