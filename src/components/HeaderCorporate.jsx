@@ -470,7 +470,7 @@ const HeaderCorporate = ({ hospital }) => {
                   {staticPageChecker['corporate'] && (<li className="quicklink-header">
                     <a href={basePath + "/corporate"} className="anchor-menu">{staticTexts['Corporate']}</a>
                   </li>)}
-                  <li className="menu-item-has-children show-submenu quicklink-header">
+                  <li className={`menu-item-has-children show-submenu quicklink-header ${!staticPageChecker['csr-policy'] && !staticPageChecker['csr-initiative'] ? 'd-none-menu' : ''}`}>
                     <a href="#" className="anchor-menu">{staticTexts['CSR']}</a>
                     <div className="sub-menu">
                       <div className="row">
@@ -497,7 +497,15 @@ const HeaderCorporate = ({ hospital }) => {
                       </div>
                     </div>
                   </li>
-                  <li className="menu-item-has-children show-submenu quicklink-header">
+                  <li
+                    className={`menu-item-has-children show-submenu quicklink-header ${!staticPageChecker['testimonial'] &&
+                      !staticPageChecker['patient-stories'] &&
+                      !staticPageChecker['patients-rights-and-responsibilities'] &&
+                      !staticPageChecker['guidebook-for-tpa-patients']
+                      ? 'd-none-menu'
+                      : ''
+                      }`}
+                  >
                     <a href="#" className="anchor-menu">{staticTexts['Patients and Visitors']}</a>
                     <div className="sub-menu">
                       <div className="row">
@@ -542,7 +550,22 @@ const HeaderCorporate = ({ hospital }) => {
                   <li className="quicklink-header">
                     <a href={basePath + "/ethics-committee"}>{staticTexts['Ethics Committee']}</a>
                   </li>
-                  <li className="menu-item-has-children show-submenu quicklink-header">
+                  <li
+                    className={`menu-item-has-children show-submenu quicklink-header ${!staticPageChecker['kisa-kimshealth-institute-of-skill-acquisition'] &&
+                      !staticPageChecker['internal-medicine-training-imt'] &&
+                      !staticPageChecker['internal-medicine-foundation-programme'] &&
+                      !staticPageChecker['excel-paces'] &&
+                      !staticPageChecker['emergency-medicine-program'] &&
+                      !staticPageChecker['american-heart-association'] &&
+                      !staticPageChecker['doctoral-courses'] &&
+                      !staticPageChecker['socomer'] &&
+                      !staticPageChecker['nursing-recruitment'] &&
+                      !staticPageChecker['paramedical-courses'] &&
+                      !staticPageChecker['kimshealth-clinical-skills-and-simulation-centre']
+                      ? 'd-none-menu'
+                      : ''
+                      }`}
+                  >
                     <a href="#" className="anchor-menu">{staticTexts['Academics']}</a>
                     <div className="sub-menu">
                       <div className="row">
@@ -800,7 +823,23 @@ const HeaderCorporate = ({ hospital }) => {
                 <div className="sidebar pb-5" id="sidebar" style={{ overflowY: 'auto' }}>
                   <div className="menu-items">
                     <ul className="sub-menu-details">
-                      <li className="has-dropdown"> <a href="#" className="menu-item">{staticTexts['Academics']}<i className="fa-solid fa-angle-down"></i></a>
+                      <li
+                        className={`has-dropdown ${!staticPageChecker['kisa-kimshealth-institute-of-skill-acquisition'] &&
+                            !staticPageChecker['internal-medicine-training-imt'] &&
+                            !staticPageChecker['internal-medicine-foundation-programme'] &&
+                            !staticPageChecker['excel-paces'] &&
+                            !staticPageChecker['emergency-medicine-program'] &&
+                            !staticPageChecker['american-heart-association'] &&
+                            !staticPageChecker['doctoral-courses'] &&
+                            !staticPageChecker['socomer'] &&
+                            !staticPageChecker['nursing-recruitment'] &&
+                            !staticPageChecker['paramedical-courses'] &&
+                            !staticPageChecker['kimshealth-clinical-skills-and-simulation-centre']
+                            ? 'd-none-menu'
+                            : ''
+                          }`}
+                      >
+                        <a href="#" className="menu-item">{staticTexts['Academics']}<i className="fa-solid fa-angle-down"></i></a>
                         <ul className="submenu">
                           {staticPageChecker['kisa-kimshealth-institute-of-skill-acquisition'] && (
                             <li className="submenu-item"> <a href={basePath + "/kisa-kimshealth-institute-of-skill-acquisition"}> {staticTexts['KISA (KIMSHEALTH Institute of Skill Acquisition)']} </a> </li>
@@ -852,7 +891,8 @@ const HeaderCorporate = ({ hospital }) => {
                       {staticPageChecker['corporate'] && (
                         <li> <a href={basePath + "/corporate"} className="menu-item">{staticTexts['Corporate']}</a> </li>
                       )}
-                      <li className="has-dropdown"> <a href="#" className="menu-item">{staticTexts['CSR']}<i className="fa-solid fa-angle-down"></i></a>
+                      <li className={`has-dropdown ${!staticPageChecker['csr-policy'] && !staticPageChecker['csr-initiative'] ? 'd-none-menu' : ''}`}> 
+                        <a href="#" className="menu-item">{staticTexts['CSR']}<i className="fa-solid fa-angle-down"></i></a>
                         <ul className="submenu">
                           {staticPageChecker['csr-policy'] && (
                             <li className="submenu-item"> <a href={basePath + "/csr-policy"}> {staticTexts['CSR Policy']} </a> </li>
@@ -888,7 +928,16 @@ const HeaderCorporate = ({ hospital }) => {
                       {staticPageChecker['knee-implant-list'] && (
                         <li> <a href={basePath + "/knee-implant-list"} className="menu-item "> {staticTexts['Knee Implant List']} </a> </li>
                       )}
-                      <li className="has-dropdown"> <a href="#" className="menu-item">{staticTexts['Patients and Visitors']}<i className="fa-solid fa-angle-down"></i></a>
+                      <li
+                        className={`has-dropdown ${!staticPageChecker['testimonial'] &&
+                          !staticPageChecker['patient-stories'] &&
+                          !staticPageChecker['patients-rights-and-responsibilities'] &&
+                          !staticPageChecker['guidebook-for-tpa-patients']
+                          ? 'd-none-menu'
+                          : ''
+                          }`}
+                      >
+                        <a href="#" className="menu-item">{staticTexts['Patients and Visitors']}<i className="fa-solid fa-angle-down"></i></a>
                         <ul className="submenu">
                           {staticPageChecker['testimonial'] && (
                             <li className="submenu-item"> <a href={basePath + "/testimonial"}> {staticTexts['Patient Testimonials']} </a> </li>

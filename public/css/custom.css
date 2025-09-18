@@ -6313,3 +6313,11 @@ a.form-btn {
 .dividend-form .form-control{
     border-radius: 30px;
 }
+
+.has-dropdown.d-none-menu{
+    display: none !important;
+}
+
+.quicklink-header.d-none-menu{
+    display: none !important;
+}
