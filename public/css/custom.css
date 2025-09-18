@@ -6309,3 +6309,7 @@ a.form-btn {
     background-color: #b71c2b;
     color: #fff !important;
 }
+
+.dividend-form .form-control{
+    border-radius: 30px;
+}
