@@ -40,7 +40,7 @@ const VisaMedical = async () => {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-12">
-                                    <div className="main-heading sub-heading">
+                                    <div className="main-heading sub-heading main-list">
                                         <h2>{pageContent[6].title}</h2>
                                         <div dangerouslySetInnerHTML={{ __html: marked(pageContent[6].details) || "" } || ""}></div>
                                     </div>
