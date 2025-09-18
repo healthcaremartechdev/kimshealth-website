@@ -15,7 +15,7 @@ const BlogCarousel = ({ dataSet, tab, extraClass }) => {
         fetchTexts();
     }, []);
 
-    if (dataSet.data.length < 1) {
+    if (dataSet.data.length < 1 || dataSet.sectionTitle==null) {
         return;
     }
 

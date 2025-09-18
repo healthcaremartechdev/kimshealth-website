@@ -15,7 +15,7 @@ const ExpertCarousel = ({ dataSet }) => {
     }, []);
 
 
-    if (dataSet.data.length < 1) {
+    if (dataSet.data.length < 1 || dataSet.sectionTitle==null) {
         return;
     }
     return (
