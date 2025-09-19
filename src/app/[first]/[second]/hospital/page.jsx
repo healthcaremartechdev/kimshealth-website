@@ -97,6 +97,7 @@ const Hospital = async () => {
                                                                         }
                                                                         <span className="ms-2">{h.rating}</span>
                                                                     </div>
+
                                                                 </div>
                                                             </div>
 
@@ -159,6 +160,7 @@ const Hospital = async () => {
                                                                     }
                                                                     <span className="ms-2">{h.rating}</span>
                                                                 </div>
+
                                                             </div>
                                                         </div>
 
@@ -236,6 +238,7 @@ const Hospital = async () => {
                                                                         }
                                                                         <span className="ms-2">{h.rating}</span>
                                                                     </div>
+
                                                                 </div>
                                                             </div>
 

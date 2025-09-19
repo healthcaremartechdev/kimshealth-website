@@ -202,7 +202,7 @@ const Socomer = async () => {
                                 <div className="col-md-4">
                                     <div className="association-left-col sticky-from">
                                         <div className="association-form-card mb-5">
-                                            <Form1 title={"Request a Call Back"}/>
+                                            <Form1 title={"Request a Call Back"} type={"Contact"}/>
                                         </div>
                                     </div>
                                 </div>

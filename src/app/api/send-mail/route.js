@@ -106,6 +106,12 @@ export async function POST(req) {
 
 
     let recipients = emailData?.[loc]?.[formType];
+
+    // console.log(recipients)
+    // console.log(data)
+
+    // console.log(!subject ? `${formType}` : `${formType} : ${subject}`,)
+
     if (!recipients || recipients.length === 0) {
       return res.json({ err: "No email mapping found" }, { status: 404 });
     }
@@ -130,8 +136,6 @@ export async function POST(req) {
       subject: !subject ? `${formType}` : `${formType} : ${subject}`,
       html: data,
     };
-
-    console.log(!subject ? `${formType}` : `${formType} : ${subject}`,)
 
 
     mailOptions.attachments = [];

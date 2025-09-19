@@ -4,10 +4,12 @@ import React, { useEffect, useState } from 'react'
 import langLoc from '@/helper/getLangLoc';
 import getCurrentLangLocClient from '@/helper/getCurrentLangLocClient';
 import { toast } from 'react-toastify';
+import { getBaseUrl } from '@/helper/getBaseUrl';
 
 
 
 const Form1 = ({ title, type, subject }) => {
+  const [basePath, setBasePath] = useState();
   const [staticTexts, setStaticTexts] = useState({});
   const [allLocation, setAllLocation] = useState();
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -31,7 +33,7 @@ const Form1 = ({ title, type, subject }) => {
     try {
       const htmlMsg = `
         <ul>
-          <li><strong> Subject: </strong> ${`${type}`}</li>
+          <li><strong> Subject: </strong> ${`${type} : ${subject}`}</li>
           <li><strong> Name: </strong> ${formData.name}</li>
           <li><strong> Mobile Number: </strong> ${formData.number}</li>
           <li><strong> Hospital: </strong> ${formData.hospital.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</li>
@@ -63,6 +65,10 @@ const Form1 = ({ title, type, subject }) => {
         closeOnClick: true
       })
 
+      // Redirect with encoded htmlMsg
+      const encodedMsg = encodeURIComponent(htmlMsg);
+      window.location.href = `${basePath}/thank-you?msg=${encodedMsg}`;
+
       // Remove data
       setFormData({ name: "", number: "", hospital: '', query: '' });
       setSelectedLocation("");
@@ -88,6 +94,8 @@ const Form1 = ({ title, type, subject }) => {
       setStaticTexts({ ...await getStaticText() })
     };
 
+
+    setBasePath(getBaseUrl(true, true));
     fetchTexts();
   }, []);
 

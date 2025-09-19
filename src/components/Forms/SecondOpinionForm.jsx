@@ -1,4 +1,5 @@
 "use client"
+import { getBaseUrl } from "@/helper/getBaseUrl";
 import getCurrentLangLocClient from "@/helper/getCurrentLangLocClient";
 import langLoc from "@/helper/getLangLoc";
 import getStaticText from "@/helper/getStaticText";
@@ -7,6 +8,7 @@ import { toast } from 'react-toastify';
 
 
 const SecondOpinionForm = ({ pageContent }) => {
+    const [basePath, setBasePath] = useState();
     const [staticTexts, setStaticTexts] = useState({});
     const [selectedLocation, setSelectedLocation] = useState()
     const [locationList, setLocationList] = useState()
@@ -23,7 +25,7 @@ const SecondOpinionForm = ({ pageContent }) => {
         setLoading(true);
         if ([formData.name, formData.speciality, formData.number].some((field) => !field || field === "")) {
             toast("Fill the required fields", {
-                
+
                 theme: 'light',
                 type: 'error',
                 closeOnClick: true
@@ -43,7 +45,7 @@ const SecondOpinionForm = ({ pageContent }) => {
                         <li><strong> Page URL: </strong> ${document.location.href}</li>
                     </ul>
                 `;
-                console.log(formData)
+            console.log(formData)
             const req = await fetch("/api/send-mail", {
                 method: 'POST',
                 'headers': {
@@ -60,7 +62,7 @@ const SecondOpinionForm = ({ pageContent }) => {
             if (req.status !== 200) {
                 setLoading(false);
                 return toast(res.err, {
-                    
+
                     theme: 'light',
                     type: 'error',
                     closeOnClick: true
@@ -68,15 +70,20 @@ const SecondOpinionForm = ({ pageContent }) => {
             }
 
             toast("Successfully sent", {
-                
+
                 theme: 'light',
                 type: 'success',
                 closeOnClick: true
             })
 
+
+            // Redirect with encoded htmlMsg
+            const encodedMsg = encodeURIComponent(htmlMsg);
+            window.location.href = `${basePath}/thank-you?msg=${encodedMsg}`;
+
             // Remove data
             setFormData({
-                ...formData, name: "", number: '', speciality: '', query: '', attachment: "", filename:""
+                ...formData, name: "", number: '', speciality: '', query: '', attachment: "", filename: ""
             });
             setSelectedSpeciality("")
             setLoading(false);
@@ -87,7 +94,7 @@ const SecondOpinionForm = ({ pageContent }) => {
             console.log(error)
             setLoading(false);
             return toast("Something went wrong", {
-                
+
                 theme: 'light',
                 type: 'error',
                 closeOnClick: true
@@ -107,7 +114,7 @@ const SecondOpinionForm = ({ pageContent }) => {
         // Validate file type
         if (!acceptedType.includes(fileExtension)) {
             return toast("Invalid file type. Allowed: " + acceptedType.join(", "), {
-                
+
                 theme: 'light',
                 type: 'error',
                 closeOnClick: true
@@ -156,6 +163,9 @@ const SecondOpinionForm = ({ pageContent }) => {
         const fetchTexts = async () => {
             setStaticTexts({ ...await getStaticText() })
         };
+
+
+        setBasePath(getBaseUrl(true, true));
 
         fetchTexts();
     }, []);

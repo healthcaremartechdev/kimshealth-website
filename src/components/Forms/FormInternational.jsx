@@ -1,9 +1,11 @@
 "use client";
+import { getBaseUrl } from "@/helper/getBaseUrl";
 import getStaticText from "@/helper/getStaticText";
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 const FormInternational = () => {
+  const [basePath, setBasePath] = useState();
   const [staticTexts, setStaticTexts] = useState({});
   const [formData, setFormData] = useState({
     name: "",
@@ -31,7 +33,7 @@ const FormInternational = () => {
       });
 
       phoneInputRef.current.addEventListener("input", (e) => {
-        
+
         setFormData((prev) => ({
           ...prev,
           number: e.target.value,
@@ -48,7 +50,7 @@ const FormInternational = () => {
 
     if ([formData.name, formData.number].some((f) => !f)) {
       toast("Fill the required fields", {
-        
+
         theme: "light",
         type: "error",
         closeOnClick: true,
@@ -78,7 +80,7 @@ const FormInternational = () => {
       if (req.status !== 200) {
         setLoading(false);
         return toast(res.err, {
-          
+
           theme: "light",
           type: "error",
           closeOnClick: true,
@@ -86,17 +88,22 @@ const FormInternational = () => {
       }
 
       toast("Successfully sent", {
-        
+
         theme: "light",
         type: "success",
         closeOnClick: true,
       });
 
+
+      // Redirect with encoded htmlMsg
+      const encodedMsg = encodeURIComponent(htmlMsg);
+      window.location.href = `${basePath}/thank-you?msg=${encodedMsg}`;
+
       setFormData({ name: "", number: "+1" });
     } catch (error) {
       console.log(error);
       toast("Something went wrong", {
-        
+
         theme: "light",
         type: "error",
         closeOnClick: true,
@@ -110,6 +117,8 @@ const FormInternational = () => {
     const fetchTexts = async () => {
       setStaticTexts({ ...(await getStaticText()) });
     };
+
+    setBasePath(getBaseUrl(true, true));
     fetchTexts();
   }, []);
 

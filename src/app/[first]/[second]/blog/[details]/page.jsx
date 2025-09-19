@@ -174,7 +174,7 @@ const BlogDetails = async ({ params }) => {
                                 </div>
                                 <div className="col-md-4 mb-3">
                                     <div className="association-form-card">
-                                        <Form1 title={"GET A CALLBACK FROM OUR HEALTH ADVISOR"} />
+                                        <Form1 title={"GET A CALLBACK FROM OUR HEALTH ADVISOR"} type={"Contact"} />
                                     </div>
                                 </div>
                             </div>

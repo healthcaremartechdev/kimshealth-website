@@ -96,7 +96,7 @@ const HospitalDetails = async ({ params }) => {
 
     return (
         <>
-            <Header  hospital={hptData.slug}/>
+            <Header hospital={hptData.slug} />
             <div role="main" className="main">
                 
                 {/* <section className="section this-text pt-3 hospital-details-page-section d-lg-block  d-none"

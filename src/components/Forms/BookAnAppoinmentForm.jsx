@@ -4,10 +4,12 @@ import getCurrentLangLocClient from '@/helper/getCurrentLangLocClient'
 import langLoc from '@/helper/getLangLoc'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
+import { getBaseUrl } from '@/helper/getBaseUrl';
 
 
 
 const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
+    const [basePath, setBasePath] = useState();
     const [staticText, setStaticText] = useState({});
     const [locationList, setLocationList] = useState();
     const [allHospital, setAllHospital] = useState();
@@ -79,6 +81,11 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                 closeOnClick: true
             });
 
+
+            // Redirect with encoded htmlMsg
+            const encodedMsg = encodeURIComponent(htmlMsg);
+            window.location.href = `${basePath}/thank-you?msg=${encodedMsg}`;
+
             setFormData({
                 name: '', contactNumber: '', location: '', hospital: '',
                 department: "", doctor: '', appoinmentDate: '', appoinmentTime: ''
@@ -102,6 +109,8 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
         const fetchTexts = async () => {
             setStaticText({ ...await getStaticText() })
         };
+
+        setBasePath(getBaseUrl(true, true));
 
         fetchTexts();
     }, []);
@@ -222,7 +231,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
         const get = async () => {
             let currentLangLoc = await getCurrentLangLocClient();
 
-            if(!selectedLocation)
+            if (!selectedLocation)
                 setSelectedLocation(currentLangLoc.loc.slug)
 
             setLocationList(await langLoc.getLocationsOnlyCMS())

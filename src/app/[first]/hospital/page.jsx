@@ -97,8 +97,9 @@ const Hospital = async () => {
                                                                         }
                                                                         <span className="ms-2">{h.rating}</span>
                                                                     </div>
+
                                                                 </div>
-                                                            </div> 
+                                                            </div>
 
                                                             <div className="d-lg-flex d-block align-items-center justify-content-between pt-3">
                                                                 <a href={baseURLOnlyLang + "/" + h.location?.slug + "/hospital/" + h.slug} className="btn mb-lg-0 mb-2 hospital-primarybtn">{staticText['View Details']}</a>
@@ -159,6 +160,7 @@ const Hospital = async () => {
                                                                     }
                                                                     <span className="ms-2">{h.rating}</span>
                                                                 </div>
+
                                                             </div>
                                                         </div>
 
@@ -236,6 +238,7 @@ const Hospital = async () => {
                                                                         }
                                                                         <span className="ms-2">{h.rating}</span>
                                                                     </div>
+
                                                                 </div>
                                                             </div>
 

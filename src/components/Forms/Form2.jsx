@@ -4,10 +4,12 @@ import React, { useEffect, useState } from 'react'
 import langLoc from '@/helper/getLangLoc';
 import getCurrentLangLocClient from '@/helper/getCurrentLangLocClient';
 import { toast } from 'react-toastify';
+import { getBaseUrl } from '@/helper/getBaseUrl';
 
 
 
 const Form2 = ({ title, type, subject }) => {
+  const [basePath, setBasePath] = useState();
   const [staticTexts, setStaticTexts] = useState({});
   const [allLocation, setAllLocation] = useState();
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -62,6 +64,11 @@ const Form2 = ({ title, type, subject }) => {
         closeOnClick: true
       })
 
+
+      // Redirect with encoded htmlMsg
+      const encodedMsg = encodeURIComponent(htmlMsg);
+      window.location.href = `${basePath}/thank-you?msg=${encodedMsg}`;
+
       // Remove data
       setFormData({ name: "", number: "", hospital: '' });
       setSelectedLocation("");
@@ -87,6 +94,7 @@ const Form2 = ({ title, type, subject }) => {
       setStaticTexts({ ...await getStaticText() })
     };
 
+    setBasePath(getBaseUrl(true, true));
     fetchTexts();
   }, []);
 

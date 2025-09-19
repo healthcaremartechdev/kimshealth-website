@@ -1,4 +1,5 @@
 "use client"
+import { getBaseUrl } from "@/helper/getBaseUrl";
 import getCurrentLangLocClient from "@/helper/getCurrentLangLocClient";
 import langLoc from "@/helper/getLangLoc";
 import getStaticText from "@/helper/getStaticText";
@@ -7,6 +8,7 @@ import { toast } from 'react-toastify';
 
 
 const JobForm = ({ title, jobTitle }) => {
+  const [basePath, setBasePath] = useState();
   const [staticTexts, setStaticTexts] = useState({});
   const [formData, setFormData] = useState({
     subject: jobTitle, name: "", number: '',
@@ -19,7 +21,7 @@ const JobForm = ({ title, jobTitle }) => {
     setLoading(true);
     if ([formData.name, formData.number].some((field) => !field || field === "")) {
       toast("Fill the required fields", {
-        
+
         theme: 'light',
         type: 'error',
         closeOnClick: true
@@ -54,7 +56,7 @@ const JobForm = ({ title, jobTitle }) => {
       if (req.status !== 200) {
         setLoading(false);
         return toast(res.err, {
-          
+
           theme: 'light',
           type: 'error',
           closeOnClick: true
@@ -62,11 +64,16 @@ const JobForm = ({ title, jobTitle }) => {
       }
 
       toast("Successfully sent", {
-        
+
         theme: 'light',
         type: 'success',
         closeOnClick: true
       })
+
+
+      // Redirect with encoded htmlMsg
+      const encodedMsg = encodeURIComponent(htmlMsg);
+      window.location.href = `${basePath}/thank-you?msg=${encodedMsg}`;
 
       // Remove data
       setFormData({
@@ -80,7 +87,7 @@ const JobForm = ({ title, jobTitle }) => {
       console.log(error)
       setLoading(false);
       return toast("Something went wrong", {
-        
+
         theme: 'light',
         type: 'error',
         closeOnClick: true
@@ -100,7 +107,7 @@ const JobForm = ({ title, jobTitle }) => {
     // Validate file type
     if (!acceptedType.includes(fileExtension)) {
       return toast("Invalid file type. Allowed: " + acceptedType.join(", "), {
-        
+
         theme: 'light',
         type: 'error',
         closeOnClick: true
@@ -125,6 +132,7 @@ const JobForm = ({ title, jobTitle }) => {
       setStaticTexts({ ...await getStaticText() })
     };
 
+    setBasePath(getBaseUrl(true, true));
     fetchTexts();
   }, []);
 
@@ -149,7 +157,7 @@ const JobForm = ({ title, jobTitle }) => {
         <div className="col-xl-12 col-lg-12 col-md-12 col-12 mb-3">
           <div className="file-input-group">
             <input type="file" maxLength="100" id="file-input"
-              className="form-control file-input__input"  onChange={ConvertBase64File} />
+              className="form-control file-input__input" onChange={ConvertBase64File} />
             <label htmlFor="file-input" className="file-input-label">
               <i className="icon-docs"></i>
               <span>{formData.filename ? formData.filename : staticTexts['Attach CV']}</span>
@@ -159,9 +167,9 @@ const JobForm = ({ title, jobTitle }) => {
         <div className="col-md-12 mb-3 text-center">
           <button
             className="btn mb-lg-0 mb-2 hospital-primarybtn px-5 py-2" onClick={() => sendMail()} disabled={loading}>
-              {staticTexts['Submit']}
-              {loading && <i className="fas fa-spinner fa-spin ms-1"></i>}
-            </button>
+            {staticTexts['Submit']}
+            {loading && <i className="fas fa-spinner fa-spin ms-1"></i>}
+          </button>
         </div>
       </div>
     </>

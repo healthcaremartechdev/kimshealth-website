@@ -58,7 +58,7 @@ const HeaderUnit = ({ hospital }) => {
       if (hospital)
         setSpeciality(await getSpecialityData.getHeaderSpecialityByHospital({ LangLoc, hospital }))
       else
-        setSpeciality(await getSpecialityData.getHeaderSpeciality({ LangLoc }))
+        setSpeciality(await getSpecialityData.getHeaderUnitSpeciality({ LangLoc }))
 
       setLocationData(await getLocation());
 

@@ -4,10 +4,12 @@ import getCurrentLangLocClient from '@/helper/getCurrentLangLocClient'
 import langLoc from '@/helper/getLangLoc'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
+import { getBaseUrl } from '@/helper/getBaseUrl';
 
 
 
 const GetAnEstimateForm = ({ pageContent, URLParams }) => {
+    const [basePath, setBasePath] = useState();
     const [staticText, setStaticText] = useState({});
     const [allSpeciality, setAllSpeciality] = useState();
     const [formData, setFormData] = useState({
@@ -47,7 +49,7 @@ const GetAnEstimateForm = ({ pageContent, URLParams }) => {
                 'headers': {
                     "Content-type": "application/json",
                 },
-                body: JSON.stringify({ data: htmlMsg, formType: "International" , subject: "Get An Estimate", locationData: "ip", ...formData}),
+                body: JSON.stringify({ data: htmlMsg, formType: "International", subject: "Get An Estimate", locationData: "ip", ...formData }),
                 // credentials: "include",
             });
 
@@ -69,6 +71,11 @@ const GetAnEstimateForm = ({ pageContent, URLParams }) => {
                 type: 'success',
                 closeOnClick: true
             });
+
+
+            // Redirect with encoded htmlMsg
+            const encodedMsg = encodeURIComponent(htmlMsg);
+            window.location.href = `${basePath}/thank-you?msg=${encodedMsg}`;
 
             setFormData({
                 name: '', contactNumber: '', emailID: '', gender: '', age: '', country: '', speciality: '', docmentFilename: '', docmentAttachment: '', prescriptionFilename: '', prescriptionAttachment: '', query: ''
@@ -94,6 +101,7 @@ const GetAnEstimateForm = ({ pageContent, URLParams }) => {
             setAllSpeciality(await getSpeciality({ loc: "ip" }));
         };
 
+        setBasePath(getBaseUrl(true, true));
         fetchTexts();
 
 

@@ -198,7 +198,7 @@ const CsrPolicy = async () => {
                                 <div className="col-md-4">
                                     <div className="association-left-col">
                                         <div className="association-form-card mb-5">
-                                            <Form1 title={"Request a Call Back"} />
+                                            <Form1 title={"Request a Call Back"} type={"Contact"} subject={"CSR Policy"} />
                                         </div>
                                         <h4>{pageContent[4].title}</h4>
                                         {/* <p><strong>CSR Desk, KIMSHEALTH P.B. No. 1, Anayara Trivandrum – 695029 Kerala –

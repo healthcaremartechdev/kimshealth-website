@@ -4,10 +4,12 @@ import langLoc from '@/helper/getLangLoc';
 import { useEffect, useState } from "react";
 import getCurrentLangLocClient from "@/helper/getCurrentLangLocClient";
 import { toast } from "react-toastify";
+import { getBaseUrl } from "@/helper/getBaseUrl";
 
 
 
 const ContactUsForm = () => {
+    const [basePath, setBasePath] = useState();
     const [staticTexts, setStaticTexts] = useState({});
     const [allLocation, setAllLocation] = useState();
     const [selectedLocation, setSelectedLocation] = useState(null);
@@ -68,6 +70,10 @@ const ContactUsForm = () => {
                 closeOnClick: true
             })
 
+            // Redirect with encoded htmlMsg
+            const encodedMsg = encodeURIComponent(htmlMsg);
+            window.location.href = `${basePath}/thank-you?msg=${encodedMsg}`;
+
             // Remove data
             setFormData({
                 ...formData, fname: "", lname: '', number: '', email: '', hospital: '', query: ''
@@ -94,6 +100,8 @@ const ContactUsForm = () => {
             setStaticTexts({ ...await getStaticText() })
         };
 
+
+        setBasePath(getBaseUrl(true, true));
         fetchTexts();
     }, []);
 
@@ -243,7 +251,7 @@ const ContactUsForm = () => {
                                     <option value={""}>{staticTexts['Select Hospital']}</option>
                                     {
                                         allLocation?.map((loc, i) => {
-                                            return <option value={loc.title} key={i}>{loc.title}</option>
+                                            return <option value={loc.slug} key={i}>{loc.title}</option>
                                         })
                                     }
                                 </select>
