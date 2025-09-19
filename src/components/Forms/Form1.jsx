@@ -33,7 +33,7 @@ const Form1 = ({ title, type, subject }) => {
     try {
       const htmlMsg = `
         <ul>
-          <li><strong> Subject: </strong> ${`${type} : ${subject}`}</li>
+          <li><strong> Subject: </strong> ${type}${subject ? ` : ${subject}` : ""}</li>
           <li><strong> Name: </strong> ${formData.name}</li>
           <li><strong> Mobile Number: </strong> ${formData.number}</li>
           <li><strong> Hospital: </strong> ${formData.hospital.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</li>
