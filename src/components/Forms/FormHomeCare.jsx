@@ -1,0 +1,153 @@
+"use client"
+import getStaticText from '@/helper/getStaticText';
+import React, { useEffect, useState } from 'react'
+import langLoc from '@/helper/getLangLoc';
+import getCurrentLangLocClient from '@/helper/getCurrentLangLocClient';
+import { toast } from 'react-toastify';
+
+
+
+const FormHomeCare = ({ title, type, subject }) => {
+  const [staticTexts, setStaticTexts] = useState({});
+  const [allLocation, setAllLocation] = useState();
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [formData, setFormData] = useState({
+    name: "", number: "", location: '', emailId: ''
+  });
+  const [loading, setLoading] = useState(false);
+
+  const sendMail = async () => {
+    setLoading(true);
+    if ([formData.name, formData.number, formData.location].some((field) => !field || field === "")) {
+      toast("Fill the required fields", {
+        theme: 'light',
+        type: 'error',
+        closeOnClick: true
+      })
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const htmlMsg = `
+        <ul>
+          <li><strong> Subject: </strong> ${`${type}`}</li>
+          <li><strong> Name: </strong> ${formData.name}</li>
+          <li><strong> Mobile Number: </strong> ${formData.number}</li>
+          <li><strong> Location: </strong> ${formData.location}</li>
+          <li><strong> Message: </strong> ${formData.emailId}</li>
+          <li><strong> Page URL: </strong> ${document.location.href}</li>
+        </ul>`;
+      const req = await fetch("/api/send-mail", {
+        method: 'POST',
+        'headers': {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ data: htmlMsg, formType: type ? type : "Contact", locationData: "trivandrum" }),
+      });
+
+      const res = await req.json();
+
+      if (req.status !== 200) {
+        setLoading(false);
+        return toast(res.err, {
+          theme: 'light',
+          type: 'error',
+          closeOnClick: true
+        })
+      }
+
+      toast("Successfully sent", {
+        theme: 'light',
+        type: 'success',
+        closeOnClick: true
+      })
+
+      // Remove data
+      setFormData({ name: "", number: "", location: '', emailId: '' });
+      setSelectedLocation("");
+      setLoading(false);
+      return;
+
+
+    } catch (error) {
+      console.log(error)
+      setLoading(false);
+      return toast("Something went wrong", {
+        theme: 'light',
+        type: 'error',
+        closeOnClick: true
+      })
+    }
+
+  }
+
+
+  useEffect(() => {
+    const fetchTexts = async () => {
+      setStaticTexts({ ...await getStaticText() })
+    };
+
+    fetchTexts();
+  }, []);
+
+  useEffect(() => {
+    const get = async () => {
+      setAllLocation(await langLoc.getLocations())
+
+      const loc = (await getCurrentLangLocClient()).loc;
+      setSelectedLocation(loc.slug);
+
+      setFormData({
+        ...formData, location: loc.title
+      })
+    }
+
+    get()
+
+  }, [])
+
+
+  return (
+    <>
+      <h3>{staticTexts[title]}</h3>
+      <div className="row">
+        <div className="col-md-12 mb-3">
+          <input type="text" className="form-control" placeholder={staticTexts['Name']}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+            value={formData.name}
+          />
+        </div>
+        <div className="col-md-12 mb-3">
+          <input type="text" className="form-control"
+            placeholder={staticTexts['Enter Your Location']}
+            onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+            value={formData.location}
+          />
+        </div>
+        <div className="col-md-12 mb-3">
+          <input type="text" className="form-control"
+            placeholder={staticTexts['Enter 10 Digit Mobile Number']}
+            onChange={(e) => setFormData({ ...formData, number: e.target.value })}
+            value={formData.number}
+          />
+        </div>
+        <div className="col-md-12 mb-3">
+          <input type="text" className="form-control"
+            placeholder={staticTexts['Enter Your Email']}
+            onChange={(e) => setFormData({ ...formData, emailId: e.target.value })}
+            value={formData.emailId}
+          />
+        </div>
+        <div className="col-md-12 mb-3 text-center">
+          <button className="btn mb-lg-0 mb-2 hospital-primarybtn px-5 py-2" disabled={loading} onClick={sendMail}>
+            {staticTexts['Submit']}
+            {loading && <i className="fas fa-spinner fa-spin ms-1"></i>}
+          </button>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export default FormHomeCare

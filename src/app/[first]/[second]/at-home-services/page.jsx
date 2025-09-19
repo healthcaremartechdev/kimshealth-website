@@ -11,7 +11,7 @@ import getStaticText from '@/app/lib/getStaticTextServer';
 import Breadcrumb from '@/components/Breadcrumb';
 import getCurrentLangLoc from '@/app/lib/getCurrentLangLoc';
 import { marked } from 'marked';
-import Form1 from '@/components/Forms/Form1';
+import FormHomeCare from '@/components/Forms/FormHomeCare';
 
 
 const HomeServices = async () => {
@@ -125,7 +125,7 @@ const HomeServices = async () => {
                                 </div>
                                 <div className="col-md-4 sub-heading order-lg-2 order-1 mb-lg-0 mb-3">
                                     <div className="association-form-card mb-0"  id="bookNowForm" >
-                                        <Form1 title={"GET A CALLBACK FROM OUR HEALTH ADVISOR"} type={"Health At Home Services"} />
+                                        <FormHomeCare title={"GET A CALLBACK FROM OUR HEALTH ADVISOR"} type={"Health At Home Services"} />
                                     </div>
                                 </div>
 

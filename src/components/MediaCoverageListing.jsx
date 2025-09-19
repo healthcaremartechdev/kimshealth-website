@@ -95,7 +95,9 @@ const MediaCoverageListing = ({ basePath, langLoc, URLParams }) => {
                                                     <div>
                                                         <img src="/img/kims-small-logo.png" className="img-fluid" alt="" />
                                                     </div>
-                                                    <p><a href={basePath + "/media-coverage/" + av.slug}><strong>{av.title.slice(0, 20) + "..."}</strong></a> <br /> {formatDate(av?.date)}</p>
+                                                    <p><a href={basePath + "/media-coverage/" + av.slug}><strong>{av.title.slice(0, 20) + "..."}</strong></a>
+                                                     {/* <br /> {formatDate(av?.date)} */}
+                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -135,7 +137,7 @@ const MediaCoverageListing = ({ basePath, langLoc, URLParams }) => {
                                                     <p><a href={basePath + "/media-coverage/" + e.slug}><strong>{e.title.slice(0, 20) + "..."}</strong></a></p>
 
                                                 </div>
-                                                <p className="mt-2 ms-4 ps-3">{formatDate(e?.date)}</p>
+                                                {/* <p className="mt-2 ms-4 ps-3">{formatDate(e?.date)}</p> */}
                                             </div>
                                         </div>
                                     </div>

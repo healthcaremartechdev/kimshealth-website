@@ -109,9 +109,9 @@ const MediaAndEventsDetails = async ({ params }) => {
                     <section className="section">
                         <div className="container">
                             <div className="date-heading main-heading sub-heading">
-                                <ul>
+                                {/* <ul>
                                     <li className="calender-doc mb-2">{formatDate(data.date)}</li>
-                                </ul>
+                                </ul> */}
                                 <h3 className="mb-4">{data.title}</h3>
                                 <div dangerouslySetInnerHTML={{ __html: marked(data.details) || "" }}></div>
                             </div>
