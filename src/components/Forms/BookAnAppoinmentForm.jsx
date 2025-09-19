@@ -15,7 +15,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
     const [allHospital, setAllHospital] = useState();
     const [allSpeciality, setAllSpeciality] = useState();
     const [allDoctors, setAllDoctors] = useState([]);
-    const [selectedLocation, setSelectedLocation] = useState(URLParams.location || "")
+    const [selectedLocation, setSelectedLocation] = useState(URLParams.location || null)
     const [selectedHospital, setSelectedHospital] = useState(URLParams.hospital);
     const [selectedSpeciality, setSelectedSpeciality] = useState(URLParams.speciality);
     const [selectedDoctor, setSelectedDoctor] = useState(URLParams.doctor);
@@ -29,6 +29,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
 
     const sendMail = async () => {
         setLoading(true);
+        console.log(formData)
         if ([formData.name, formData.contactNumber, formData.location, formData.hospital, formData.department, formData.doctor, formData.appoinmentDate].some((field) => !field || field === "")) {
             toast("Fill the required fields", {
                 theme: 'light',
@@ -49,7 +50,6 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                     <li><strong> Department: </strong> ${formData.department.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</li>
                     <li><strong> Doctor: </strong> ${formData.doctor}</li>
                     <li><strong> Appointment Date: </strong> ${formData.appoinmentDate}</li>
-                    <li><strong> Appointment Time: </strong> ${formData.appoinmentTime}</li>
                     <li><strong> Page URL: </strong> ${document.location.href}</li>
                 </ul>
             `;
@@ -232,7 +232,12 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
             let currentLangLoc = await getCurrentLangLocClient();
 
             if (!selectedLocation)
+            {
                 setSelectedLocation(currentLangLoc.loc.slug)
+                setFormData({...formData, location:currentLangLoc.loc.slug})
+
+            }
+                
 
             setLocationList(await langLoc.getLocationsOnlyCMS())
             setAllHospital(await getHospital({ loc: selectedLocation == "" ? "" : selectedLocation }));
@@ -243,6 +248,23 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
         get()
 
     }, [selectedLocation, selectedHospital, selectedSpeciality])
+
+    
+
+
+
+
+    useEffect(() => {
+        const get = async () => {
+            let currentLangLoc = await getCurrentLangLocClient();
+
+            if (!selectedLocation)
+                setSelectedLocation(currentLangLoc.loc.slug)
+
+        }
+        get()
+
+    }, [])
 
     return (
         <>
@@ -407,7 +429,6 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                                                                         }
                                                                     }}
                                                                     onChange={(e) => {
-                                                                        console.log(e.target.value); // <-- get the selected date
                                                                         setFormData({
                                                                             ...formData,
                                                                             appoinmentDate: e.target.value, // <-- update state
