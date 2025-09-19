@@ -122,7 +122,7 @@ const getSpecialityData = {
             ? `&filters[speciality][hospitals][slug][$eq]=${URLParams.hospital}`
             : ``;
 
-        const subSpecFilter=(URLParams.hospital=="kimshealth-cancer-center")?``:`&filters[speciality][specialities][$null]=true`;
+        const subSpecFilter=(URLParams?.hospital==="kimshealth-cancer-center")?``:`&filters[speciality][specialities][$null]=true`;
 
         // Get total count
         const initialReq = await fetch(`${baseUrl}/specialty-details?filters[locations][id][$eq]=${langLoc.loc.id}${hospitalFilter}${subSpecFilter}`);
@@ -136,10 +136,12 @@ const getSpecialityData = {
 
         for (let i = 0; i < pages; i++) {
             const start = i * limit;
-            const url = baseUrl + `/specialty-details/?populate[0]=overviewSection&populate[1]=manageAppearance&populate[2]=speciality${hospitalFilter}&populate[3]=speciality.iconImage&populate[4]=speciality.specialities&pagination[start]=${start}&pagination[limit]=${limit}&filters[locations][id][$eq]=${langLoc.loc.id}${hospitalFilter}${subSpecFilter}&sort=manageAppearance.orderInMasterList:asc,title:asc`;
+            const url = baseUrl + `/specialty-details/?populate[0]=overviewSection&populate[1]=manageAppearance&populate[2]=speciality&populate[3]=speciality.iconImage&populate[4]=speciality.specialities&pagination[start]=${start}&pagination[limit]=${limit}&filters[locations][id][$eq]=${langLoc.loc.id}${hospitalFilter}${subSpecFilter}&sort=manageAppearance.orderInMasterList:asc,title:asc`;
             const res = await fetch(url);
             const json = await res.json();
             data = [...data, ...json.data];
+
+            console.log(url);
         }
 
 

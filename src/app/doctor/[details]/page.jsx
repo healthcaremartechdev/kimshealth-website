@@ -37,7 +37,6 @@ const DoctorDetails = async ({ params }) => {
         baseUrl: basePath
     }
 
-
     return (
         <>
             <Header />
@@ -84,7 +83,11 @@ const DoctorDetails = async ({ params }) => {
                                             <ul>
                                                 <li className="details-doc-ic">{data.doctorDesignation}</li>
                                                 <li className="details-liver-ic"><strong>{data.specialities[0]?.title}</strong></li>
-                                                <li className="details-hospital-ic">{data.hospitals[0]?.address}</li>
+                                                {/* <li className="details-hospital-ic">{data.hospitals[0]?.address}</li> */}
+
+                                                {data.hospitals?.map((doc, index) => (
+                                                    <li className="details-hospital-ic" key={index + "1"}>{doc.address}</li>
+                                                ))}
                                             </ul>
 
                                             {data.appointmentAvailable && (
@@ -196,7 +199,7 @@ const DoctorDetails = async ({ params }) => {
                                 <div className="col-md-12">
                                     <div className="table-responsive">
                                         <figure className="table">
-                                            <table className="table align-middle">
+                                            <table className="table align-middle text-center">
                                                 <thead>
                                                     <tr>
                                                         <th>Monday</th>
