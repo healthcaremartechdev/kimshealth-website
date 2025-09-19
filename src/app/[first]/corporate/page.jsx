@@ -84,9 +84,9 @@ const Investor = async () => {
                         </div>
                     </section>}
 
-                   {pageContent[1].title && <div className="line-divider"></div>}
+                    {pageContent[1].title && <div className="line-divider"></div>}
 
-                   {pageContent[2].title && <section className="section expert-section">
+                    {pageContent[2].title && <section className="section expert-section">
                         <div className="container">
                             <div className="main-heading">
                                 <h2>{pageContent[2].title}</h2>
@@ -119,42 +119,47 @@ const Investor = async () => {
                 {pageContent[2].title && <div className="line-divider"> </div>}
 
 
-                {pageContent[3].title && <section className="section">
-                    <div className="container">
-                        <div className="main-heading">
-                            <h2>{pageContent[3].title}</h2>
-                        </div>
-                        {pageContent[3].title && <div className="row">
-                            {
-                                pageContent[3].socomer?.map((sp, i) => (
-                                    <div className="col-md-6" key={i}>
-                                        <div className="socomer-tab">
-                                            <div className="procedure-acc-card mb-0">
-                                                <div className="accordion" id={`accordionExample${i}`}>
+                {pageContent[3].title && (
+                    <section className="section">
+                        <div className="container">
+                            <div className="main-heading">
+                                <h2>{pageContent[3].title}</h2>
+                            </div>
+
+                            {pageContent[3].title && (
+                                <div className="row">
+                                    {pageContent[3].socomer?.map((sp, i) => (
+                                        <div className="col-md-6" key={i}>
+                                            <div className="socomer-tab">
+                                                <div className="procedure-acc-card mb-0">
                                                     <div className="accordion-item">
                                                         <h2 className="accordion-header">
                                                             <button
-                                                                className={`accordion-button ${i === 0 ? "" : "collapsed"}`}
+                                                                className="accordion-button"
                                                                 type="button"
-                                                                data-bs-toggle="collapse"
-                                                                data-bs-target={`#collapse${i}`}
-                                                                aria-expanded={i === 0 ? "true" : "false"}
-                                                                aria-controls={`collapse${i}`}
                                                             >
                                                                 <span>{sp.title}</span>
                                                             </button>
                                                         </h2>
                                                         <div
-                                                            id={`collapse${i}`}
-                                                            className={`accordion-collapse collapse ${i === 0 ? "show" : ""}`}
+                                                            className="accordion-collapse collapse show"
                                                         >
                                                             <div className="accordion-body px-0 pt-0">
                                                                 <ul>
                                                                     {sp.socomerItem.map((spI, j) => (
                                                                         <li key={j}>
                                                                             - {spI.title}
-                                                                            <a href={spI.file?.url ? `${process.env.NEXT_PUBLIC_IMAGE_URL}${spI.file.url}` : spI.link}  target="_blank" rel="noopener noreferrer">
-                                                                                <i className="custom-download"></i>{spI.buttonText}
+                                                                            <a
+                                                                                href={
+                                                                                    spI.file?.url
+                                                                                        ? `${process.env.NEXT_PUBLIC_IMAGE_URL}${spI.file.url}`
+                                                                                        : spI.link
+                                                                                }
+                                                                                target="_blank"
+                                                                                rel="noopener noreferrer"
+                                                                            >
+                                                                                <i className="custom-download"></i>
+                                                                                {spI.buttonText}
                                                                             </a>
                                                                         </li>
                                                                     ))}
@@ -165,15 +170,15 @@ const Investor = async () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))
-                            }
+                                    ))}
+                                </div>
+                            )}
 
-                        </div>}
+                            <CorporateForm />
+                        </div>
+                    </section>
+                )}
 
-                        <CorporateForm />
-                    </div>
-                </section>}
                 {pageContent[3].title && <div className="line-divider"> </div>}
 
 
@@ -225,10 +230,10 @@ const Investor = async () => {
 
                     </div>
                 </section>}
-               {pageContent[4]?.item[0]?.title && <div className="line-divider"> </div>}
+                {pageContent[4]?.item[0]?.title && <div className="line-divider"> </div>}
 
 
-                {pageContent[5].title &&  <section className="section journal-section">
+                {pageContent[5].title && <section className="section journal-section">
                     <div className="container">
                         <div className="main-heading">
                             <h2>{pageContent[5]?.title}</h2>
