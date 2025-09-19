@@ -413,7 +413,7 @@ const getSpecialityData = {
     },
 
 
-    getAllSubSpeciality: async ({ langLoc, id }) => {
+    getAllSubSpeciality: async ({ langLoc, id , hospital}) => {
         const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
         // Get total count
         const initialReq = await fetch(`${baseUrl}/specialty-details`);
@@ -424,10 +424,14 @@ const getSpecialityData = {
         const pages = Math.ceil(totalCount / limit);
         let data = [];
 
+        const hospitalFilter = hospital
+            ? `&filters[speciality][hospitals][slug][$eq]=${hospital}`
+            : ``;
+
         // Actual Data
         for (let i = 0; i < pages; i++) {
             const start = i * limit;
-            const url = `${baseUrl}/specialty-details?filters[speciality][specialities][id][$eq]=${id}&filters[locations][id][$eq]=${langLoc.loc.id}&populate=*&pagination[start]=${start}&pagination[limit]=${limit}&sort=manageAppearance.orderInMasterList:asc,title:asc`;
+            const url = `${baseUrl}/specialty-details?filters[speciality][specialities][id][$eq]=${id}&filters[locations][id][$eq]=${langLoc.loc.id}${hospitalFilter}&populate=*&pagination[start]=${start}&pagination[limit]=${limit}&sort=manageAppearance.orderInMasterList:asc,title:asc`;
             const res = await fetch(url);
             const json = await res.json();
             data = [...data, ...json.data];
