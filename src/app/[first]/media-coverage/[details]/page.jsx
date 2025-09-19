@@ -158,7 +158,9 @@ const MediaAndEventsDetails = async ({ params }) => {
                                                             <div>
                                                                 <img src="/img/kims-small-logo.png" className="img-fluid" alt="" />
                                                             </div>
-                                                            <p><a href={basePath + "/media-coverage/" + rm.slug}><strong>{rm.title}</strong></a> <br /> {formatDate(rm?.date)}</p>
+                                                            <p><a href={basePath + "/media-coverage/" + rm.slug}><strong>{rm.title}</strong></a> 
+                                                            {/* <br /> {formatDate(rm?.date)} */}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -220,7 +222,7 @@ const MediaAndEventsDetails = async ({ params }) => {
                                                                 </strong></a>
                                                             </p>
                                                         </div>
-                                                        <p className="mt-2 ms-4 ps-3">{formatDate(e?.date)}</p>
+                                                        {/* <p className="mt-2 ms-4 ps-3">{formatDate(e?.date)}</p> */}
                                                     </div>
                                                 </div>
                                             </div>

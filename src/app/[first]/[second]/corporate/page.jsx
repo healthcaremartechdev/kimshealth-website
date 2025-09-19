@@ -134,11 +134,11 @@ const Investor = async () => {
                                                     <div className="accordion-item">
                                                         <h2 className="accordion-header">
                                                             <button
-                                                                className={`accordion-button ${i === 0 ? "" : "collapsed"}`}
+                                                                className={`accordion-button`}
                                                                 type="button"
                                                                 data-bs-toggle="collapse"
                                                                 data-bs-target={`#collapse${i}`}
-                                                                aria-expanded={i === 0 ? "true" : "false"}
+                                                                aria-expanded={`true`}
                                                                 aria-controls={`collapse${i}`}
                                                             >
                                                                 <span>{sp.title}</span>
@@ -146,7 +146,7 @@ const Investor = async () => {
                                                         </h2>
                                                         <div
                                                             id={`collapse${i}`}
-                                                            className={`accordion-collapse collapse ${i === 0 ? "show" : ""}`}
+                                                            className={`accordion-collapse collapse show`}
                                                         >
                                                             <div className="accordion-body px-0 pt-0">
                                                                 <ul>

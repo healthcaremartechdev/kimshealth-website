@@ -58,7 +58,9 @@ function MediaCoverageCarousel({ dataSet, extraClass }) {
                                                     <div>
                                                         <img src="/img/kims-small-logo.png" className="img-fluid h-auto" alt="" />
                                                     </div>
-                                                    <p><a href={dataSet.baseUrl + "/media-coverage/" + rm.slug}><strong>{rm.title}</strong></a> <br /> {formatDate(rm?.date)}</p>
+                                                    <p><a href={dataSet.baseUrl + "/media-coverage/" + rm.slug}><strong>{rm.title}</strong></a> 
+                                                    {/* <br /> {formatDate(rm?.date)} */}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -121,7 +123,7 @@ function MediaCoverageCarousel({ dataSet, extraClass }) {
                                                         </strong></a>
                                                     </p>
                                                 </div>
-                                                <p className="mt-2 ms-4 ps-3">{formatDate(e?.date)}</p>
+                                                {/* <p className="mt-2 ms-4 ps-3">{formatDate(e?.date)}</p> */}
                                             </div>
                                         </div>
                                     </div>

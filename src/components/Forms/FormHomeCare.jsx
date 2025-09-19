@@ -4,10 +4,12 @@ import React, { useEffect, useState } from 'react'
 import langLoc from '@/helper/getLangLoc';
 import getCurrentLangLocClient from '@/helper/getCurrentLangLocClient';
 import { toast } from 'react-toastify';
+import { getBaseUrl } from '@/helper/getBaseUrl';
 
 
 
 const FormHomeCare = ({ title, type, subject }) => {
+  const [basePath, setBasePath] = useState();
   const [staticTexts, setStaticTexts] = useState({});
   const [allLocation, setAllLocation] = useState();
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -35,7 +37,7 @@ const FormHomeCare = ({ title, type, subject }) => {
           <li><strong> Name: </strong> ${formData.name}</li>
           <li><strong> Mobile Number: </strong> ${formData.number}</li>
           <li><strong> Location: </strong> ${formData.location}</li>
-          <li><strong> Message: </strong> ${formData.emailId}</li>
+          <li><strong> Email: </strong> ${formData.emailId}</li>
           <li><strong> Page URL: </strong> ${document.location.href}</li>
         </ul>`;
       const req = await fetch("/api/send-mail", {
@@ -63,6 +65,10 @@ const FormHomeCare = ({ title, type, subject }) => {
         closeOnClick: true
       })
 
+      // Redirect with encoded htmlMsg
+      const encodedMsg = encodeURIComponent(htmlMsg);
+      window.location.href = `${basePath}/thank-you?msg=${encodedMsg}`;
+
       // Remove data
       setFormData({ name: "", number: "", location: '', emailId: '' });
       setSelectedLocation("");
@@ -87,7 +93,7 @@ const FormHomeCare = ({ title, type, subject }) => {
     const fetchTexts = async () => {
       setStaticTexts({ ...await getStaticText() })
     };
-
+    setBasePath(getBaseUrl(true, true));
     fetchTexts();
   }, []);
 
