@@ -167,7 +167,7 @@ const BlogListing = ({ basePath, speciality, langLoc, URLParams }) => {
                                             </p>
                                             <div className="d-flex align-items-center justify-content-between">
                                                 <div>
-                                                    {allBlog[1].doctor[0]?.name && <strong> {staticText['By']}: {`${allBlog[0].doctor[0]?.salutation?allBlog[0].doctor[0]?.salutation+" ":""}${allBlog[0].doctor[0]?.name}`}</strong>}
+                                                    {allBlog[0].doctor[0]?.name && <strong> {staticText['By']}: {`${allBlog[0].doctor[0]?.salutation?allBlog[0].doctor[0]?.salutation+" ":""}${allBlog[0].doctor[0]?.name}`}</strong>}
                                                 </div>
                                                 <div className="main-btn">
                                                     <p>{formatDate(allBlog[0].date)}</p>
