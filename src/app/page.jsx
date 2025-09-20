@@ -197,7 +197,7 @@ const Home = async () => {
                 </a>
               </div>
               <div className="cta-col">
-                <a href={"https://healthcheckup.kimshealthcare.com/p/kims-trivandrum-1/"} target='_blank'>
+                <a href={"https://healthcheckup.kimshealthcare.com/"} target='_blank'>
                   <div className="cta-diff">
                     <div className="d-flex align-items-center justify-content-center">
                       <img src="/img/health.png" alt="" />

@@ -32,6 +32,19 @@ const ContactUsForm = () => {
             return;
         }
 
+
+
+        // ✅ Validate phone number (10–13 digits, optional + at start)
+        if (!/^\+?\d{10,13}$/.test(formData.number)) {
+            toast("Enter a valid mobile number", {
+                theme: 'light',
+                type: 'error',
+                closeOnClick: true
+            })
+            setLoading(false);
+            return;
+        }
+
         try {
             const htmlMsg = `
                     <ul>

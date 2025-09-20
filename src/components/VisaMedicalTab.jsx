@@ -1,5 +1,5 @@
 "use client"
-import Form3 from "./Forms/Form3"
+import VisaMedicalForm from "./Forms/VisaMedicalForm"
 
 const VisaMedicalTab = ({ pageContent }) => {
     return (
@@ -44,7 +44,7 @@ const VisaMedicalTab = ({ pageContent }) => {
                                 </div>
 
                                 <div className="find-doc-box d-md-block d-none">
-                                    <Form3 title={pageContent[5]?.title} />
+                                    <VisaMedicalForm title={pageContent[5]?.title} />
                                 </div>
                             </div>
                         </div>
@@ -82,7 +82,7 @@ const VisaMedicalTab = ({ pageContent }) => {
 
                     <div className="find-doctor-left-col d-md-none d-block">
                         <div className="find-doc-box">
-                            <Form3 title={pageContent[5]?.title} />
+                            <VisaMedicalForm title={pageContent[5]?.title} />
                         </div>
                     </div>
                 </div>

@@ -7,21 +7,30 @@ import { toast } from 'react-toastify';
 import { getBaseUrl } from '@/helper/getBaseUrl';
 
 
-const Form3 = ({ title }) => {
+const VisaMedicalForm = ({ title }) => {
     const [basePath, setBasePath] = useState();
-    const [allLocation, setAllLocation] = useState();
     const [staticTexts, setStaticTexts] = useState({});
-    const [selectedLocation, setSelectedLocation] = useState(null);
     const [formData, setFormData] = useState({
-        name: "", number: "", hospital: ''
+        name: "", number: ""
     });
     const [loading, setLoading] = useState(false);
 
 
     const sendMail = async () => {
         setLoading(true);
-        if ([formData.name, formData.number, formData.hospital].some((field) => !field || field === "")) {
+        if ([formData.name, formData.number].some((field) => !field || field === "")) {
             toast("Fill the required fields", {
+                theme: 'light',
+                type: 'error',
+                closeOnClick: true
+            })
+            setLoading(false);
+            return;
+        }
+
+        // ✅ Validate phone number (10–13 digits, optional + at start)
+        if (!/^\+?\d{10,13}$/.test(formData.number)) {
+            toast("Enter a valid mobile number", {
                 theme: 'light',
                 type: 'error',
                 closeOnClick: true
@@ -33,9 +42,9 @@ const Form3 = ({ title }) => {
         try {
             const htmlMsg = `
                         <ul>
+                            <li><strong> Subject: </strong> Visa Medical</li>
                             <li><strong> Name: </strong> ${formData.name}</li>
                             <li><strong> Mobile Number: </strong> ${formData.number}</li>
-                            <li><strong> Hospital: </strong> ${formData.hospital.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</li>
                             <li><strong> Page URL: </strong> ${document.location.href}</li>
                         </ul>
                     `;
@@ -44,7 +53,7 @@ const Form3 = ({ title }) => {
                 'headers': {
                     "Content-type": "application/json",
                 },
-                body: JSON.stringify({ data: htmlMsg, formType: "Contact", locationData: formData.hospital }),
+                body: JSON.stringify({ data: htmlMsg, formType: "Contact", subject: "Visa Medical", locationData: "trivandrum" }),
             });
 
             const res = await req.json();
@@ -96,23 +105,7 @@ const Form3 = ({ title }) => {
         fetchTexts();
     }, []);
 
-    useEffect(() => {
-        const get = async () => {
-            setAllLocation(await langLoc.getLocations());
 
-            const loc = (await getCurrentLangLocClient()).loc;
-            setSelectedLocation(loc.slug);
-
-
-
-            setFormData({
-                ...formData, hospital: loc.slug
-            })
-        }
-
-        get()
-
-    }, [])
 
     return (
         <>
@@ -120,20 +113,6 @@ const Form3 = ({ title }) => {
             <h3>{title}</h3>
             <div className="rounded-field-form mb-3">
                 <div className="row">
-                    <div className="col-12 mb-3">
-                        <label className="form-label">{staticTexts['Select Hospital']} <span>*</span></label>
-                        <select className="form-select" value={selectedLocation} onChange={(e) => {
-                            setSelectedLocation(e.target.value);
-                            setFormData({ ...formData, hospital: e.target.value });
-                        }}>
-                            <option value={""}>{staticTexts['All Hospital']}</option>
-                            {
-                                allLocation?.map((loc, i) => {
-                                    return <option value={loc.slug} key={i}>{loc.title}</option>
-                                })
-                            }
-                        </select>
-                    </div>
                     <div className="col-12 mb-3">
                         <label className="form-label">{staticTexts['Name']} <span>*</span></label>
                         <input type="text" className="form-control"
@@ -164,4 +143,4 @@ const Form3 = ({ title }) => {
     )
 }
 
-export default Form3;
+export default VisaMedicalForm;

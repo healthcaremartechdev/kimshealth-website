@@ -2,7 +2,6 @@
 import doctorData from '@/app/lib/getDoctor';
 import getStaticText from '@/helper/getStaticText';
 import React, { useEffect, useState, useRef } from 'react';
-import Form3 from './Forms/Form3';
 import getSpecialityData from '@/app/lib/getSpeciality';
 
 
@@ -212,9 +211,6 @@ const DoctorListing = ({ baseURL, allLocation, allHospital, allSpeciality, allDo
                                 </div>
                             </div> 
 
-                            <div className="find-doc-box">
-                                <Form3 title={staticText['Need Help Making an Appointment?']} type="Doctor" />
-                            </div>
                         </div>
                     </div> */}
 
