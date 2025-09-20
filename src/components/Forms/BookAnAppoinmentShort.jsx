@@ -67,7 +67,7 @@ const BookAnAppoinmentShort = ({ basePath, extraClass, currentLangLoc, currentHo
             ? `&filters[locations][slug][$eq]=${loc}`
             : ``;
 
-        const hospitalFilter = loc
+        const hospitalFilter = hospital
             ? `&filters[speciality][hospitals][slug][$eq]=${hospital}`
             : ``;
 

@@ -16,7 +16,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
     const [allSpeciality, setAllSpeciality] = useState();
     const [allDoctors, setAllDoctors] = useState([]);
     const [selectedLocation, setSelectedLocation] = useState(URLParams.location || null)
-    const [selectedHospital, setSelectedHospital] = useState(URLParams.hospital);
+    const [selectedHospital, setSelectedHospital] = useState(URLParams.hospital || null);
     const [selectedSpeciality, setSelectedSpeciality] = useState(URLParams.speciality);
     const [selectedDoctor, setSelectedDoctor] = useState(URLParams.doctor);
     const [doctorLoading, setDoctorLoading] = useState(true);
@@ -29,7 +29,6 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
 
     const sendMail = async () => {
         setLoading(true);
-        console.log(formData)
         if ([formData.name, formData.contactNumber, formData.location, formData.hospital, formData.department, formData.doctor, formData.appoinmentDate].some((field) => !field || field === "")) {
             toast("Fill the required fields", {
                 theme: 'light',
@@ -171,7 +170,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
             ? `&filters[locations][slug][$eq]=${loc}`
             : ``;
 
-        const hospitalFilter = loc
+        const hospitalFilter = hospital
             ? `&filters[speciality][hospitals][slug][$eq]=${hospital}`
             : ``;
 
@@ -184,8 +183,14 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
         const pages = Math.ceil(totalCount / limit);
         let data = [];
 
+        const pagecount = hospital
+            ? pages
+            : 0;
+
+        console.log(`${baseUrl}/specialty-details?${locationFilter}${hospitalFilter}`)
+
         // Actual Data
-        for (let i = 0; i < pages; i++) {
+        for (let i = 0; i < pagecount; i++) {
             const start = i * limit;
             const url = `${baseUrl}/specialty-details?populate=*&pagination[start]=${start}&pagination[limit]=${limit}${locationFilter}${hospitalFilter}&filters[speciality][specialities][$null]=true&sort=title:asc`;
             const res = await fetch(url);
@@ -239,26 +244,35 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
 
 
     useEffect(() => {
-        const get = async () => {
-            let currentLangLoc = await getCurrentLangLocClient();
+    const get = async () => {
+        let currentLangLoc = await getCurrentLangLocClient();
 
-            if (!selectedLocation)
-            {
-                setSelectedLocation(currentLangLoc.loc.slug)
-                setFormData({...formData, location:currentLangLoc.loc.slug})
-
-            }
-                
-
-            setLocationList(await langLoc.getLocationsOnlyCMS())
-            setAllHospital(await getHospital({ loc: selectedLocation == "" ? "" : selectedLocation }));
-            setAllSpeciality(await getSpeciality({ loc: selectedLocation == "" ? currentLangLoc.loc.slug : selectedLocation, hospital: selectedHospital == "" ? "" : selectedHospital }));
-            await getDoctor({ loc: selectedLocation == "" ? "" : selectedLocation, hospital: selectedHospital == "" ? "" : selectedHospital, speciality: selectedSpeciality == "" ? "" : selectedSpeciality });
-
+        // If no location is selected, set the default one
+        if (!selectedLocation) {
+            setSelectedLocation(currentLangLoc.loc.slug);
+            setFormData(prev => ({
+                ...prev,
+                location: currentLangLoc.loc.slug
+            }));
+            return; // stop here, let useEffect re-run with updated selectedLocation
         }
-        get()
 
-    }, [selectedLocation, selectedHospital, selectedSpeciality])
+        // Fetch data only after location is set
+        setLocationList(await langLoc.getLocationsOnlyCMS());
+        setAllHospital(await getHospital({ loc: selectedLocation }));
+        setAllSpeciality(await getSpeciality({ 
+            loc: selectedLocation, 
+            hospital: selectedHospital || "" 
+        }));
+        await getDoctor({ 
+            loc: selectedLocation, 
+            hospital: selectedHospital || "", 
+            speciality: selectedSpeciality || "" 
+        });
+    };
+    get();
+}, [selectedLocation, selectedHospital, selectedSpeciality]);
+
 
     
 

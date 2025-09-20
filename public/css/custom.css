@@ -956,7 +956,7 @@ header {
 }
 
 .expert-section .card-content h4 {
-    font-size: 18px;
+    font-size: 17px;
     color: #000000;
     font-weight: 600;
     margin-bottom: 0px;
@@ -982,7 +982,7 @@ header {
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    min-height: 20px;
+    min-height: 18px;
 }
 
 .owl-carousel.expert .owl-nav button.owl-prev {
