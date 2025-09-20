@@ -1,11 +1,13 @@
 "use client"
 import getStaticText from '@/helper/getStaticText';
+import { no } from 'intl-tel-input/i18n';
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 
-const CorporateForm = () => {
+const CorporateForm = ({ dataSet }) => {
     const [staticTexts, setStaticTexts] = useState({});
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState({notice: false, annual: false, draft: false});
+
 
     // separate states for each block
     const [noticeForm, setNoticeForm] = useState({ email: "", report_notice_type: "", type: "Notice of General Meetings" });
@@ -13,12 +15,29 @@ const CorporateForm = () => {
     const [draftForm, setDraftForm] = useState({ email: "", report_notice_type: "", type: "Download Draft Annual Return" });
 
     const sendMail = async (formData) => {
-        setLoading(true);
 
         if ([formData.email, formData.report_notice_type].some((field) => !field || field === "")) {
             toast("Fill the required fields", { theme: 'light', type: 'error', closeOnClick: true });
-            setLoading(false);
             return;
+        }
+
+        let getFile = null;
+        if (formData.type === "Download Annual Report") {
+            setLoading((prev) => ({...prev, annual: true}));
+            let geFileArr = dataSet.annualReport.filter((item, _) => item.title === formData.report_notice_type);
+            getFile = geFileArr?.[0]?.file?.[0]?.url;
+        }
+        else if (formData.type === "Notice of General Meetings") {
+            setLoading((prev) => ({...prev, notice: true}));
+            console.log(formData.report_notice_type)
+            let geFileArr = dataSet.generalMeeting.filter((item, _) => item.title === formData.report_notice_type);
+            console.log(geFileArr);
+            getFile = geFileArr?.[0]?.file?.[0]?.url;
+        }
+        else if (formData.type === "Download Draft Annual Return") {
+            setLoading((prev) => ({...prev, draft: true}));
+            let geFileArr = dataSet.draftAnnualReturn.filter((item, _) => item.title === formData.report_notice_type);
+            getFile = geFileArr?.[0]?.file?.[0]?.url;
         }
 
         try {
@@ -37,10 +56,12 @@ const CorporateForm = () => {
             });
 
             const res = await req.json();
-
+            setLoading({notice: false, annual: false, draft: false});
             if (req.status !== 200) {
                 toast(res.err, { theme: 'light', type: 'error', closeOnClick: true });
             } else {
+                openOrDownload(getFile)
+
                 toast("Successfully sent", { theme: 'light', type: 'success', closeOnClick: true });
             }
 
@@ -61,6 +82,31 @@ const CorporateForm = () => {
         const fetchTexts = async () => setStaticTexts({ ...await getStaticText() });
         fetchTexts();
     }, []);
+
+
+
+    function openOrDownload(getFile) {
+        if (!getFile) return;
+
+        const url = process.env.NEXT_PUBLIC_IMAGE_URL + getFile;
+
+        // Try opening in a new tab
+        const newWin = window.open(url, "_blank");
+
+        // If blocked, fallback to download
+        // if (!newWin || newWin.closed || typeof newWin.closed === "undefined") {
+        //     const a = document.createElement("a");
+        //     a.href = url;
+        //     a.target = "_blank";
+        //     a.download = getFile; // force download with filename
+        //     document.body.appendChild(a);
+        //     a.click();
+        //     document.body.removeChild(a);
+        // }
+    }
+
+
+
 
     return (
         <div className="row">
@@ -85,28 +131,22 @@ const CorporateForm = () => {
                                     value={noticeForm.report_notice_type}
                                     onChange={(e) => setNoticeForm({ ...noticeForm, report_notice_type: e.target.value })}>
                                     <option value="">{staticTexts['Select Notice']}</option>
-                                    <option value="Notice - 20th AGM">Notice - 20th AGM</option>
-                                    <option value="Notice - 21st AGM">Notice - 21st AGM</option>
-                                    <option value="Notice - 22nd AGM">Notice - 22nd AGM</option>
-                                    <option value="Notice of EGM">Notice of EGM</option>
-                                    <option value="Notice - 23rd AGM">Notice - 23rd AGM</option>
-                                    <option value="Notice - 24th AGM">Notice - 24th AGM</option>
-                                    <option value="Notice - 25th AGM">Notice - 25th AGM</option>
-                                    <option value="Notice - 26th AGM">Notice - 26th AGM</option>
-                                    <option value="Notice - 27th AGM">Notice - 27th AGM</option>
-                                    <option value="Notice - 28th AGM">Notice - 28th AGM</option>
-                                    <option value="Notice - 29th AGM">Notice - 29th AGM</option>
-                                    <option value="EGM Notice_24.02.2024">EGM Notice_24.02.2024</option>
-                                    <option value="Notice of 30th AGM">Notice of 30th AGM</option>
+                                    {
+                                        dataSet?.generalMeeting?.map((item) => (
+                                            <option key={item.id} value={item.title}>
+                                                {item.title}
+                                            </option>
+                                        ))
+                                    }
                                 </select>
                             </div>
                         </div>
                         <div className="col-md-12 mb-3 text-start">
                             <button className="btn hospital-primarybtn px-5 py-2"
-                                disabled={loading}
+                                disabled={loading.notice}
                                 onClick={() => sendMail(noticeForm)}>
                                 {staticTexts['Submit']}
-                                {loading && <i className="fas fa-spinner fa-spin ms-1"></i>}
+                                {loading.notice && <i className="fas fa-spinner fa-spin ms-1"></i>}
                             </button>
                         </div>
                     </div>
@@ -133,26 +173,20 @@ const CorporateForm = () => {
                                     value={annualForm.report_notice_type}
                                     onChange={(e) => setAnnualForm({ ...annualForm, report_notice_type: e.target.value })}>
                                     <option value="">{staticTexts['Select Report']}</option>
-                                    <option value="FY 2014-2015">FY 2014-2015</option>
-                                    <option value="FY 2015-2016">FY 2015-2016</option>
-                                    <option value="FY 2016-2017">FY 2016-2017</option>
-                                    <option value="FY 2017-2018">FY 2017-2018</option>
-                                    <option value="FY 2018-2019">FY 2018-2019</option>
-                                    <option value="FY 2019 - 2020">FY 2019 - 2020</option>
-                                    <option value="FY 2020 - 2021">FY 2020 - 2021</option>
-                                    <option value="FY 2021- 2022">FY 2021- 2022</option>
-                                    <option value="FY 2022-2023">FY 2022-2023</option>
-                                    <option value="FY 2023-2024">FY 2023-2024</option>
-                                    <option value="FY 2024-2025">FY 2024-2025</option>
+                                    {
+                                        dataSet?.annualReport?.map((item) => (
+                                            <option key={item.id} value={item.title}>{item.title}</option>
+                                        ))
+                                    }
                                 </select>
                             </div>
                         </div>
                         <div className="col-md-12 mb-3 text-start">
                             <button className="btn hospital-primarybtn px-5 py-2"
-                                disabled={loading}
+                                disabled={loading.annual}
                                 onClick={() => sendMail(annualForm)}>
                                 {staticTexts['Submit']}
-                                {loading && <i className="fas fa-spinner fa-spin ms-1"></i>}
+                                {loading.annual && <i className="fas fa-spinner fa-spin ms-1"></i>}
                             </button>
                         </div>
                     </div>
@@ -179,19 +213,20 @@ const CorporateForm = () => {
                                     value={draftForm.report_notice_type}
                                     onChange={(e) => setDraftForm({ ...draftForm, report_notice_type: e.target.value })}>
                                     <option value="">{staticTexts['Select Report']}</option>
-                                    <option value="Annual Return - 2020-21">Annual Return - 2020-21</option>
-                                    <option value="Annual Return - 2021-22">Annual Return - 2021-22</option>
-                                    <option value="Annual Return - 2022-23">Annual Return - 2022-23</option>
-                                    <option value="Annual Return - 2023-24">Annual Return - 2023-24</option>
+                                    {
+                                        dataSet?.draftAnnualReturn?.map((item) => (
+                                            <option key={item.id} value={item.title}>{item.title}</option>
+                                        ))
+                                    }
                                 </select>
                             </div>
                         </div>
                         <div className="col-md-12 mb-3 text-start">
                             <button className="btn hospital-primarybtn px-5 py-2"
-                                disabled={loading}
+                                disabled={loading.draft}
                                 onClick={() => sendMail(draftForm)}>
                                 {staticTexts['Submit']}
-                                {loading && <i className="fas fa-spinner fa-spin ms-1"></i>}
+                                {loading.draft && <i className="fas fa-spinner fa-spin ms-1"></i>}
                             </button>
                         </div>
                     </div>

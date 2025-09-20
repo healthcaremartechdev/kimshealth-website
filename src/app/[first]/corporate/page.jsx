@@ -8,6 +8,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import getStaticText from '@/app/lib/getStaticTextServer';
 import getCurrentLangLoc from '@/app/lib/getCurrentLangLoc';
 import CorporateForm from '@/components/Forms/CorporateForm';
+import corporateFile from '@/app/lib/getCorporateFile';
 
 
 const Investor = async () => {
@@ -30,6 +31,14 @@ const Investor = async () => {
         parts.push(events.slice(i, i + chunkSize));
     }
 
+
+
+    
+    const corporateDataSet = {
+        generalMeeting: await corporateFile.getAll({ langLoc: getLangLoc, type: 'Notice of General Meetings' }),
+        annualReport: await corporateFile.getAll({ langLoc: getLangLoc, type: 'Download Annual Report' }),
+        draftAnnualReturn: await corporateFile.getAll({ langLoc: getLangLoc, type: 'Download Draft Annual Return' }),
+    };
 
     return (
         <>
@@ -119,7 +128,6 @@ const Investor = async () => {
                 {pageContent[2].title && <div className="line-divider"> </div>}
 
 
-                {pageContent[3].title && (
                     <section className="section">
                         <div className="container">
                             <div className="main-heading">
@@ -174,10 +182,9 @@ const Investor = async () => {
                                 </div>
                             )}
 
-                            <CorporateForm />
+                            <CorporateForm dataSet={corporateDataSet} />
                         </div>
                     </section>
-                )}
 
                 {pageContent[3].title && <div className="line-divider"> </div>}
 

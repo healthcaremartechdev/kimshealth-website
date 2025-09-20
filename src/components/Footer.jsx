@@ -837,7 +837,7 @@ const Footer = () => {
                     </div>
 
                     <div className="col-3 fixed-footer-img">
-                        <a href="#"><img src="/img/telephone.png" className="img-fluid" alt="" />
+                        <a href={`tel:${locationData?.phone}`}><img src="/img/telephone.png" className="img-fluid" alt="" />
                             <p>{staticTexts['Call Us']}</p>
                         </a>
                     </div>
