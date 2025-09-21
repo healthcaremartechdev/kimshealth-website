@@ -1956,6 +1956,11 @@
     padding-bottom: 4rem;
 }
 
+.about-us-main-page .hospital-details-slider::before {
+    display: none;
+  }
+
+
 }
 
 @media only screen and (max-width: 480px) {

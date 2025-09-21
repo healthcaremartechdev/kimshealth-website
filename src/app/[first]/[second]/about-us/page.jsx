@@ -101,7 +101,7 @@ const AboutUs = async () => {
                         <div className="procedures-details-page-header">
                             <div className="container pe-0">
                                 <div className="row">
-                                    <div className="col-md-6 details-proceduce-banner-left-col">
+                                    <div className="col-md-6 details-proceduce-banner-left-col px-0">
                                         <div className="hospital-banner-container">
                                             <div className="breadcrumb-wrapper py-2 ps-2 ms-1">
                                                 <div className="row">
