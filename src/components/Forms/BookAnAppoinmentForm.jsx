@@ -21,7 +21,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
     const [selectedDoctor, setSelectedDoctor] = useState(URLParams.doctor);
     const [doctorLoading, setDoctorLoading] = useState(true);
     const [formData, setFormData] = useState({
-        name: '', contactNumber: '', location: URLParams.location, hospital: URLParams.hospital,
+        name: '', contactNumber: '', emailID: '', location: URLParams.location, hospital: URLParams.hospital,
         department: URLParams.speciality, doctor: URLParams.doctor, appoinmentDate: '', appoinmentTime: ''
     });
     const [loading, setLoading] = useState(false);
@@ -29,7 +29,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
 
     const sendMail = async () => {
         setLoading(true);
-        if ([formData.name, formData.contactNumber, formData.location, formData.hospital, formData.department, formData.doctor, formData.appoinmentDate].some((field) => !field || field === "")) {
+        if ([formData.name, formData.contactNumber, formData.emailID, formData.location, formData.hospital, formData.department, formData.doctor, formData.appoinmentDate].some((field) => !field || field === "")) {
             toast("Fill the required fields", {
                 theme: 'light',
                 type: 'error',
@@ -55,6 +55,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                 <ul>
                     <li><strong> Patient / Visitor Name: </strong> ${formData.name}</li>
                     <li><strong> Contact Number: </strong> ${formData.contactNumber}</li>
+                    <li><strong> Email: </strong> ${formData.emailID}</li>
                     <li><strong> Location: </strong> ${formData.location.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</li>
                     <li><strong> Hospital: </strong> ${formData.hospital.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</li>
                     <li><strong> Department: </strong> ${formData.department.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</li>
@@ -97,7 +98,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
             window.location.href = `${basePath}/thank-you?msg=${encodedMsg}`;
 
             setFormData({
-                name: '', contactNumber: '', location: '', hospital: '',
+                name: '', contactNumber: '',  emailID: '', location: '', hospital: '',
                 department: "", doctor: '', appoinmentDate: '', appoinmentTime: ''
             });
             return
@@ -329,6 +330,20 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                                                                 className="form-control pe-0"
                                                                 onChange={(e) => setFormData({ ...formData, contactNumber: e.target.value })}
                                                                 value={formData.contactNumber}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="custom-from bg-field mx-0">
+                                                    <div className="row justify-content-between">
+                                                        <div className="col-xl-12 col-lg-12 col-md-12 col-12 mb-3">
+                                                            <label htmlFor=''>{staticText['Email']}*</label>
+                                                            <input type="text" placeholder={staticText["Enter Your Email"]} name=""
+                                                                className="form-control pe-0"
+                                                                onChange={(e) => setFormData({ ...formData, emailID: e.target.value })}
+                                                                value={formData.emailID}
                                                             />
                                                         </div>
                                                     </div>
