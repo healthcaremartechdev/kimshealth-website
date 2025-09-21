@@ -33,72 +33,20 @@ const Gallery = async () => {
             <div role="main" className="main">
                 <div className="about-us-main-page">
 
-                    {/* Desktop section */}
-                    <section className="section details-page-before py-0 d-lg-block d-none"> 
-                        <div className="procedures-details-page-header inner-pages-header">
-                            <div className="container-fluid px-0">
-                                <div className="row">
-                                    <div className="col-md-6 details-proceduce-banner-left-col">
-                                        <div className="hospital-banner-container">
-                                            <div className="breadcrumb-wrapper py-2 ps-2 ms-1">
-                                                <div className="row">
-                                                    <div className="col-12 px-0">
-                                                        <Breadcrumb
-                                                            activeTitle={pageContent[0]?.title}
-                                                            middleTitle={''}
-                                                            middleURL={''}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="details-banner">
-                                                <div className="details-heading">
-                                                    <h3>{pageContent[0]?.title}</h3>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="col-md-6 details-proceduce-banner-right-col mt-lg-0 mt-4">
-                                        <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${pageContent[1]?.bannerItem[0]?.bannerImageDesktop?.url}`} className="img-fluid details-banner-image" alt={pageContent[1]?.bannerItem[0].title} />
-                                    </div>
-                                </div>
-                            </div>
+                    <div className="page-header">
+                        <div className="container">
+                            <h2>{pageContent[0]?.title}</h2>
                         </div>
-                    </section>
-
-
-                    {/* mobile section */}
-                    <section className="section details-page-before py-0 d-lg-none d-block">
-                        <div className="procedures-details-page-header inner-pages-header">
-                            <div className="container-fluid px-0">
-                                <div className="row">
-                                    <div className="col-md-6 details-proceduce-banner-left-col mt-lg-auto">
-                                        <div className="hospital-banner-container">
-                                            <div className="breadcrumb-wrapper py-2 ps-2 ms-1">
-                                                <div className="row">
-                                                    <div className="col-12">
-                                                        <Breadcrumb
-                                                            activeTitle={pageContent[0]?.title}
-                                                            middleTitle={''}
-                                                            middleURL={''}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="details-proceduce-banner-right-col mt-lg-0 mt-4">
-                                                <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${pageContent[1]?.bannerItem[0]?.bannerImageDesktop?.url}`}
-                                                    className="img-fluid details-banner-image" alt={pageContent[1]?.bannerItem[0].title} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-6 mt-lg-0 mt-4">
-                                    <div className="details-banner">
-                                        <div className="details-heading">
-                                            <h3>{pageContent[0]?.title}</h3>
-                                        </div>
-                                    </div>
+                    </div>
+                    <section className="breadcrumb-wrapper py-2">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-12">
+                                    <Breadcrumb
+                                        activeTitle={pageContent[0]?.title}
+                                        middleTitle={""}
+                                        middleURL={""}
+                                    />
                                 </div>
                             </div>
                         </div>

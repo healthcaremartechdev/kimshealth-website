@@ -15,7 +15,7 @@ const TestimonialSection = ({ dataSet }) => {
     }, []);
 
 
-    if (!dataSet.data || dataSet.data.length < 1 || dataSet.sectionTitle==null) {
+    if (!dataSet.data || dataSet.data.length < 1 || dataSet.sectionTitle == null) {
         return;
     }
 
@@ -60,13 +60,18 @@ const TestimonialSection = ({ dataSet }) => {
                                         <div className="col-md-9 my-auto">
                                             <div className="testi-rightbox">
                                                 <h3>{t.title}</h3>
-                                                <p>{`${t.shortDetails.slice(0, 80)}...`}
+                                                <p>{t.shortDetails && (
+                                                    t.shortDetails.length > 80
+                                                        ? `${t.shortDetails.slice(0, 80)}...`
+                                                        : t.shortDetails
+                                                )}
+
                                                     <a href={dataSet.baseUrl + "/testimonial/" + t.slug}>{staticTexts['Watch Video']}</a></p>
 
 
                                                 <div className="d-flex align-items-center justify-content-between mt-3">
                                                     <div className="doctor-name">
-                                                        {t.doctor?.name && <p><span><img src="/img/doctor.png" className="img-fluid" alt="" /></span> {`${t.doctor?.salutation?t.doctor?.salutation+" ":""}${t.doctor?.name}`} </p>}
+                                                        {t.doctor?.name && <p><span><img src="/img/doctor.png" className="img-fluid" alt="" /></span> {`${t.doctor?.salutation ? t.doctor?.salutation + " " : ""}${t.doctor?.name}`} </p>}
                                                     </div>
                                                     <div className="doctor-catagory">
                                                         <p>{t.specialities[0]?.title}</p>
@@ -112,12 +117,17 @@ const TestimonialSection = ({ dataSet }) => {
                                     </div>
                                     <div className="testi-rightbox card-content">
                                         <h3>{t.title}</h3>
-                                        <p>{`${t.shortDetails?.slice(0, 80)}...`}</p>
+                                        <p>{t.shortDetails && (
+                                            t.shortDetails.length > 80
+                                                ? `${t.shortDetails.slice(0, 80)}...`
+                                                : t.shortDetails
+                                        )}
+                                        </p>
 
 
                                         <div className="d-block mt-lg-3 mt-2">
                                             <div className="doctor-name mb-1">
-                                                {t.doctor?.name && <p>{`${t.doctor?.salutation?t.doctor?.salutation+" ":""}${t.doctor?.name}`}</p>}
+                                                {t.doctor?.name && <p>{`${t.doctor?.salutation ? t.doctor?.salutation + " " : ""}${t.doctor?.name}`}</p>}
                                             </div>
                                             <div className="doctor-catagory">
                                                 <p>{t.specialities[0]?.title}</p>

@@ -135,8 +135,8 @@ const InternationalPage = async () => {
                                                     <div className="rounded-field-form mb-3">
                                                         <FormInternational />
                                                     </div>
-                                                    <a href={basePath + "/plan-your-visit"} class="form-btn w-auto px-5 me-3 reverse-btn">Plan Your Visit</a>
-                                                    <a href={basePath + "/get-an-estimate"} class="form-btn w-auto px-5 reverse-btn">Get An Estimate</a>
+                                                    <a href={basePath + "/plan-your-visit"} className="form-btn w-auto px-5 me-3 reverse-btn">Plan Your Visit</a>
+                                                    <a href={basePath + "/get-an-estimate"} className="form-btn w-auto px-5 reverse-btn">Get An Estimate</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -191,8 +191,8 @@ const InternationalPage = async () => {
                                                 <div className="rounded-field-form mb-3">
                                                     <FormInternational />
                                                 </div>
-                                                    <a href={basePath + "/plan-your-visit"} class="form-btn w-auto px-3 me-3 reverse-btn d-inline-block">Plan Your Visit</a>
-                                                    <a href={basePath + "/get-an-estimate"} class="form-btn w-auto px-3 reverse-btn d-inline-block">Get An Estimate</a>
+                                                    <a href={basePath + "/plan-your-visit"} className="form-btn w-auto px-3 me-3 reverse-btn d-inline-block">Plan Your Visit</a>
+                                                    <a href={basePath + "/get-an-estimate"} className="form-btn w-auto px-3 reverse-btn d-inline-block">Get An Estimate</a>
                                             </div>
                                         </div>
                                     </div>

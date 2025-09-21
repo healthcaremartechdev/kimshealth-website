@@ -27,7 +27,7 @@ import getMetadata from "./lib/getMetaData";
 // }
 
 export default async function RootLayout({ children }) {
-  let metaData = await getMetadata();
+  let meta = await getMetadata();
 
 
   return (
@@ -35,10 +35,10 @@ export default async function RootLayout({ children }) {
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{metaData?.metaTitle || "KIMSHEALTH"}</title>
-        <meta name="description" content={metaData?.metaDescription || "KIMSHEALTH"}/>
-        <meta name="keywords" content={metaData?.metaKeyword || "KIMSHEALTH"}/>
-        {metaData?.extraHeaderCode &&<>{parse(metaData?.extraHeaderCode)}</>}
+        <title>{meta.metaData?.metaTitle || meta.metaDefaultData?.metaTitle }</title>
+        <meta name="description" content={meta.metaData?.metaDescription || meta.metaDefaultData?.metaTitle }/>
+        <meta name="keywords" content={meta.metaData?.metaKeyword || meta.metaDefaultData?.metaTitle }/>
+        {meta.metaData?.extraHeaderCode &&<>{parse(meta.metaData?.extraHeaderCode)}</>}
         <link rel="icon" href="/img/favicon.ico" sizes="any" />
         {/* <!-- bootstrap cdn --> */}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
@@ -79,6 +79,8 @@ export default async function RootLayout({ children }) {
         <Script src="/js/multislider.min.js" strategy="afterInteractive"></Script>
         <Script src="/js/custom.js" strategy="afterInteractive"></Script>
         <Script src="/js/script.js" strategy="afterInteractive"></Script>
+
+        {meta.analyticsCode &&<>{parse(meta.analyticsCode)}</>}
       </head>
 
       <body>

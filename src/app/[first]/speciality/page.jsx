@@ -7,6 +7,7 @@ import getSpecialityData from '@/app/lib/getSpeciality';
 import getStaticText from '@/app/lib/getStaticTextServer';
 import Breadcrumb from '@/components/Breadcrumb';
 import getCurrentLangLoc from '@/app/lib/getCurrentLangLoc';
+import Popup from '@/components/Popup';
 
 
 const Speciality = async ({ searchParams }) => {
@@ -75,8 +76,18 @@ const Speciality = async ({ searchParams }) => {
                                             allSpecility?.map((os, index) => {
                                                 return <div className="col-md-6" key={index}>
                                                     <div className="speciality-masterpage-card-content">
-                                                        <a href={`${baseURL}/speciality/${os.speciality?.slug}${URLParams.hospital ? `?hospital=${URLParams.hospital}` : ""}`}
->
+                                                        <a
+                                                            {...(os?.manageAppearance?.viewingMode === "Popup"
+                                                                ? {
+                                                                    href: "#",
+                                                                    "data-bs-toggle": "modal",
+                                                                    "data-bs-target": `#popupModalSubSpeciality-${os?.speciality?.slug}`,
+                                                                }
+                                                                : {
+                                                                    href: `${baseURL}/speciality/${os?.speciality?.slug}${URLParams.hospital ? `?hospital=${URLParams.hospital}` : ""
+                                                                        }`,
+                                                                })}
+                                                        >
                                                             <span><img src={os.speciality?.iconImage?.url ? process.env.NEXT_PUBLIC_IMAGE_URL + os.speciality?.iconImage.url : "/img/no-image.jpg"} alt={os?.title} className="img-fluid" /></span> {os.title}
                                                         </a>
                                                     </div>
@@ -142,6 +153,15 @@ const Speciality = async ({ searchParams }) => {
                 </section>
             </div>
             <Footer />
+
+            {allSpecility?.map((subS, index) => (
+                <Popup
+                    key={index}
+                    modalId={`popupModalSubSpeciality-${subS.speciality?.slug}`}
+                    title={subS.title}
+                    content={subS.overviewSection?.details}
+                />
+            ))}
         </>
     )
 }

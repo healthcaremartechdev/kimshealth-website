@@ -28,7 +28,7 @@ const doctorTalkData = {
         return res.data;
     },
 
-    getSingleDoctor: async ({slug, langLoc}) => {
+    getSingleDoctor: async ({ slug, langLoc }) => {
         let url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-talks/?filters[slug][$eq]=${slug}&populate=*`;
         const req = await fetch(url);
         const res = await req.json();
@@ -38,7 +38,7 @@ const doctorTalkData = {
     },
 
     getByDoctor: async ({ id, langLoc }) => {
-        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-talks?populate=*&filters[doctor][id][$eq]=${id}&pagination[limit]=3&filters[locations][id][$eq]=${langLoc.loc.id}&sort=manageAppearance.orderInMasterList:asc,title:asc`;
+        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-talks?populate=*&filters[doctor][id][$eq]=${id}&pagination[limit]=3&filters[locations][id][$eq]=${langLoc.loc.id}&sort=date:desc,manageAppearance.orderInMasterList:asc,title:asc`;
         const req = await fetch(url);
         const res = await req.json();
 
@@ -46,7 +46,7 @@ const doctorTalkData = {
     },
 
     getBySpeciality: async ({ id, langLoc }) => {
-        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-talks?populate=*&filters[specialities][id][$eq]=${id}&pagination[start]=0&pagination[limit]=3&filters[locations][id][$eq]=${langLoc.loc.id}&sort=manageAppearance.orderInMasterList:asc,title:asc`;
+        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-talks?populate=*&filters[specialities][id][$eq]=${id}&pagination[start]=0&pagination[limit]=3&filters[locations][id][$eq]=${langLoc.loc.id}&sort=date:desc,manageAppearance.orderInMasterList:asc,title:asc`;
         const req = await fetch(url);
         const res = await req.json();
 
@@ -54,20 +54,23 @@ const doctorTalkData = {
     },
 
     getBySpecialityWithDefault: async ({ id, langLoc }) => {
-        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-talks?populate=*&filters[specialities][id][$eq]=${id}&pagination[start]=0&pagination[limit]=3&filters[locations][id][$eq]=${langLoc.loc.id}&sort=manageAppearance.orderInMasterList:asc,title:asc`;
+        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-talks?populate=*&filters[specialities][id][$eq]=${id}&pagination[start]=0&pagination[limit]=3&filters[locations][id][$eq]=${langLoc.loc.id}&sort=date:desc,manageAppearance.orderInMasterList:asc,title:asc`;
         const req = await fetch(url);
         const res = await req.json();
 
 
-        if(res.data.length===0)
-        {
-            const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-talks?populate=*&pagination[start]=0&pagination[limit]=25&sort=manageAppearance.orderInFeaturedList:asc,title:asc`;
+        if (res.data.length === 0) {
+            const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-talks?populate=*&pagination[start]=0&pagination[limit]=25&sort=date:desc,manageAppearance.orderInFeaturedList:asc,title:asc`;
 
             const req = await fetch(url);
             const res = await req.json();
 
 
-            const shuffled = res.data.sort(() => 0.5 - Math.random());
+            // const shuffled = res.data.sort(() => 0.5 - Math.random());
+            // const randomThree = shuffled.slice(0, 3);
+
+
+            const shuffled = res.data;
             const randomThree = shuffled.slice(0, 3);
 
 
@@ -78,7 +81,7 @@ const doctorTalkData = {
     },
 
     getByProcedure: async ({ id, langLoc }) => {
-        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-talks?populate=*&filters[procedures][id][$eq]=${id}&pagination[start]=0&pagination[limit]=3&sort=manageAppearance.orderInMasterList:asc,title:asc`;
+        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-talks?populate=*&filters[procedures][id][$eq]=${id}&pagination[start]=0&pagination[limit]=3&sort=date:desc,manageAppearance.orderInMasterList:asc,title:asc`;
         const req = await fetch(url);
         const res = await req.json();
 
@@ -86,7 +89,7 @@ const doctorTalkData = {
     },
 
     getByDisease: async ({ id, langLoc }) => {
-        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-talks?populate=*&filters[diseases][id][$eq]=${id}&pagination[start]=0&pagination[limit]=3&sort=manageAppearance.orderInMasterList:asc,title:asc`;
+        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-talks?populate=*&filters[diseases][id][$eq]=${id}&pagination[start]=0&pagination[limit]=3&sort=date:desc,manageAppearance.orderInMasterList:asc,title:asc`;
         const req = await fetch(url);
         const res = await req.json();
 
@@ -94,13 +97,17 @@ const doctorTalkData = {
     },
 
     getFeaturedAll: async ({ langLoc }) => {
-        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-talks?populate=*&pagination[start]=0&pagination[limit]=25&filters[locations][id][$eq]=${langLoc.loc.id}&sort=manageAppearance.orderInFeaturedList:asc,title:asc`;
+        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-talks?populate=*&pagination[start]=0&pagination[limit]=25&filters[locations][id][$eq]=${langLoc.loc.id}&sort=date:desc,manageAppearance.orderInFeaturedList:asc,title:asc`;
 
         const req = await fetch(url);
         const res = await req.json();
 
 
-        const shuffled = res.data.sort(() => 0.5 - Math.random());
+        // const shuffled = res.data.sort(() => 0.5 - Math.random());
+        // const randomThree = shuffled.slice(0, 3);
+
+
+        const shuffled = res.data;
         const randomThree = shuffled.slice(0, 3);
 
         return randomThree;

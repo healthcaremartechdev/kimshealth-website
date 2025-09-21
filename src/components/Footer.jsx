@@ -390,7 +390,7 @@ const Footer = () => {
                                     {staticPageChecker['international-patient'] && (
                                         <li>
                                             <a href={basePathOnlyLang + "/international-patient"}>
-                                                {staticTexts['International Care']}
+                                                {staticTexts['International Patients']}
                                             </a>
                                         </li>
                                     )}

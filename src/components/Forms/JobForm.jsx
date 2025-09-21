@@ -11,7 +11,7 @@ const JobForm = ({ title, jobTitle }) => {
   const [basePath, setBasePath] = useState();
   const [staticTexts, setStaticTexts] = useState({});
   const [formData, setFormData] = useState({
-    subject: jobTitle, name: "", number: '',
+    subject: jobTitle, name: "", number: '', emailID: '', age: '', nationality: '',
     attachment: "", filename: ''
   });
   const [loading, setLoading] = useState(false);
@@ -47,6 +47,9 @@ const JobForm = ({ title, jobTitle }) => {
                         <li><strong> Subject: </strong> ${formData.subject}</li>
                         <li><strong> Name: </strong> ${formData.name}</li>
                         <li><strong> Mobile Number: </strong> ${formData.number}</li>
+                        <li><strong> Email: </strong> ${formData.emailID}</li>
+                        <li><strong> Age: </strong> ${formData.age}</li>
+                        <li><strong> Nationality: </strong> ${formData.nationality}</li>
                         <li><strong> Page URL: </strong> ${document.location.href}</li>
                     </ul>
                 `;
@@ -88,7 +91,7 @@ const JobForm = ({ title, jobTitle }) => {
 
       // Remove data
       setFormData({
-        ...formData, name: "", number: '', attachment: "", filename: ""
+        ...formData, name: "", number: '', emailID: '', age: '', nationality: '', attachment: "", filename: ""
       });
       setLoading(false);
       return;
@@ -163,6 +166,27 @@ const JobForm = ({ title, jobTitle }) => {
             placeholder={staticTexts['Enter 10 Digit Mobile Number']}
             onChange={(e) => setFormData({ ...formData, number: e.target.value })}
             value={formData.number}
+          />
+        </div>
+        <div className="col-md-12 mb-3">
+          <input type="text" className="form-control"
+            placeholder={staticTexts['Enter Your Email']}
+            onChange={(e) => setFormData({ ...formData, emailID: e.target.value })}
+            value={formData.emailID}
+          />
+        </div>
+        <div className="col-md-12 mb-3">
+          <input type="number" className="form-control"
+            placeholder={staticTexts['Age']}
+            onChange={(e) => setFormData({ ...formData, age: e.target.value })}
+            value={formData.age}
+          />
+        </div>
+        <div className="col-md-12 mb-3">
+          <input type="text" className="form-control"
+            placeholder={staticTexts['Nationality']}
+            onChange={(e) => setFormData({ ...formData, nationality: e.target.value })}
+            value={formData.nationality}
           />
         </div>
         <div className="col-xl-12 col-lg-12 col-md-12 col-12 mb-3">

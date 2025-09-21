@@ -5491,6 +5491,10 @@ li.chat-ic::before {
     min-height: 405px;
 }
 
+.about-us-main-page .expert-section .card.promoter-card {
+    min-height: 340px;
+}
+
 .sticky-from {
     position: sticky;
     top: 140px;

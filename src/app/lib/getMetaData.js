@@ -17,6 +17,7 @@ import mediaCoverData from "./getMediaCoverage";
 import procedureData from "./getProcedure";
 import getSpecialityData from "./getSpeciality";
 import testimonialData from "./getTestimonial";
+import locationData from "./getLocationData";
 
 
 
@@ -132,12 +133,25 @@ const getMetadata = async () => {
         });
         metaData = data?.metaSection;
     }
+    else if (parts[lastIndex]===langLoc.loc.slug) {
+        const data = await locationData.getSingleLocation({
+            slug: parts[lastIndex]
+        });
+        metaData = data?.metaSection;
+    }
     else {
         const data = await getStaticPageContent(parts[lastIndex], "", true, true, true);
         metaData = data?.data[0]?.metaSection;
     }
 
-    return metaData;
+    
+    const data = await locationData.getSingleLocation({
+        slug: langLoc.loc.slug
+    });
+    const metaDefaultData = data?.metaSection;
+    const analyticsCode = data?.analyticsCode;
+
+    return { metaData, metaDefaultData, analyticsCode };
 
 }
 

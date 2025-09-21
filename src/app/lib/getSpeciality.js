@@ -278,7 +278,7 @@ const getSpecialityData = {
         // Actual Data
         for (let i = 0; i < pages; i++) {
             const start = i * limit;
-            const url = `${baseUrl}/specialty-details?populate[0]=speciality&populate[1]=manageAppearance&populate[2]=speciality.iconImage&populate[3]=speciality.featuredImage&filters[manageAppearance][showingHeader][$eq]=true&pagination[start]=${start}&pagination[limit]=${limit}&filters[locations][id][$eq]=${LangLoc.loc.id}&filters[speciality][specialities][$null]=true&sort=manageAppearance.orderInMasterList:asc,title:asc`;
+            const url = `${baseUrl}/specialty-details?populate[0]=speciality&populate[1]=manageAppearance&populate[2]=speciality.iconImage&populate[3]=speciality.featuredImage&populate[4]=overviewSection&filters[manageAppearance][showingHeader][$eq]=true&pagination[start]=${start}&pagination[limit]=${limit}&filters[locations][id][$eq]=${LangLoc.loc.id}&filters[speciality][specialities][$null]=true&sort=manageAppearance.orderInMasterList:asc,title:asc`;
             const res = await fetch(url);
             const json = await res.json();
             data = [...data, ...json.data];
@@ -305,12 +305,12 @@ const getSpecialityData = {
         // Actual Data
         for (let i = 0; i < pages; i++) {
             const start = i * limit;
-            const url = `${baseUrl}/specialty-details?populate[0]=speciality&populate[1]=manageAppearance&populate[2]=speciality.iconImage&populate[3]=speciality.featuredImage&pagination[start]=${start}&pagination[limit]=${limit}&filters[locations][id][$eq]=${LangLoc.loc.id}&filters[speciality][hospitals][slug][$eq]=${hospital}${subSpecFilter}&filters[manageAppearance][showingHeader][$eq]=true&sort=manageAppearance.orderInMasterList:asc,title:asc`;
+            const url = `${baseUrl}/specialty-details?populate[0]=speciality&populate[1]=manageAppearance&populate[2]=speciality.iconImage&populate[3]=speciality.featuredImage&populate[4]=overviewSection&pagination[start]=${start}&pagination[limit]=${limit}&filters[locations][id][$eq]=${LangLoc.loc.id}&filters[speciality][hospitals][slug][$eq]=${hospital}${subSpecFilter}&filters[manageAppearance][showingHeader][$eq]=true&sort=manageAppearance.orderInMasterList:asc,title:asc`;
             const res = await fetch(url);
             const json = await res.json();
             data = [...data, ...json.data];
 
-            //console.log(url)
+            console.log(url)
         }
 
         //console.log(initialRes)

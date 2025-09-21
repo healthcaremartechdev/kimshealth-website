@@ -238,17 +238,16 @@ const AboutUs = async () => {
                                         allLeaderPromoters.map((l, i) => {
                                             return <div className="col-md-3 col-6 mb-4" key={i}>
                                                 <div className="expert-card" data-aos="fade-right">
-                                                    <div className="card border-0 p-lg-4 p-0">
+                                                    <div className="card promoter-card border-0 p-lg-4 p-0">
                                                         <div className="card-top">
                                                             <a href="#">
                                                                 <img src={l.image ? process.env.NEXT_PUBLIC_IMAGE_URL + l.image.url : "/img/no-image.jpg"}
                                                                     className="img-fluid w-100" alt={l.name} />
                                                             </a>
                                                         </div>
-                                                        <div className="card-content leader-card-content">
+                                                        <div className="card-content ">
                                                             <h4>{l.name}</h4>
                                                             {/* <p className='no-clamp'>{l.designation}</p> */}
-                                                            <p>{staticText['Promoters']}</p>
                                                         </div>
                                                     </div>
                                                 </div>

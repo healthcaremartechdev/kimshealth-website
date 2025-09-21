@@ -9,6 +9,7 @@ import jobData from '@/app/lib/getJob';
 import formatDate from '@/app/lib/formatDate';
 import { marked } from 'marked';
 import { getBaseUrl } from '@/app/lib/getBaseUrl';
+import JobForm from '@/components/Forms/JobForm';
 
 const Carrer = async () => {
     const getLangLoc = await getCurrentLangLoc()
@@ -45,54 +46,30 @@ const Carrer = async () => {
                         </div>
                     </section>
 
+                    
                     <section className="section">
                         <div className="container">
-                            {/* <div className="row">
-                                <div className="col-md-4">
-                                    <div className="rounded-field-form mb-3">
-                                        <form action="">
-                                            <div className="row">
-                                                <div className="col-12">
-                                                    <div className="input-group">
-                                                        <span className="input-group-text"><i
-                                                            className="fa-solid fa-chevron-down"></i></span>
-                                                        <select className="form-select" aria-label="Default select example">
-                                                            <option value={''}>Select Hospital</option>
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
-                                                        </select>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
+                            <div className="row">
+                                <div className="col-md-6 sub-heading order-lg-2 order-1 mb-lg-0 mb-3">
+                                    <div className="main-heading">
+                                        <h2 className="mb-lg-1">Make a life with KIMSHEALTH</h2>
+                                    </div>
+                                    <div className='main-heading sub-heading main-list'>
+                                        “ We make it our mission to find people who make a difference in everyday life. At KIMSHEALTH, we offer wide possibilities for innovative and talented employees to enjoy their career and pave their path with personal growth and success. Kindly fill the below form to add your CV to our extensive database. Good luck! ”
+                                    </div>
+                                </div>
+                                <div className="col-md-6 sub-heading order-lg-2 order-1 mb-lg-0 mb-3">
+                                    <div className="association-form-card mb-0"  id="bookNowForm" >
+                                        <JobForm title={"Apply Now"} jobTitle={"Work with us"}/>
                                     </div>
                                 </div>
 
+                            </div>
+                        </div>
+                    </section>
 
-                                <div className="col-md-4">
-                                    <div className="rounded-field-form mb-3">
-                                        <form action="">
-                                            <div className="row">
-                                                <div className="col-12">
-                                                    <div className="input-group">
-                                                        <span className="input-group-text"><i
-                                                            className="fa-solid fa-chevron-down"></i></span>
-                                                        <select className="form-select" aria-label="Default select example">
-                                                            <option value={""}>Select Departments</option>
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
-                                                        </select>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div> */}
+                    <section className="section">
+                        <div className="container">
 
                             <div className="row">
                                 {

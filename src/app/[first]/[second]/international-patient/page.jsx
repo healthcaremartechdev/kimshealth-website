@@ -43,8 +43,8 @@ const InternationalPage = async () => {
 
     const testimonialDataSet = {
         sectionTitle: pageContent[11]?.title,
-        buttonText: 'View All', buttonURL: `${basePath + "/testimonial"}`,
-        data: await testimonialData.getFeaturedAll({ langLoc: getLangLoc }),
+        buttonText: 'View All', buttonURL: `${basePath + "/testimonial?location=ip"}`,
+        data: await testimonialData.getInternationalAll({ langLoc: getLangLoc }),
         baseUrl: basePath
     }
 
@@ -62,7 +62,6 @@ const InternationalPage = async () => {
         baseUrl: basePath
     }
 
-    console.log(pageContent)
 
     return (
         <>
@@ -136,6 +135,8 @@ const InternationalPage = async () => {
                                                     <div className="rounded-field-form mb-3">
                                                         <FormInternational />
                                                     </div>
+                                                    <a href={basePath + "/plan-your-visit"} className="form-btn w-auto px-5 me-3 reverse-btn">Plan Your Visit</a>
+                                                    <a href={basePath + "/get-an-estimate"} className="form-btn w-auto px-5 reverse-btn">Get An Estimate</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -188,27 +189,10 @@ const InternationalPage = async () => {
                                                 <h3>{pageContent[0].title}</h3>
                                                 <p>{pageContent[0].subTitle}</p>
                                                 <div className="rounded-field-form mb-3">
-                                                    <form action="">
-                                                        <div className="row">
-                                                            <div className="col-md-6 col-12 mb-3">
-                                                                <div className="input-group">
-                                                                    <input type="text" className="form-control"
-                                                                        placeholder="Enter Your Name" name="search" />
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-md-6 col-12 mb-3">
-                                                                <div className="input-group">
-                                                                    <input type="text" id="phone" defaultValue="+91"
-                                                                        className="form-control" placeholder="Enter Mobile Number"
-                                                                        name="search" />
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-md-6 col-12 mb-3">
-                                                                <button className="form-btn w-auto px-5">Submit</button>
-                                                            </div>
-                                                        </div>
-                                                    </form>
+                                                    <FormInternational />
                                                 </div>
+                                                    <a href={basePath + "/plan-your-visit"} className="form-btn w-auto px-3 me-3 reverse-btn d-inline-block">Plan Your Visit</a>
+                                                    <a href={basePath + "/get-an-estimate"} className="form-btn w-auto px-3 reverse-btn d-inline-block">Get An Estimate</a>
                                             </div>
                                         </div>
                                     </div>

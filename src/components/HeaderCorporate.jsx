@@ -12,6 +12,7 @@ import getCurrentLangLocClient from '@/helper/getCurrentLangLocClient';
 import InternationalMenu from './InternationalMenu';
 import SearchBox from './Forms/SearchBox';
 import getStaticPage from '@/helper/staticPage';
+import Popup from './Popup';
 
 
 
@@ -151,7 +152,7 @@ const HeaderCorporate = ({ hospital }) => {
           <div className="container d-flex align-items-center justify-content-between">
             <div className="navbar-logo py-2 ">
               <a href={activeLogoUrl}>
-                <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${locationData?.logo?.url}`} alt="KIMSHEALTH" className="img-fluid" />
+                <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${locationData?.logo?.url}`} alt={locationData?.logo?.url ? "KIMSHEALTH" : ""} className="img-fluid" />
               </a>
             </div>
             <div className="header-contact d-flex align-items-center justify-content-center position-relative">
@@ -227,7 +228,7 @@ const HeaderCorporate = ({ hospital }) => {
             <nav className="header-menu-container justify-content-lg-end">
               <div className="navbar-brand">
                 <a href={activeLogoUrl} className="text-decoration-none">
-                  <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${locationData?.logo?.url}`} height="55" className="img-fluid" alt='KIMSHEALTH' />
+                  <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${locationData?.logo?.url}`} height="55" className="img-fluid" alt={locationData?.logo?.url ? "KIMSHEALTH" : ""} />
                 </a>
               </div>
               <div className="mobile_primary" id="primary-nav">
@@ -246,7 +247,18 @@ const HeaderCorporate = ({ hospital }) => {
                               const colIndex = Math.floor(i / perColumn);
                               columns[colIndex].push(
                                 <li key={i}>
-                                  <a href={`${basePath}/speciality/${s?.speciality?.slug}${hospital ? '?hospital=' + hospital : ''}`}>
+                                  <a
+                                    {...(s?.manageAppearance?.viewingMode === "Popup"
+                                      ? {
+                                        href: "#",
+                                        "data-bs-toggle": "modal",
+                                        "data-bs-target": `#popupModalSubSpeciality-head-${s?.speciality?.slug}`,
+                                      }
+                                      : {
+                                        href: `${basePath}/speciality/${s?.speciality?.slug}${hospital ? "?hospital=" + hospital : ""
+                                          }`,
+                                      })}
+                                  >
                                     <span>
                                       <img src={s.speciality?.iconImage?.url ? process.env.NEXT_PUBLIC_IMAGE_URL + s.speciality?.iconImage.url : "/img/no-image.jpg"} alt={s?.title} className="img-fluid" />
                                     </span>
@@ -424,28 +436,14 @@ const HeaderCorporate = ({ hospital }) => {
                   <li><a href={`${basePathOnlyLang}/international-patient`} className="anchor-menu">
                     {staticTexts['International Patients']}</a></li>
 
-                  <li className="menu-item-has-children show-submenu quicklink-header">
-                    <a href="#" className="anchor-menu">{staticTexts['About Us']}</a>
-                    <div className="sub-menu">
-                      <div className="row">
-                        <div className="col-lg-4">
-                          <div className="sub-menu-details">
-                            <ul>
-                              <li>
-                                <a href={`${basePath}/about-us${hospital ? '?hospital=' + hospital : ''}`}>{staticTexts['Overview']}</a>
-                              </li>
-                              <li>
-                                <a href={basePath + "/leadership"}>{staticTexts['Leadership']}</a>
-                              </li>
-                              <li>
-                                <a href={basePath + "/milestone"}>{staticTexts['Milestones']}</a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
+
+                  {staticPageChecker['about-us'] && (
+                    <li className="quicklink-header">
+                      <a href={`${basePath}/about-us${hospital ? '?hospital=' + hospital : ''}`} className="anchor-menu">
+                        {staticTexts['About Us']}
+                      </a>
+                    </li>
+                  )}
                   {staticPageChecker['career'] && (
                     <li className="quicklink-header">
                       <a href={basePath + "/career"} className="anchor-menu">
@@ -670,7 +668,7 @@ const HeaderCorporate = ({ hospital }) => {
                       </a>
                     </li>
                   )}
-                  
+
                   {staticPageChecker['medical-representatives-appointments'] && (
                     <li className="quicklink-header">
                       <a href={"https://medrep.kimshealth.org/"} target='_blank'>
@@ -718,6 +716,13 @@ const HeaderCorporate = ({ hospital }) => {
                                 <li>
                                   <a href={basePath + "/travel-clinic"}>
                                     {staticTexts['Travel Clinic']}
+                                  </a>
+                                </li>
+                              )}
+                              {staticPageChecker['organ-transplant-compliance'] && (
+                                <li>
+                                  <a href={basePath + "/organ-transplant-compliance"}>
+                                    {staticTexts['Organ Transplant Compliance']}
                                   </a>
                                 </li>
                               )}
@@ -825,18 +830,18 @@ const HeaderCorporate = ({ hospital }) => {
                     <ul className="sub-menu-details">
                       <li
                         className={`has-dropdown ${!staticPageChecker['kisa-kimshealth-institute-of-skill-acquisition'] &&
-                            !staticPageChecker['internal-medicine-training-imt'] &&
-                            !staticPageChecker['internal-medicine-foundation-programme'] &&
-                            !staticPageChecker['excel-paces'] &&
-                            !staticPageChecker['emergency-medicine-program'] &&
-                            !staticPageChecker['american-heart-association'] &&
-                            !staticPageChecker['doctoral-courses'] &&
-                            !staticPageChecker['socomer'] &&
-                            !staticPageChecker['nursing-recruitment'] &&
-                            !staticPageChecker['paramedical-courses'] &&
-                            !staticPageChecker['kimshealth-clinical-skills-and-simulation-centre']
-                            ? 'd-none-menu'
-                            : ''
+                          !staticPageChecker['internal-medicine-training-imt'] &&
+                          !staticPageChecker['internal-medicine-foundation-programme'] &&
+                          !staticPageChecker['excel-paces'] &&
+                          !staticPageChecker['emergency-medicine-program'] &&
+                          !staticPageChecker['american-heart-association'] &&
+                          !staticPageChecker['doctoral-courses'] &&
+                          !staticPageChecker['socomer'] &&
+                          !staticPageChecker['nursing-recruitment'] &&
+                          !staticPageChecker['paramedical-courses'] &&
+                          !staticPageChecker['kimshealth-clinical-skills-and-simulation-centre']
+                          ? 'd-none-menu'
+                          : ''
                           }`}
                       >
                         <a href="#" className="menu-item">{staticTexts['Academics']}<i className="fa-solid fa-angle-down"></i></a>
@@ -891,7 +896,7 @@ const HeaderCorporate = ({ hospital }) => {
                       {staticPageChecker['corporate'] && (
                         <li> <a href={basePath + "/corporate"} className="menu-item">{staticTexts['Corporate']}</a> </li>
                       )}
-                      <li className={`has-dropdown ${!staticPageChecker['csr-policy'] && !staticPageChecker['csr-initiative'] ? 'd-none-menu' : ''}`}> 
+                      <li className={`has-dropdown ${!staticPageChecker['csr-policy'] && !staticPageChecker['csr-initiative'] ? 'd-none-menu' : ''}`}>
                         <a href="#" className="menu-item">{staticTexts['CSR']}<i className="fa-solid fa-angle-down"></i></a>
                         <ul className="submenu">
                           {staticPageChecker['csr-policy'] && (
@@ -924,6 +929,14 @@ const HeaderCorporate = ({ hospital }) => {
                       {staticPageChecker['medical-representatives-appointments'] &&
                         <li> <a href={"https://medrep.kimshealth.org/"} target='_blank' className="menu-item ">{staticTexts['Medical Representatives - Appointments']}</a> </li>
                       }
+
+                      {staticPageChecker['organ-transplant-compliance'] && (
+                        <li>
+                          <a href={basePath + "/organ-transplant-compliance"}  className="menu-item ">
+                            {staticTexts['Organ Transplant Compliance']}
+                          </a>
+                        </li>
+                      )}
 
                       {staticPageChecker['knee-implant-list'] && (
                         <li> <a href={basePath + "/knee-implant-list"} className="menu-item "> {staticTexts['Knee Implant List']} </a> </li>
@@ -1033,6 +1046,15 @@ const HeaderCorporate = ({ hospital }) => {
           </div>
         </div>
       </header>
+
+      {speciality?.map((subS, index) => (
+        <Popup
+          key={index}
+          modalId={`popupModalSubSpeciality-head-${subS.speciality?.slug}`}
+          title={subS.title}
+          content={subS.overviewSection?.details}
+        />
+      ))}
     </>
   )
 }

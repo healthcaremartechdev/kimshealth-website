@@ -1,6 +1,7 @@
 "use client"
 import getStaticText from '@/helper/getStaticText';
 import React, { useEffect, useState } from 'react'
+import Popup from './Popup';
 
 const ExcellenceCarousel = ({ dataSet }) => {
     const [staticTexts, setStaticTexts] = useState({});
@@ -42,12 +43,21 @@ const ExcellenceCarousel = ({ dataSet }) => {
                             dataSet.data.map((e, index) => {
                                 return <div className="item" key={index}>
                                     <div className="card border-0">
-                                        <a href={
-                                            dataSet.baseUrl +
-                                            "/speciality/" +
-                                            e.speciality?.slug +
-                                            (dataSet.hospital_slug ? `?hospital=${dataSet.hospital_slug}` : "")
-                                        }>
+                                        <a
+                                            {...(e?.manageAppearance?.viewingMode === "Popup"
+                                                ? {
+                                                    href: "#",
+                                                    "data-bs-toggle": "modal",
+                                                    "data-bs-target": `#popupModalSubSpeciality-slide-${e?.speciality?.slug}`,
+                                                }
+                                                : {
+                                                    href:
+                                                        dataSet.baseUrl +
+                                                        "/speciality/" +
+                                                        e.speciality?.slug +
+                                                        (dataSet.hospital_slug ? `?hospital=${dataSet.hospital_slug}` : ""),
+                                                })}
+                                        >
                                             <div className="card-top">
                                                 <img src={e.speciality?.featuredImage?.url ? `${process.env.NEXT_PUBLIC_IMAGE_URL}${e.speciality?.featuredImage?.url}` : '/img/no-image.jpg'}
                                                     className="img-fluid w-100" alt={e.title} />
@@ -70,6 +80,15 @@ const ExcellenceCarousel = ({ dataSet }) => {
                     </div>
                 </div>
             </section>
+
+            {dataSet.data?.map((subS, index) => (
+                <Popup
+                    key={index}
+                    modalId={`popupModalSubSpeciality-slide-${subS.speciality?.slug}`}
+                    title={subS.title}
+                    content={subS.overviewSection?.details}
+                />
+            ))}
         </>
     )
 }

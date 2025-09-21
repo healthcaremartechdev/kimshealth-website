@@ -89,7 +89,7 @@ $('.homepage-slider').owlCarousel({
         },
         1000: {
             items: 1,
-            nav: true
+            nav: false
         }
     }
 })
@@ -435,6 +435,29 @@ $('.hospital-details-slider').owlCarousel({
     loop: true,
     margin: 10,
     nav: true,
+    dots: false,
+    navText: ["<img src='/img/left-arrow.svg'>", "<img src='/img/slider-right-arrow.svg'>"],
+    responsive: {
+        0: {
+            items: 1,
+            dots: true,
+            nav: false
+        },
+        600: {
+            items: 1,
+            dots: true,
+            nav: false
+        },
+        1000: {
+            items: 1
+        }
+    }
+})
+
+$('.about-us-slider').owlCarousel({
+    loop: true,
+    margin: 10,
+    nav: false,
     dots: false,
     navText: ["<img src='/img/left-arrow.svg'>", "<img src='/img/slider-right-arrow.svg'>"],
     responsive: {

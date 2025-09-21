@@ -59,14 +59,17 @@ const DoctorTalkDetails = async ({ params }) => {
                                         {/* <img src="/img/doctor-talk-details-banner.jpg" alt="" className="img-fluid" /> */}
                                         {
                                             data.videoSource === "Youtube" ?
-                                                <iframe width="560" height="315" src={`https://www.youtube.com/embed/${data.videoId}?si=uQi_tVy9LN6UaOhE`} title={youtube.items[0].snippet.title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+                                                <iframe width="560" height="315" src={`https://www.youtube.com/embed/${data.videoId}?si=uQi_tVy9LN6UaOhE`} title={data.details} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
 
                                                 : <iframe src={`https://www.facebook.com/plugins/video.php?height=476&amp;href=https://www.facebook.com/watch/?v=${data.videoId}`} width="560" height="315" style={{ border: 'none', overflow: 'hidden' }} scrolling="no" frameBorder="0" allowFullScreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                                         }
                                     </div>
                                     <div className="col-md-5 testi-rightbox my-auto">
                                         <div className="main-heading">
-                                            <h3>{data.videoSource === "Youtube" ? youtube.items[0].statistics?.viewCount + "views," : null} {formatDate(data.date)} </h3>
+                                            <h3>
+                                                {/* {data.videoSource === "Youtube" ? youtube.items[0].statistics?.viewCount + "views," : null}  */}
+                                                {formatDate(data.date)} 
+                                            </h3>
                                             <h3>
                                                 {
                                                     data.videoSource === "Youtube" ? youtube?.items[0]?.snippet?.tags?.map((tag, _) => {
@@ -88,11 +91,12 @@ const DoctorTalkDetails = async ({ params }) => {
                                             </div>
                                             <div className="doctor-catagory">
                                                 <p>
-                                                    {
+                                                    {/* {
                                                         data.specialities?.map((st, _) => (
                                                             st.title + (data.specialities?.length - 1 !== _ ? ", " : '')
                                                         ))
-                                                    }
+                                                    } */}
+                                                    {data.specialities[0]?.title}
                                                 </p>
                                             </div>
                                         </div>
