@@ -131,8 +131,8 @@ export async function POST(req) {
     const mailOptions = {
       from: emailFrom[loc],
       to: recipients.join(","),
-      cc: "mohit@healthcaremartech.com", // CC
-      bcc: "sbhadipchanda@gmail.com", // hidden recipient
+      // cc: "mohit@healthcaremartech.com", // CC
+      // bcc: "sbhadipchanda@gmail.com", // hidden recipient
       subject: !subject ? `${formType}` : `${formType} : ${subject}`,
       html: data,
     };
