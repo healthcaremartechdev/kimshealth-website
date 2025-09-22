@@ -45,7 +45,7 @@ const hospitalData = {
     },
 
     getFooterHospital: async ({langLoc}) => {
-        const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
+        const baseUrl = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL;
         // Get total count
         const initialReq = await fetch(`${baseUrl}/hospitals`);
         const initialRes = await initialReq.json();
@@ -69,7 +69,7 @@ const hospitalData = {
 
 
     getAllHospitalAndMedicalCenter: async () => {
-        const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
+        const baseUrl = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL;
         // Get total count
         const initialReq = await fetch(`${baseUrl}/hospitals`);
         const initialRes = await initialReq.json();
