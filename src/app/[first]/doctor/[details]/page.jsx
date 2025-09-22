@@ -154,7 +154,7 @@ const DoctorDetails = async ({ params }) => {
 
                                             {data.educationAndTraning ? <div className="d-flex align-items-center gap-2 mb-2">
                                                 <img src="/img/mortarboard.png" alt="" className="img-fluid" />
-                                                <h3>{staticText['Education & Tranning']}</h3>
+                                                <h3>{staticText['Education & Training']}</h3>
                                             </div> : null}
                                             <div dangerouslySetInnerHTML={{ __html: data?.educationAndTraning ? marked(data.educationAndTraning) : "" }}></div>
 
