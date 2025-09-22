@@ -198,8 +198,7 @@ const HeaderUnit = ({ hospital }) => {
                   </div>
                 </div>
 
-                <div className="top-drop-down">
-                  {/* Hidden Google Translate container */}
+                {/* <div className="top-drop-down">
                   <div id="google_translate_element" style={{ display: "none" }} />
                   <select className="border-0 " onChange={handleChange}>
                     {
@@ -211,7 +210,7 @@ const HeaderUnit = ({ hospital }) => {
                         })
                     }
                   </select>
-                  {/* <select value={selectedLang?.slug || ""} className="border-0 " onChange={onLangChangeRedirection}>
+                  <select value={selectedLang?.slug || ""} className="border-0 " onChange={onLangChangeRedirection}>
                     {
                       allLanguages.length < 1 ? <option>Loading...</option> :
                         allLanguages.map((l, _) => {
@@ -220,8 +219,8 @@ const HeaderUnit = ({ hospital }) => {
                           </option>
                         })
                     }
-                  </select> */}
-                </div>
+                  </select>
+                </div> */}
               </div>
 
             </div>
