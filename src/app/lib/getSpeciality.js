@@ -222,18 +222,20 @@ const getSpecialityData = {
         const getIdReq = await fetch(process.env.NEXT_PUBLIC_CMS_API_URL + `/specialities?filters[slug][$eq]=${slug}`);
         const getIdRes = await getIdReq.json();
 
-        // if slug not exists
-        if (isMeta && getIdRes.data.length === 0) {
-            return null;
-        }
-        else if (!isMeta && getIdRes.data.length === 0) {
-            return notFound();
-        }
+        
         const id = getIdRes.data[0].id;
 
         // Get speciality data using id;
         const req = await fetch(process.env.NEXT_PUBLIC_CMS_API_URL + `/specialty-details?populate[0]=overviewSection&populate[1]=locations&populate[2]=metaSection&populate[3]=manageAppearance&populate[4]=blogSection&populate[5]=expertSection&populate[6]=testimonialSection&populate[7]=doctorTalk&populate[8]=subSpecialitySection&populate[9]=diseasesAndProceduresSection&populate[10]=speciality&populate[11]=pageBanner&populate[12]=pageBanner.bannerImageDesktop&populate[13]=pageBanner.bannerImageMobile&populate[14]=speciality.featuredImage&populate[15]=speciality.specialities&filters[speciality][$eq]=${id}&filters[locations][id][$eq]=${langLoc.loc.id}`);
         const res = await req.json();
+
+        // if slug not exists
+        if (isMeta && res.data.length === 0) {
+            return null;
+        }
+        else if (!isMeta && res.data.length === 0) {
+            return notFound();
+        }
 
         return res.data[0];
     },
