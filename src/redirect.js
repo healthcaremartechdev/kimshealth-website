@@ -10805,11 +10805,6 @@ const redirect = [
 
 	},
 	{
-		source: "/kollam",
-		destination: "/kollam",
-
-	},
-	{
 		source: "/kollam/about-us",
 		destination: "/kollam/about-us",
 
@@ -11815,11 +11810,6 @@ const redirect = [
 
 	},
 	{
-		source: "/kottayam",
-		destination: "/kottayam",
-
-	},
-	{
 		source: "/kottayam/about-us",
 		destination: "/kottayam/about-us",
 
@@ -12602,11 +12592,6 @@ const redirect = [
 	{
 		source: "/milestones",
 		destination: "",
-
-	},
-	{
-		source: "/nagercoil",
-		destination: "/nagercoil",
 
 	},
 	{
@@ -18455,7 +18440,26 @@ const redirect = [
 	{
 		source: "/trivandrum",
 		destination: "/trivandrum/hospital/kimshealth-trivandrum",
-	}
+	},
+	{
+		source: "/kollam",
+		destination: "/kollam/hospital/kimshealth-kollam",
+	},
+	{
+		source: "/kottayam",
+		destination: "/kottayam/hospital/kimshealth-kottayam",
+
+	},
+	{
+		source: "/perintalmanna",
+		destination: "/perintalmanna/hospital/kimshealth-al-shifa",
+
+	},
+	{
+		source: "/nagercoil",
+		destination: "/nagercoil/hospital/kimshealth-nagercoil",
+
+	},
 ];
 
 export default redirect;
