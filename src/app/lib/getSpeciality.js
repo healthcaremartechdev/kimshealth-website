@@ -242,7 +242,7 @@ const getSpecialityData = {
 
 
     getHeaderSpeciality: async ({ LangLoc }) => {
-        const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
+        const baseUrl = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL;
         // Get total count
         const initialReq = await fetch(`${baseUrl}/specialty-details`);
         const initialRes = await initialReq.json();
@@ -267,7 +267,7 @@ const getSpecialityData = {
 
 
     getHeaderUnitSpeciality: async ({ LangLoc }) => {
-        const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
+        const baseUrl = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL;
         // Get total count
         const initialReq = await fetch(`${baseUrl}/specialty-details`);
         const initialRes = await initialReq.json();
@@ -292,7 +292,7 @@ const getSpecialityData = {
 
 
     getHeaderSpecialityByHospital: async ({ LangLoc,hospital }) => {
-        const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
+        const baseUrl = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL;
         // Get total count
         const initialReq = await fetch(`${baseUrl}/specialty-details`);
         const initialRes = await initialReq.json();
@@ -322,7 +322,7 @@ const getSpecialityData = {
 
 
     getFooterSpeciality: async ({ langLoc }) => {
-        const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
+        const baseUrl = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL;
         // Get total count
         const initialReq = await fetch(`${baseUrl}/specialty-details`);
         const initialRes = await initialReq.json();
@@ -347,7 +347,7 @@ const getSpecialityData = {
 
 
     getFooterSpecialityAlphabetic: async ({ langLoc }) => {
-        const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
+        const baseUrl = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL;
         // Get total count
         const initialReq = await fetch(`${baseUrl}/specialty-details`);
         const initialRes = await initialReq.json();
