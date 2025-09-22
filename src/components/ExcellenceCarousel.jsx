@@ -64,7 +64,7 @@ const ExcellenceCarousel = ({ dataSet }) => {
                                             </div>
                                             <div className="card-content">
                                                 <h4>{e.title}</h4>
-                                                <p>{e.overviewSection.details}</p>
+                                                <p>{e.overviewSection.details.slice(0, 150)}</p>
                                                 <div className="main-btn">
                                                     <span className='read-more'>
                                                         Read More <span><i className="fa-solid fa-arrow-right"></i></span>
@@ -82,13 +82,16 @@ const ExcellenceCarousel = ({ dataSet }) => {
             </section>
 
             {dataSet.data?.map((subS, index) => (
-                <Popup
-                    key={index}
-                    modalId={`popupModalSubSpeciality-slide-${subS.speciality?.slug}`}
-                    title={subS.title}
-                    content={subS.overviewSection?.details}
-                />
+                subS?.manageAppearance?.viewingMode === "Popup" ? (
+                    <Popup
+                        key={index}
+                        modalId={`popupModalSubSpeciality-slide-${subS.speciality?.slug}`}
+                        title={subS.title}
+                        content={subS.overviewSection?.details}
+                    />
+                ) : null
             ))}
+
         </>
     )
 }

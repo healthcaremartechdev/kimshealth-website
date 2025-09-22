@@ -219,8 +219,10 @@ const SpecialityDetails = async ({ params, searchParams }) => {
                                     <div className="main-heading sub-heading">
                                         <h2>{data.overviewSection?.title}</h2>
                                     </div>
-                                    <div className='main-heading sub-heading main-list' dangerouslySetInnerHTML={{ __html: marked(data.overviewSection?.details || "") || "" }}>
+                                    <input type="checkbox" id="read-more-toggle" className="read-more-toggle" />
+                                    <div className='main-heading sub-heading main-list clamped-content' dangerouslySetInnerHTML={{ __html: marked(data.overviewSection?.details || "") || "" }}>
                                     </div>
+                                    <label htmlFor="read-more-toggle" className="read-more-label"></label>
                                 </div>
                                 <div className="col-md-5">
                                     <div className="details-right-col text-center sticky-from">

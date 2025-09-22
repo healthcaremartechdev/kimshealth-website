@@ -5773,7 +5773,7 @@ select option:hover {
     -webkit-line-clamp: 30;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    max-height: 22em;
+    max-height: 21em;
     transition: all 0.3s ease-in-out;
 }
 
