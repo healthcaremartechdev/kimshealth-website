@@ -32,7 +32,7 @@ const getMetadata = async () => {
 
     if (metaPage.includes("/doctor") && parts[parts.indexOf("doctor") + 1]) {
         const data = await doctorData.getSingleDoctor({
-            slug: parts[parts.indexOf("doctor") + 1], langLoc: langLoc
+            slug: parts[parts.indexOf("doctor") + 1], langLoc: langLoc, isMeta: true
         });
         metaData = data?.metaSection;
     }
