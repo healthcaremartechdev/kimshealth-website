@@ -165,7 +165,7 @@ const HeaderUnit = ({ hospital }) => {
                 <li><a href={`${basePath}/about-us${hospital ? '?hospital=' + hospital : ''}`}>{staticTexts['About Us']}</a></li>
                 <li><a href={`${basePath}/at-home-services`}>{staticTexts['Home Care']}</a></li>
                 <li><a href={`${basePath}/second-opinion`}>{staticTexts['Second Opinion']}</a></li>
-                {/* <li className="menu-item-has-children show-submenu">
+                <li className="menu-item-has-children show-submenu">
                   <a href={`${basePath}/contact-us`}>{staticTexts['Contact Us']}</a>
                   <div className="sub-menu sub-menu-single">
                     <div className="sub-menu-details">
@@ -176,7 +176,7 @@ const HeaderUnit = ({ hospital }) => {
                       </ul>
                     </div>
                   </div>
-                </li> */}
+                </li>
                 {/* <li><a href={"https://healthcheckup.kimshealthcare.com/p/kims-trivandrum-1/"} target='_blank'>{staticTexts['Health Checkup']}</a></li> */}
                 <li><a href={locationData?.virtualTour ? locationData?.virtualTour : "#"} target='_blank'>
                   {staticTexts['360° Virtual Tour']}</a>
