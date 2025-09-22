@@ -8465,6 +8465,11 @@ const redirect = [
 
 	},
 	{
+		source: "/trivandrum/doctor/dr-hridya-m",
+		destination: "/doctor",
+
+	},
+	{
 		source: "/ip/doctors/dr-irala-latha-reddy",
 		destination: "/doctor",
 
