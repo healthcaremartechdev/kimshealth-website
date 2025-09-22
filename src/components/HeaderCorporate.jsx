@@ -93,43 +93,43 @@ const HeaderCorporate = ({ hospital }) => {
   }, [])
 
   /********************************Google Translator*****************************/
-  useEffect(() => {
-    // Prevent adding script multiple times
-    if (!document.querySelector("#google-translate-script")) {
-      const script = document.createElement("script");
-      script.id = "google-translate-script";
-      script.src =
-        "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-      script.async = true;
-      document.body.appendChild(script);
-    }
+  // useEffect(() => {
+  //   // Prevent adding script multiple times
+  //   if (!document.querySelector("#google-translate-script")) {
+  //     const script = document.createElement("script");
+  //     script.id = "google-translate-script";
+  //     script.src =
+  //       "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+  //     script.async = true;
+  //     document.body.appendChild(script);
+  //   }
 
-    // Define the init function only once
-    if (!window.googleTranslateElementInit) {
-      window.googleTranslateElementInit = () => {
-        if (!document.querySelector(".goog-te-combo")) {
-          new window.google.translate.TranslateElement(
-            {
-              pageLanguage: "en", // default language
-              autoDisplay: false,
-            },
-            "google_translate_element"
-          );
-        }
-      };
-    }
-  }, []);
+  //   // Define the init function only once
+  //   if (!window.googleTranslateElementInit) {
+  //     window.googleTranslateElementInit = () => {
+  //       if (!document.querySelector(".goog-te-combo")) {
+  //         new window.google.translate.TranslateElement(
+  //           {
+  //             pageLanguage: "en", // default language
+  //             autoDisplay: false,
+  //           },
+  //           "google_translate_element"
+  //         );
+  //       }
+  //     };
+  //   }
+  // }, []);
 
-  const handleChange = (e) => {
-    const lang = e.target.value;
-    if (lang) {
-      const translateSelect = document.querySelector(".goog-te-combo");
-      if (translateSelect && translateSelect.value !== lang) {
-        translateSelect.value = lang;
-        translateSelect.dispatchEvent(new Event("change"));
-      }
-    }
-  };
+  // const handleChange = (e) => {
+  //   const lang = e.target.value;
+  //   if (lang) {
+  //     const translateSelect = document.querySelector(".goog-te-combo");
+  //     if (translateSelect && translateSelect.value !== lang) {
+  //       translateSelect.value = lang;
+  //       translateSelect.dispatchEvent(new Event("change"));
+  //     }
+  //   }
+  // };
 
 
 
