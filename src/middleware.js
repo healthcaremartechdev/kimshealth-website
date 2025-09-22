@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import redirects from './redirect';
 
+
 export async function middleware(request) {
     // // Redirection:::::::::::::::::::::::::
     const redirectUrl = request.nextUrl.clone();
@@ -20,10 +21,7 @@ export async function middleware(request) {
         redirectUrl.pathname = match.destination;
         redirectUrl.search = ""; // ✅ remove all query params
 
-        return NextResponse.redirect(
-            redirectUrl,
-            match.permanent ? 308 : 307
-        );
+        return NextResponse.redirect(redirectUrl, 301);
     }
     // // End redirection:::::::::::::::::::::
 

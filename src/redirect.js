@@ -18342,138 +18342,111 @@ const redirect = [
 	{
 		source: "/trivandrum/videos/?page=20&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=21&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=22&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=23&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=24&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=25&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=26&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=27&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=28&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=29&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=3&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=30&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=31&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=32&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=33&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=34&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=35&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=36&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=4&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=5&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=6&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=7&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=8&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/videos/?page=9&filter=&search=",
 		destination: "/trivandrum/gallery",
-
 	},
 	{
 		source: "/trivandrum/virtual-tour",
 		destination: "/virtual-tour",
-
 	},
 	{
 		source: "/trivandrum/visa_medicals",
 		destination: "/visa-medical",
-
 	},
 	{
 		source: "/videos",
 		destination: "/gallery",
-
 	}
 ];
 
-export default redirect
+export default redirect;
