@@ -72,7 +72,7 @@ const BookAnAppoinmentShort = ({ basePath, extraClass, currentLangLoc, currentHo
             : ``;
 
         // Get total count
-        const initialReq = await fetch(`${baseUrl}/specialty-details?${locationFilter}${hospitalFilter}`);
+        const initialReq = await fetch(`${baseUrl}/specialty-details?${locationFilter}${hospitalFilter}&filters[appointmentAvailable][$eq]=true`);
         const initialRes = await initialReq.json();
         const totalCount = initialRes.meta.pagination.total;
 
@@ -83,7 +83,7 @@ const BookAnAppoinmentShort = ({ basePath, extraClass, currentLangLoc, currentHo
         // Actual Data
         for (let i = 0; i < pages; i++) {
             const start = i * limit;
-            const url = `${baseUrl}/specialty-details?populate=*&pagination[start]=${start}&pagination[limit]=${limit}${locationFilter}${hospitalFilter}&filters[speciality][specialities][$null]=true&sort=title:asc`;
+            const url = `${baseUrl}/specialty-details?populate=*&pagination[start]=${start}&pagination[limit]=${limit}${locationFilter}${hospitalFilter}&filters[speciality][specialities][$null]=true&filters[appointmentAvailable][$eq]=true&sort=title:asc`;
             const res = await fetch(url);
             const json = await res.json();
             data = [...data, ...json.data];
