@@ -1,7 +1,7 @@
 const urlList = {
 
     getPages: async ({langLoc }) => {
-        const baseUrl = "http://localhost:1337/api";
+        const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
 
         // Get total count
         const countURL =baseUrl + `/static-page-contents?populate=*&filters[locations][id][$eq]=${langLoc.loc.id}`;

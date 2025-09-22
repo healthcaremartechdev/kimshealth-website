@@ -5,8 +5,7 @@ export const getBaseUrl = (lang = false, loc = false) => {
   let locationFromStorage;
 
   // Always use current browser URL instead of env
-  //let baseUrl = `${window.location.protocol}//${window.location.host}`;
-  let baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  let baseUrl = `${window.location.protocol}//${window.location.host}`;
 
   try {
     langFromStorage = JSON.parse(Cookies.get("systemLang") || "{}");

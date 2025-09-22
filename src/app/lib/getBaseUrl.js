@@ -5,10 +5,10 @@ export const getBaseUrl = async (lang = false, loc = false) => {
   const headersList = await headers();
 
   // Build base URL dynamically from request
-  // const protocol = headersList.get("x-forwarded-proto") || "https";
-  // const host = headersList.get("x-forwarded-host") || headersList.get("host");
-  // let baseUrl = `${protocol}://${host}`;
-  let baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+  const protocol = headersList.get("x-forwarded-proto") || "https";
+  const host = headersList.get("x-forwarded-host") || headersList.get("host");
+  let baseUrl = `${protocol}://${host}`;
+  
 
   // Get language/location cookies
   let langFromStorage;
