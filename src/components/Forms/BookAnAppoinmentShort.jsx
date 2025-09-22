@@ -28,7 +28,7 @@ const BookAnAppoinmentShort = ({ basePath, extraClass, currentLangLoc, currentHo
 
     const getHospital = async ({ lang, loc }) => {
 
-        const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
+        const baseUrl = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL;
 
         const locationFilter = loc
             ? `&filters[location][slug][$eq]=${loc}`
@@ -61,7 +61,7 @@ const BookAnAppoinmentShort = ({ basePath, extraClass, currentLangLoc, currentHo
 
     const getSpeciality = async ({ lang, loc, hospital }) => {
 
-        const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
+        const baseUrl = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL;
 
         const locationFilter = loc
             ? `&filters[locations][slug][$eq]=${loc}`
@@ -95,7 +95,7 @@ const BookAnAppoinmentShort = ({ basePath, extraClass, currentLangLoc, currentHo
 
     const getDoctor = async ({ lang, loc, hospital, speciality }) => {
         setDoctorLoading(true)
-        const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
+        const baseUrl = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL;
 
         const locationFilter = loc
             ? `&filters[locations][slug][$eq]=${loc}`

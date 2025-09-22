@@ -2,7 +2,7 @@
 import Cookies from "js-cookie";
 
 const getStaticText = async () => {
-    const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
+    const baseUrl = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL;
     const getLang = JSON.parse(Cookies.get("systemLang"));
     const langId = getLang.id;
 

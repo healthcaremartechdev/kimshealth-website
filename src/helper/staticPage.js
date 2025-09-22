@@ -2,7 +2,7 @@
 import getCurrentLangLocClient from "./getCurrentLangLocClient";
 
 const getStaticPage = async () => {
-    const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
+    const baseUrl = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL;
     const getLangLoc = await getCurrentLangLocClient();
     const locId = getLangLoc.loc.id;
 

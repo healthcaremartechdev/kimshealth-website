@@ -1,6 +1,6 @@
 const checkLang = async (param) => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_CMS_API_URL}/i18n/locales`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL}/i18n/locales`);
         const data = await response.json();
 
         const res = data.find(locale => locale.code === param);
@@ -14,7 +14,7 @@ const checkLang = async (param) => {
 
 const checkLoc = async (param) => {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_CMS_API_URL}/locations?filters[slug][$eq]=${param}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL}/locations?filters[slug][$eq]=${param}`);
         const res = await response.json();
 
         return res.data.length > 0 ? true : false;

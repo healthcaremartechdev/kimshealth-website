@@ -147,7 +147,7 @@ const SecondOpinionForm = ({ pageContent }) => {
     const getSpeciality = async ({ lang, loc }) => {
 
 
-        const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
+        const baseUrl = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL;
         // Get total count
         const initialReq = await fetch(`${baseUrl}/specialty-details?filters[locations][slug][$eq]=${loc}`);
         const initialRes = await initialReq.json();
