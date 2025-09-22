@@ -465,7 +465,7 @@ const HeaderCorporate = ({ hospital }) => {
                     <a href={basePath + "/teletriage"} className="anchor-menu">{staticTexts['Teletriage']}</a>
                   </li>)}
                   {staticPageChecker['corporate'] && (<li className="quicklink-header">
-                    <a href={basePath + "/corporate"} className="anchor-menu">{staticTexts['Corporate']}</a>
+                    <a href={basePath + "/corporate"} className="anchor-menu">{staticTexts['Investor Relations']}</a>
                   </li>)}
                   <li className={`menu-item-has-children show-submenu quicklink-header ${!staticPageChecker['csr-policy'] && !staticPageChecker['csr-initiative'] ? 'd-none-menu' : ''}`}>
                     <a href="#" className="anchor-menu">{staticTexts['CSR']}</a>
@@ -893,7 +893,7 @@ const HeaderCorporate = ({ hospital }) => {
                         <li> <a href={basePath + "/bmw-report"} className="menu-item ">{staticTexts['BMW Reports']}</a> </li>
                       }
                       {staticPageChecker['corporate'] && (
-                        <li> <a href={basePath + "/corporate"} className="menu-item">{staticTexts['Corporate']}</a> </li>
+                        <li> <a href={basePath + "/corporate"} className="menu-item">{staticTexts['Investor Relations']}</a> </li>
                       )}
                       <li className={`has-dropdown ${!staticPageChecker['csr-policy'] && !staticPageChecker['csr-initiative'] ? 'd-none-menu' : ''}`}>
                         <a href="#" className="menu-item">{staticTexts['CSR']}<i className="fa-solid fa-angle-down"></i></a>
