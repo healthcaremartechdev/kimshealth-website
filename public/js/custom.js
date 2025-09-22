@@ -693,3 +693,22 @@ $(document).mouseup(function (e) {
         container.fadeOut();
     }
 });
+
+document.getElementById("sitemap-copy-button").addEventListener("click", function () {
+    let table = document.getElementById("sitemap-table");
+    let rows = table.querySelectorAll("tr");
+    let text = "";
+
+    rows.forEach(row => {
+        let cols = row.querySelectorAll("th, td");
+        let rowData = [];
+        cols.forEach(col => rowData.push(col.innerText.trim()));
+        text += rowData.join("\t") + "\n"; // tab separated
+    });
+
+    navigator.clipboard.writeText(text).then(() => {
+        alert("Table data copied!");
+    }).catch(err => {
+        console.error("Error copying text: ", err);
+    });
+});
