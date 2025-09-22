@@ -18442,10 +18442,10 @@ const redirect = [
 		source: "/videos",
 		destination: "/gallery",
 	},
-	// {
-	// 	source: "/trivandrum",
-	// 	destination: "/trivandrum/hospital/kimshealth-trivandrum",
-	// }
+	{
+		source: "/trivandrum",
+		destination: "/trivandrum/hospital/kimshealth-trivandrum",
+	}
 ];
 
 export default redirect;
