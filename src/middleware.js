@@ -1,7 +1,40 @@
 import { NextResponse } from 'next/server';
-
+import redirects from './redirect';
 
 export async function middleware(request) {
+    // // Redirection:::::::::::::::::::::::::
+    const redirectUrl = request.nextUrl.clone();
+
+    // build full URL (pathname + search)
+    const fullPath = redirectUrl.pathname + redirectUrl.search;
+
+    // ensure redirects is an array (in case of default export from JSON)
+    const list = Array.isArray(redirects) ? redirects : redirects.default;
+
+    // match either full path (with query) or just pathname
+    const match =
+        list.find((r) => fullPath === r.source) ||
+        list.find((r) => redirectUrl.pathname === r.source);
+
+    if (match && match.source !== match.destination) {
+        redirectUrl.pathname = match.destination;
+        redirectUrl.search = ""; // ✅ remove all query params
+
+        return NextResponse.redirect(
+            redirectUrl,
+            match.permanent ? 308 : 307
+        );
+    }
+    // // End redirection:::::::::::::::::::::
+
+
+
+
+
+
+
+    // Lang/Location detection :::::::::::::::::::::::::::::::::::::::::::::
+
     const { nextUrl } = request;
     const url = nextUrl.pathname;
     const segments = url.split('/').filter(Boolean);
@@ -111,6 +144,8 @@ export async function middleware(request) {
     //console.log(lang, loc)
 
     return response;
+
+    // End Lang/Location detection :::::::::::::::::::::::::::::::::::::::::::::
 }
 
 export const config = {
