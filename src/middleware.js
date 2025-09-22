@@ -17,9 +17,13 @@ export async function middleware(request) {
         list.find((r) => fullPath === r.source) ||
         list.find((r) => redirectUrl.pathname === r.source);
 
+    
+
     if (match && match.source !== match.destination) {
         redirectUrl.pathname = match.destination;
         redirectUrl.search = ""; // ✅ remove all query params
+
+        
 
         return NextResponse.redirect(redirectUrl, 301);
     }

@@ -13825,11 +13825,6 @@ const redirect = [
 
 	},
 	{
-		source: "/trivandrum",
-		destination: "/trivandrum",
-
-	},
-	{
 		source: "/trivandrum/about-us",
 		destination: "/trivandrum/about-us",
 
