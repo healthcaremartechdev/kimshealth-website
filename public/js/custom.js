@@ -99,18 +99,19 @@ $('.homepage-slider').owlCarousel({
 $('.hospital-details-slider2').owlCarousel({
     loop: true,
     margin: 10,
-    nav: true,
+    autoplay:true,
     responsive: {
         0: {
             items: 1,
-    nav: false
+            nav: false
         },
         600: {
             items: 1,
-    nav: false
+            nav: false
         },
         1000: {
-            items: 1
+            items: 1,
+            nav: false
         }
     }
 })
