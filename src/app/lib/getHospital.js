@@ -1,6 +1,6 @@
 const hospitalData = {
     getAll: async ({ langLoc }) => {
-        const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
+        const baseUrl = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL;
         let url = baseUrl + `/hospitals?populate=*&pagination[limit]=100&filters[location][id][$eq]=${langLoc.loc.id}&sort=manageAppearance.orderInMasterList:asc,title:asc`;
         const req = await fetch(url);
         const res = await req.json();

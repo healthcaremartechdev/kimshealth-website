@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 
 const doctorData = {
     getDoctorAll: async (start = 0, limit = 12, langLoc, URLParams) => {
-        const base = process.env.NEXT_PUBLIC_CMS_API_URL;
+        const base = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL;
 
         // Determine the correct filter
         const hospitalFilter = URLParams?.hospital

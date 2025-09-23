@@ -1,6 +1,6 @@
 const mediaCoverData = {
     getAll: async ({ start = 0, limit = 12, all = false, langLoc }) => {
-        const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
+        const baseUrl = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL;
 
         if (!all) {
             let url = baseUrl + `/media-coverages?populate=*&pagination[start]=${start}&pagination[limit]=${limit}&filters[locations][id][$eq]=${langLoc.loc.id}&sort=date:desc,manageAppearance.orderInMasterList:asc,title:asc`;

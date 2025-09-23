@@ -115,7 +115,7 @@ const getSpecialityData = {
 
     // FOR LISTING PAGE Only Parent;
     getSpecialityAllParent: async ({ langLoc, URLParams }) => {
-        const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
+        const baseUrl = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL;
 
 
         const hospitalFilter = URLParams?.hospital
@@ -397,7 +397,7 @@ const getSpecialityData = {
 
 
     getAllSpeciality: async ({ langLoc }) => {
-        const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
+        const baseUrl = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL;
         // Get total count
         const initialReq = await fetch(`${baseUrl}/specialty-details?filters[locations][id][$eq]=${langLoc.loc.id}`);
         const initialRes = await initialReq.json();

@@ -20,7 +20,7 @@ const testimonialData = {
             ? `&filters[locations][slug][$eq]=${URLParams.location}`
             : `&filters[locations][id][$eq]=${langLoc.loc.id}`;
 
-        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/testimonials?populate=*${specialityFilter}${hospitalFilter}${procedureFilter}${diseaseFilter}${locationFilter}&pagination[start]=${start}&pagination[limit]=${limit}&filters[testimonialType][$contains]=Video&sort=date:desc,manageAppearance.orderInMasterList:asc,title:asc`;
+        const url = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL + `/testimonials?populate=*${specialityFilter}${hospitalFilter}${procedureFilter}${diseaseFilter}${locationFilter}&pagination[start]=${start}&pagination[limit]=${limit}&filters[testimonialType][$contains]=Video&sort=date:desc,manageAppearance.orderInMasterList:asc,title:asc`;
 
 
         const req = await fetch(url);
@@ -124,7 +124,7 @@ const testimonialData = {
             ? `&filters[specialities][slug][$eq]=${URLParams.speciality}`
             : ``;
 
-        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/testimonials?populate=*${specialityFilter}&filters[locations][id][$eq]=${langLoc.loc.id}&pagination[start]=${start}&pagination[limit]=${limit}&filters[testimonialType][$contains]=Text&sort=date:desc,manageAppearance.orderInMasterList:asc,title:asc`;
+        const url = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL + `/testimonials?populate=*${specialityFilter}&filters[locations][id][$eq]=${langLoc.loc.id}&pagination[start]=${start}&pagination[limit]=${limit}&filters[testimonialType][$contains]=Text&sort=date:desc,manageAppearance.orderInMasterList:asc,title:asc`;
 
         const req = await fetch(url);
         const res = await req.json();
