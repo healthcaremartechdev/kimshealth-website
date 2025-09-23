@@ -13,7 +13,7 @@ const blogData = {
             ? `&filters[blogCategories][slug][$eq]=${URLParams.category}`
             : ``;
 
-        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/blog-posts?populate=*${specialityFilter}${doctorFilter}${categoryFilter}&filters[locations][id][$eq]=${langLoc.loc.id}&pagination[start]=${start}&pagination[limit]=${limit} ${speciality ? `filters[specialities][slug][$eq]=${speciality}` : ''}&sort=date:desc,title:asc`;
+        const url = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL + `/blog-posts?populate=*${specialityFilter}${doctorFilter}${categoryFilter}&filters[locations][id][$eq]=${langLoc.loc.id}&pagination[start]=${start}&pagination[limit]=${limit} ${speciality ? `filters[specialities][slug][$eq]=${speciality}` : ''}&sort=date:desc,title:asc`;
 
         const req = await fetch(url);
         const res = await req.json();
@@ -55,7 +55,7 @@ const blogData = {
     },
 
     getCategory: async ({ langLoc }) => {
-        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/blog-categories?populate=*&filters[locations][id][$eq]=${langLoc.loc.id}&sort=title:asc`;
+        const url = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL + `/blog-categories?populate=*&filters[locations][id][$eq]=${langLoc.loc.id}&sort=title:asc`;
         const req = await fetch(url);
         const res = await req.json();
 
