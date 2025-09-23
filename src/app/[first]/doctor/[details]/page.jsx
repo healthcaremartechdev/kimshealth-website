@@ -45,7 +45,7 @@ const DoctorDetails = async ({ params }) => {
                 <div className="doctor-details-main-page">
                     <div className="page-header">
                         <div className="container">
-                            <h2>{data?.name}</h2>
+                            <h2>{`${data.salutation ? data.salutation + " " : ""}${data.name}`}</h2>
                         </div>
                     </div>
                     <section className="breadcrumb-wrapper py-2">
