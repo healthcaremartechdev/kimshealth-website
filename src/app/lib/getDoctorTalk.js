@@ -20,7 +20,7 @@ const doctorTalkData = {
             ? `&filters[diseases][slug][$eq]=${URLParams.disease}`
             : ``;
 
-        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-talks?populate=*${specialityFilter}${hospitalFilter}${doctorFilter}${procedureFilter}${diseaseFilter}&pagination[start]=${start}&pagination[limit]=${limit}&filters[locations][id][$eq]=${langLoc.loc.id}&sort=date:desc,manageAppearance.orderInMasterList:asc,title:asc`;
+        const url = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL + `/doctor-talks?populate=*${specialityFilter}${hospitalFilter}${doctorFilter}${procedureFilter}${diseaseFilter}&pagination[start]=${start}&pagination[limit]=${limit}&filters[locations][id][$eq]=${langLoc.loc.id}&sort=date:desc,manageAppearance.orderInMasterList:asc,title:asc`;
         console.log(url)
         const req = await fetch(url);
         const res = await req.json();
