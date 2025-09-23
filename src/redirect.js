@@ -18434,6 +18434,10 @@ const redirect = [
 		destination: "/visa-medical",
 	},
 	{
+		source: "/trivandrum/departments/cardiology",
+		destination: "/trivandrum/speciality/cardiology",
+	},
+	{
 		source: "/videos",
 		destination: "/gallery",
 	},
