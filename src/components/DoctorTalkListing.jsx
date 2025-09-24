@@ -26,7 +26,7 @@ const DoctorTalkListing = ({ baseURL, langLoc, URLParams, speciality }) => {
             // const data = await doctorTalkData.allData(0, count)
             // setData(data);
 
-            const tempStoreSpeciality = await getSpecialityData.getAllSpeciality({ langLoc });
+            const tempStoreSpeciality = await getSpecialityData.getSpecialityAllParent({ langLoc });
             setAllSpeciality(tempStoreSpeciality);
         }
 

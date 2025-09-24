@@ -23,7 +23,7 @@ const TestimonialListing = ({ basePath, langLoc, URLParams }) => {
         const getFstLoad = async () => {
             // const data = await testimonialData.getAll(count, limit);
             // setallTestimonial(data);
-            const tempStoreSpeciality = await getSpecialityData.getAllSpeciality({ langLoc });
+            const tempStoreSpeciality = await getSpecialityData.getSpecialityAllParent({ langLoc });
             setAllSpeciality(tempStoreSpeciality);
         }
 
