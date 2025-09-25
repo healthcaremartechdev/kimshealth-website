@@ -1,17 +1,10 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import langLoc from "@/helper/getLangLoc";
-import { onLangChangeRedirection, } from "@/helper/onChageRedirection";
 import Cookies from 'js-cookie';
 import { getBaseUrl } from '@/helper/getBaseUrl';
-import getLocation from '@/app/lib/getLocation';
-import getSpecialityData from '@/app/lib/getSpeciality';
-import hospitalData from '@/app/lib/getHospital';
-import getStaticText from '@/helper/getStaticText';
-import getCurrentLangLocClient from '@/helper/getCurrentLangLocClient';
 import InternationalMenu from './InternationalMenu';
 import SearchBox from './Forms/SearchBox';
-import getStaticPage from '@/helper/staticPage';
 import Popup from './Popup';
 import { ToastContainer } from 'react-toastify';
 
@@ -116,44 +109,6 @@ const HeaderCorporate = ({ hospital, staticPageChecker, staticTexts,selectedLang
     };
   }, []);
 
-  /********************************Google Translator*****************************/
-  // useEffect(() => {
-  //   // Prevent adding script multiple times
-  //   if (!document.querySelector("#google-translate-script")) {
-  //     const script = document.createElement("script");
-  //     script.id = "google-translate-script";
-  //     script.src =
-  //       "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-  //     script.async = true;
-  //     document.body.appendChild(script);
-  //   }
-
-  //   // Define the init function only once
-  //   if (!window.googleTranslateElementInit) {
-  //     window.googleTranslateElementInit = () => {
-  //       if (!document.querySelector(".goog-te-combo")) {
-  //         new window.google.translate.TranslateElement(
-  //           {
-  //             pageLanguage: "en", // default language
-  //             autoDisplay: false,
-  //           },
-  //           "google_translate_element"
-  //         );
-  //       }
-  //     };
-  //   }
-  // }, []);
-
-  // const handleChange = (e) => {
-  //   const lang = e.target.value;
-  //   if (lang) {
-  //     const translateSelect = document.querySelector(".goog-te-combo");
-  //     if (translateSelect && translateSelect.value !== lang) {
-  //       translateSelect.value = lang;
-  //       translateSelect.dispatchEvent(new Event("change"));
-  //     }
-  //   }
-  // };
 
 
 
@@ -200,7 +155,7 @@ const HeaderCorporate = ({ hospital, staticPageChecker, staticTexts,selectedLang
                     </div>
                   </div>
                 </li>
-                {/* <li><a href={"https://healthcheckup.kimshealthcare.com/p/kims-trivandrum-1/"} target='_blank'>{staticTexts['Health Checkup']}</a></li> */}
+                
               </ul>
 
               <div className="top-bar-icon d-flex align-items-center">
@@ -218,29 +173,7 @@ const HeaderCorporate = ({ hospital, staticPageChecker, staticTexts,selectedLang
                   </div>
                 </div>
 
-                {/* <div className="top-drop-down">
-                  <div id="google_translate_element" style={{ display: "none" }} />
-                  <select className="border-0 " onChange={handleChange}>
-                    {
-                      allLanguages.length < 1 ? <option>Loading...</option> :
-                        allLanguages.map((l, _) => {
-                          return <option value={l.code} data-fulldata={JSON.stringify(l)} key={l.id}>
-                            {l.name}
-                          </option>
-                        })
-                    }
-                  </select>
-                  <select value={selectedLang?.slug || ""} className="border-0 " onChange={onLangChangeRedirection}>
-                    {
-                      allLanguages.length < 1 ? <option>Loading...</option> :
-                        allLanguages.map((l, _) => {
-                          return <option value={l.code} data-fulldata={JSON.stringify(l)} key={l.id}>
-                            {l.name}
-                          </option>
-                        })
-                    }
-                  </select>
-                </div> */}
+                
               </div>
 
             </div>

@@ -1,14 +1,8 @@
 "use client"
-import hospitalData from '@/app/lib/getHospital';
-import getLocation from '@/app/lib/getLocation';
-import getSpecialityData from '@/app/lib/getSpeciality';
 import { getBaseUrl } from '@/helper/getBaseUrl';
-import getCurrentLangLocClient from '@/helper/getCurrentLangLocClient';
 import langLoc from '@/helper/getLangLoc';
-import getStaticText from '@/helper/getStaticText';
 import React, { useEffect, useRef, useState } from 'react'
 import SearchBox from '@/components/Forms/SearchBox';
-import getStaticPage from '@/helper/staticPage';
 
 
 
