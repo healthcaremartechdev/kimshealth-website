@@ -1,24 +1,75 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import langLoc from "@/helper/getLangLoc";
+import { onLangChangeRedirection, } from "@/helper/onChageRedirection";
 import Cookies from 'js-cookie';
 import { getBaseUrl } from '@/helper/getBaseUrl';
+import getLocation from '@/app/lib/getLocation';
+import getSpecialityData from '@/app/lib/getSpeciality';
+import hospitalData from '@/app/lib/getHospital';
+import getStaticText from '@/helper/getStaticText';
+import getCurrentLangLocClient from '@/helper/getCurrentLangLocClient';
 import InternationalMenu from './InternationalMenu';
 import SearchBox from './Forms/SearchBox';
+import getStaticPage from '@/helper/staticPage';
 import Popup from './Popup';
-import { ToastContainer } from 'react-toastify';
 
 
-const HeaderUnit = ({ hospital, staticPageChecker, staticTexts,selectedLangLoc,speciality,locationData,allHospital  }) => {
+const HeaderUnit = ({ hospital }) => {
+  const [selectedLangLoc, setselectedLangLoc] = useState([]);
   const [allLanguages, setAllLanguage] = useState([]); // Store all language;
   const [allLocations, setAllLocations] = useState([]); // Store all locations;
   const [selectedLang, setSelectedLang] = useState(null);
   const [selectedLoc, setSelectedLoc] = useState(null);
   const [basePath, setBasePath] = useState();
   const [basePathOnlyLang, setBasePathOnlyLang] = useState();
+  const [speciality, setSpeciality] = useState();
+  const [locationData, setLocationData] = useState();
+  const [allHospital, setAllHospital] = useState();
   const [activeIndex, setActiveIndex] = useState(null);
+  const [staticTexts, setStaticTexts] = useState({});
+  const [staticPageChecker, setPageChecker] = useState({});
   const [showSearch, setShowSearch] = useState(false); // FOR SEARCH TOGGLE
   const [activeLogoUrl, setLogoUrl] = useState();
+
+
+  useEffect(() => {
+    const fetchTexts = async () => {
+      setStaticTexts({ ...await getStaticText() })
+
+      setPageChecker({ ...await getStaticPage() })
+    };
+
+    fetchTexts();
+  }, []);
+
+
+
+  const toggleAccordion = (index) => {
+    setActiveIndex((prev) => (prev === index ? null : index));
+  };
+
+
+  useEffect(() => {
+    const get = async () => {
+      const LangLoc = await getCurrentLangLocClient();
+      // console.log(LangLoc, "in header");
+      setselectedLangLoc(LangLoc);
+
+      if (hospital)
+        setSpeciality(await getSpecialityData.getHeaderSpecialityByHospital({ LangLoc, hospital }))
+      else
+        setSpeciality(await getSpecialityData.getHeaderUnitSpeciality({ LangLoc }))
+
+      setLocationData(await getLocation());
+
+
+      setAllHospital(await hospitalData.getAllHospitalAndMedicalCenter());
+
+    }
+    get();
+
+  }, [hospital])
 
 
   useEffect(() => {
@@ -56,76 +107,56 @@ const HeaderUnit = ({ hospital, staticPageChecker, staticTexts,selectedLangLoc,s
 
 
 
+  /********************************Google Translator*****************************/
+  // useEffect(() => {
+  //   // Prevent adding script multiple times
+  //   if (!document.querySelector("#google-translate-script")) {
+  //     const script = document.createElement("script");
+  //     script.id = "google-translate-script";
+  //     script.src =
+  //       "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+  //     script.async = true;
+  //     document.body.appendChild(script);
+  //   }
 
-  const toggleAccordion = (index) => {
-    setActiveIndex((prev) => (prev === index ? null : index));
-  };
+  //   // Define the init function only once
+  //   if (!window.googleTranslateElementInit) {
+  //     window.googleTranslateElementInit = () => {
+  //       if (!document.querySelector(".goog-te-combo")) {
+  //         new window.google.translate.TranslateElement(
+  //           {
+  //             pageLanguage: "en", // default language
+  //             autoDisplay: false,
+  //           },
+  //           "google_translate_element"
+  //         );
+  //       }
+  //     };
+  //   }
+  // }, []);
 
-  // Sidebar & dropdown handler
-  useEffect(() => {
-    const dropdownItems = document.querySelectorAll('.has-dropdown');
-    const hamburger = document.querySelector('#hamburger');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    const handlers = [];
+  // const handleChange = (e) => {
+  //   const lang = e.target.value;
+  //   if (lang) {
+  //     const translateSelect = document.querySelector(".goog-te-combo");
+  //     if (translateSelect && translateSelect.value !== lang) {
+  //       translateSelect.value = lang;
+  //       translateSelect.dispatchEvent(new Event("change"));
+  //     }
+  //   }
+  // };
 
-    const hamburgerClickHandler = () => {
-      hamburger?.classList.toggle('active');
-      sidebar?.classList.toggle('active');
-      overlay?.classList.toggle('active');
-      document.body.style.overflow = sidebar?.classList.contains('active') ? 'hidden' : '';
-    };
-
-    hamburger?.addEventListener('click', hamburgerClickHandler);
-
-    dropdownItems.forEach((dropdown) => {
-      const menuItem = dropdown.querySelector('.menu-item');
-
-      if (menuItem) {
-        const handler = (e) => {
-          e.stopPropagation();
-
-          dropdownItems.forEach((other) => {
-            if (other !== dropdown) {
-              other.classList.remove('open');
-              const otherSubmenu = other.querySelector('.submenu');
-              otherSubmenu?.classList.remove('open');
-            }
-          });
-
-          dropdown.classList.toggle('open');
-          const submenu = dropdown.querySelector('.submenu');
-          submenu?.classList.toggle('open');
-        };
-
-        menuItem.addEventListener('click', handler);
-        handlers.push({ element: menuItem, handler });
-      }
-    });
-
-    return () => {
-      // Clean up all attached listeners safely
-      hamburger?.removeEventListener('click', hamburgerClickHandler);
-
-      handlers.forEach(({ element, handler }) => {
-        element?.removeEventListener('click', handler);
-      });
-    };
-  }, []);
-
-
+  /********************************Google Translator*****************************/
 
 
   return (
     <>
-
-      <ToastContainer position='bottom-center' />
       <header id="header-sticky" className="header">
         <section id="topheader" className="d-lg-block d-none">
           <div className="container d-flex align-items-center justify-content-between">
             <div className="navbar-logo py-2 ">
               <a href={activeLogoUrl}>
-                <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${locationData?.logo?.url}`} alt={locationData?.logo?.url ? "KIMSHEALTH" : ""} className="img-fluid" />
+                <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${locationData?.logo?.url}`} alt={locationData?.logo?.url?"KIMSHEALTH":""} className="img-fluid" />
               </a>
             </div>
             <div className="header-contact d-flex align-items-center justify-content-center position-relative">
@@ -146,6 +177,7 @@ const HeaderUnit = ({ hospital, staticPageChecker, staticTexts,selectedLangLoc,s
                     </div>
                   </div>
                 </li>
+                {/* <li><a href={"https://healthcheckup.kimshealthcare.com/p/kims-trivandrum-1/"} target='_blank'>{staticTexts['Health Checkup']}</a></li> */}
                 <li><a href={locationData?.virtualTour ? locationData?.virtualTour : "#"} target='_blank'>
                   {staticTexts['360° Virtual Tour']}</a>
                 </li>
@@ -166,7 +198,29 @@ const HeaderUnit = ({ hospital, staticPageChecker, staticTexts,selectedLangLoc,s
                   </div>
                 </div>
 
-              
+                {/* <div className="top-drop-down">
+                  <div id="google_translate_element" style={{ display: "none" }} />
+                  <select className="border-0 " onChange={handleChange}>
+                    {
+                      allLanguages.length < 1 ? <option>Loading...</option> :
+                        allLanguages.map((l, _) => {
+                          return <option value={l.code} data-fulldata={JSON.stringify(l)} key={l.id}>
+                            {l.name}
+                          </option>
+                        })
+                    }
+                  </select>
+                  <select value={selectedLang?.slug || ""} className="border-0 " onChange={onLangChangeRedirection}>
+                    {
+                      allLanguages.length < 1 ? <option>Loading...</option> :
+                        allLanguages.map((l, _) => {
+                          return <option value={l.code} data-fulldata={JSON.stringify(l)} key={l.id}>
+                            {l.name}
+                          </option>
+                        })
+                    }
+                  </select>
+                </div> */}
               </div>
 
             </div>
@@ -179,7 +233,7 @@ const HeaderUnit = ({ hospital, staticPageChecker, staticTexts,selectedLangLoc,s
             <nav className="header-menu-container justify-content-lg-end">
               <div className="navbar-brand">
                 <a href={activeLogoUrl} className="text-decoration-none">
-                  <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${locationData?.logo?.url}`} alt={locationData?.logo?.url ? "KIMSHEALTH" : ""} height="55" className="img-fluid" />
+                  <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${locationData?.logo?.url}`} alt={locationData?.logo?.url?"KIMSHEALTH":""} height="55" className="img-fluid" />
                 </a>
               </div>
               <div className="mobile_primary" id="primary-nav">
@@ -667,7 +721,7 @@ const HeaderUnit = ({ hospital, staticPageChecker, staticTexts,selectedLangLoc,s
                                   </a>
                                 </li>
                               )}
-
+                              
                               {staticPageChecker['organ-transplant-compliance'] && (
                                 <li>
                                   <a href={basePath + "/organ-transplant-compliance"}>
@@ -881,14 +935,14 @@ const HeaderUnit = ({ hospital, staticPageChecker, staticTexts,selectedLangLoc,s
                       {staticPageChecker['medical-representatives-appointments'] &&
                         <li> <a href={"https://medrep.kimshealth.org/"} target='_blank' className="menu-item ">{staticTexts['Medical Representatives - Appointments']}</a> </li>
                       }
-
-                      {staticPageChecker['organ-transplant-compliance'] && (
-                        <li>
-                          <a href={basePath + "/organ-transplant-compliance"} className="menu-item ">
-                            {staticTexts['Organ Transplant Compliance']}
-                          </a>
-                        </li>
-                      )}
+                      
+                              {staticPageChecker['organ-transplant-compliance'] && (
+                                <li>
+                                  <a href={basePath + "/organ-transplant-compliance"}  className="menu-item ">
+                                    {staticTexts['Organ Transplant Compliance']}
+                                  </a>
+                                </li>
+                              )}
 
                       {staticPageChecker['knee-implant-list'] && (
                         <li> <a href={basePath + "/knee-implant-list"} className="menu-item "> {staticTexts['Knee Implant List']} </a> </li>

@@ -1,76 +1,92 @@
-"use server"
-import getStaticPageChecker from '@/app/lib/getStaticPageChecker';
+"use client"
+import React, { useEffect, useState } from 'react'
+import Cookies from 'js-cookie';
 import HederCorporate from './HeaderCorporate';
 import HeaderUnit from './HederUnit';
-import { cookies, headers } from 'next/headers';
-import getStaticText from '@/app/lib/getStaticTextServer';
-import hospitalData from '@/app/lib/getHospital';
-import getCurrentLangLoc from '@/app/lib/getCurrentLangLoc';
-import getSpecialityData from '@/app/lib/getSpeciality';
-import locationData from '@/app/lib/getLocationData';
+import { ToastContainer } from 'react-toastify';
 
+const Header = ({ hospital }) => {
+  const [activeHospital, setActiveHospital] = useState(hospital);
 
-const Header = async ({ hospital, searchParams }) => {
-  const URLParams = await searchParams;
-
-  const selectedLangLoc = await getCurrentLangLoc();
+  
   // cookies
-  const cookieStore = await cookies();
-  const langFromStorage = JSON.parse(cookieStore.get("systemLang")?.value || "{}");
-  const locationFromStorage = JSON.parse(cookieStore.get("systemLocation")?.value || "{}");
-  const staticPageChecker = await getStaticPageChecker();
-  const staticTexts = await getStaticText()
+  const loc = Cookies.get("systemLocation") ? JSON.parse(Cookies.get("systemLocation")) : "";
+  const lang = Cookies.get("systemLang") ? JSON.parse(Cookies.get("systemLang")) : "";
 
-  let speciality;
+  // Override hospital from URL param if available
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const hospitalParam = params.get("hospital");
 
-  if (URLParams?.hospital)
-    hospital = URLParams.hospital;
+    if (hospitalParam) {
+      setActiveHospital(hospitalParam);
+    }
+  }, [hospital]);
 
+  // Sidebar & dropdown handler
+  useEffect(() => {
+    const dropdownItems = document.querySelectorAll('.has-dropdown');
+    const hamburger = document.querySelector('#hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const handlers = [];
 
-  if (selectedLangLoc.loc.default)
-    speciality = await getSpecialityData.getHeaderSpeciality({ LangLoc:selectedLangLoc })
-  else {
-    if (hospital)
-      speciality = await getSpecialityData.getHeaderSpecialityByHospital({ LangLoc:selectedLangLoc, hospital });
-    else
-      speciality = await getSpecialityData.getHeaderUnitSpeciality({ LangLoc:selectedLangLoc });
-  }
+    const hamburgerClickHandler = () => {
+      hamburger?.classList.toggle('active');
+      sidebar?.classList.toggle('active');
+      overlay?.classList.toggle('active');
+      document.body.style.overflow = sidebar?.classList.contains('active') ? 'hidden' : '';
+    };
 
+    hamburger?.addEventListener('click', hamburgerClickHandler);
 
-  const locationAllData = await locationData.getCurrentLocation();
+    dropdownItems.forEach((dropdown) => {
+      const menuItem = dropdown.querySelector('.menu-item');
 
+      if (menuItem) {
+        const handler = (e) => {
+          e.stopPropagation();
 
-  const allHospital = await hospitalData.getAllHospitalAndMedicalCenter();
+          dropdownItems.forEach((other) => {
+            if (other !== dropdown) {
+              other.classList.remove('open');
+              const otherSubmenu = other.querySelector('.submenu');
+              otherSubmenu?.classList.remove('open');
+            }
+          });
 
+          dropdown.classList.toggle('open');
+          const submenu = dropdown.querySelector('.submenu');
+          submenu?.classList.toggle('open');
+        };
 
+        menuItem.addEventListener('click', handler);
+        handlers.push({ element: menuItem, handler });
+      }
+    });
 
+    return () => {
+      // Clean up all attached listeners safely
+      hamburger?.removeEventListener('click', hamburgerClickHandler);
 
-  if (locationFromStorage.default === true) {
+      handlers.forEach(({ element, handler }) => {
+        element?.removeEventListener('click', handler);
+      });
+    };
+  }, []);
+
+  if (loc.default === true) {
     return (
       <>
-        <HederCorporate
-          hospital={hospital}
-          staticPageChecker={staticPageChecker}
-          staticTexts={staticTexts} 
-          allHospital={allHospital} 
-          locationData={locationAllData} 
-          selectedLangLoc={selectedLangLoc} 
-          speciality={speciality}
-        />
+        <ToastContainer position='bottom-center' />
+        <HederCorporate hospital={activeHospital} />
       </>
     );
   } else {
     return (
       <>
-        <HeaderUnit
-          hospital={hospital}
-          staticPageChecker={staticPageChecker}
-          staticTexts={staticTexts} 
-          allHospital={allHospital} 
-          locationData={locationAllData} 
-          selectedLangLoc={selectedLangLoc} 
-          speciality={speciality}
-        />
+        <ToastContainer position='bottom-center' />
+        <HeaderUnit hospital={activeHospital} />
       </>
     );
   }
