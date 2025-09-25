@@ -13,60 +13,26 @@ import InternationalMenu from './InternationalMenu';
 import SearchBox from './Forms/SearchBox';
 import getStaticPage from '@/helper/staticPage';
 import Popup from './Popup';
+import { ToastContainer } from 'react-toastify';
 
 
 
-const HeaderCorporate = ({ hospital }) => {
-  const [selectedLangLoc, setselectedLangLoc] = useState([]);
+const HeaderCorporate = ({ hospital, staticPageChecker, staticTexts,selectedLangLoc,speciality,locationData,allHospital  }) => {
   const [allLanguages, setAllLanguage] = useState([]); // Store all language;
   const [allLocations, setAllLocations] = useState([]); // Store all locationsF;
   const [selectedLang, setSelectedLang] = useState(null);
   const [selectedLoc, setSelectedLoc] = useState(null);
   const [basePath, setBasePath] = useState();
   const [basePathOnlyLang, setBasePathOnlyLang] = useState();
-  const [speciality, setSpeciality] = useState();
-  const [locationData, setLocationData] = useState();
-  const [allHospital, setAllHospital] = useState();
   const [activeIndex, setActiveIndex] = useState(null);
-  const [staticTexts, setStaticTexts] = useState({});
-  const [staticPageChecker, setPageChecker] = useState({});
   const [showSearch, setShowSearch] = useState(false); // FOR SEARCH TOGGLE
   const [activeLogoUrl, setLogoUrl] = useState();
 
-  useEffect(() => {
-    const fetchTexts = async () => {
-      setStaticTexts({ ...await getStaticText() })
-      setPageChecker({ ...await getStaticPage() })
-
-    };
-
-    fetchTexts();
-  }, []);
 
 
 
-  const toggleAccordion = (index) => {
-    setActiveIndex((prev) => (prev === index ? null : index));
-  };
 
 
-  useEffect(() => {
-    const get = async () => {
-      const LangLoc = await getCurrentLangLocClient()
-
-      setselectedLangLoc(LangLoc);
-
-      setSpeciality(await getSpecialityData.getHeaderSpeciality({ LangLoc }))
-
-      setLocationData(await getLocation());
-
-
-      setAllHospital(await hospitalData.getAllHospitalAndMedicalCenter());
-
-    }
-    get();
-
-  }, [])
 
 
   useEffect(() => {
@@ -91,6 +57,64 @@ const HeaderCorporate = ({ hospital }) => {
     setBasePathOnlyLang(getBaseUrl(true, false));
 
   }, [])
+
+
+
+  const toggleAccordion = (index) => {
+    setActiveIndex((prev) => (prev === index ? null : index));
+  };
+
+  // Sidebar & dropdown handler
+  useEffect(() => {
+    const dropdownItems = document.querySelectorAll('.has-dropdown');
+    const hamburger = document.querySelector('#hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const handlers = [];
+
+    const hamburgerClickHandler = () => {
+      hamburger?.classList.toggle('active');
+      sidebar?.classList.toggle('active');
+      overlay?.classList.toggle('active');
+      document.body.style.overflow = sidebar?.classList.contains('active') ? 'hidden' : '';
+    };
+
+    hamburger?.addEventListener('click', hamburgerClickHandler);
+
+    dropdownItems.forEach((dropdown) => {
+      const menuItem = dropdown.querySelector('.menu-item');
+
+      if (menuItem) {
+        const handler = (e) => {
+          e.stopPropagation();
+
+          dropdownItems.forEach((other) => {
+            if (other !== dropdown) {
+              other.classList.remove('open');
+              const otherSubmenu = other.querySelector('.submenu');
+              otherSubmenu?.classList.remove('open');
+            }
+          });
+
+          dropdown.classList.toggle('open');
+          const submenu = dropdown.querySelector('.submenu');
+          submenu?.classList.toggle('open');
+        };
+
+        menuItem.addEventListener('click', handler);
+        handlers.push({ element: menuItem, handler });
+      }
+    });
+
+    return () => {
+      // Clean up all attached listeners safely
+      hamburger?.removeEventListener('click', hamburgerClickHandler);
+
+      handlers.forEach(({ element, handler }) => {
+        element?.removeEventListener('click', handler);
+      });
+    };
+  }, []);
 
   /********************************Google Translator*****************************/
   // useEffect(() => {
@@ -147,6 +171,8 @@ const HeaderCorporate = ({ hospital }) => {
 
   return (
     <>
+
+      <ToastContainer position='bottom-center' />
       <header id="header-sticky" className="header">
         <section id="topheader" className="d-lg-block d-none">
           <div className="container d-flex align-items-center justify-content-between">
@@ -931,7 +957,7 @@ const HeaderCorporate = ({ hospital }) => {
 
                       {staticPageChecker['organ-transplant-compliance'] && (
                         <li>
-                          <a href={basePath + "/organ-transplant-compliance"}  className="menu-item ">
+                          <a href={basePath + "/organ-transplant-compliance"} className="menu-item ">
                             {staticTexts['Organ Transplant Compliance']}
                           </a>
                         </li>

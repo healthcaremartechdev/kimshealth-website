@@ -1,92 +1,76 @@
-"use client"
-import React, { useEffect, useState } from 'react'
-import Cookies from 'js-cookie';
+"use server"
+import getStaticPageChecker from '@/app/lib/getStaticPageChecker';
 import HederCorporate from './HeaderCorporate';
 import HeaderUnit from './HederUnit';
-import { ToastContainer } from 'react-toastify';
+import { cookies, headers } from 'next/headers';
+import getStaticText from '@/app/lib/getStaticTextServer';
+import hospitalData from '@/app/lib/getHospital';
+import getCurrentLangLoc from '@/app/lib/getCurrentLangLoc';
+import getSpecialityData from '@/app/lib/getSpeciality';
+import locationData from '@/app/lib/getLocationData';
 
-const Header = ({ hospital }) => {
-  const [activeHospital, setActiveHospital] = useState(hospital);
 
-  
+const Header = async ({ hospital, searchParams }) => {
+  const URLParams = await searchParams;
+
+  const selectedLangLoc = await getCurrentLangLoc();
   // cookies
-  const loc = Cookies.get("systemLocation") ? JSON.parse(Cookies.get("systemLocation")) : "";
-  const lang = Cookies.get("systemLang") ? JSON.parse(Cookies.get("systemLang")) : "";
+  const cookieStore = await cookies();
+  const langFromStorage = JSON.parse(cookieStore.get("systemLang")?.value || "{}");
+  const locationFromStorage = JSON.parse(cookieStore.get("systemLocation")?.value || "{}");
+  const staticPageChecker = await getStaticPageChecker();
+  const staticTexts = await getStaticText()
 
-  // Override hospital from URL param if available
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const hospitalParam = params.get("hospital");
+  let speciality;
 
-    if (hospitalParam) {
-      setActiveHospital(hospitalParam);
-    }
-  }, [hospital]);
+  if (URLParams?.hospital)
+    hospital = URLParams.hospital;
 
-  // Sidebar & dropdown handler
-  useEffect(() => {
-    const dropdownItems = document.querySelectorAll('.has-dropdown');
-    const hamburger = document.querySelector('#hamburger');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    const handlers = [];
 
-    const hamburgerClickHandler = () => {
-      hamburger?.classList.toggle('active');
-      sidebar?.classList.toggle('active');
-      overlay?.classList.toggle('active');
-      document.body.style.overflow = sidebar?.classList.contains('active') ? 'hidden' : '';
-    };
+  if (selectedLangLoc.loc.default)
+    speciality = await getSpecialityData.getHeaderSpeciality({ LangLoc:selectedLangLoc })
+  else {
+    if (hospital)
+      speciality = await getSpecialityData.getHeaderSpecialityByHospital({ LangLoc:selectedLangLoc, hospital });
+    else
+      speciality = await getSpecialityData.getHeaderUnitSpeciality({ LangLoc:selectedLangLoc });
+  }
 
-    hamburger?.addEventListener('click', hamburgerClickHandler);
 
-    dropdownItems.forEach((dropdown) => {
-      const menuItem = dropdown.querySelector('.menu-item');
+  const locationAllData = await locationData.getCurrentLocation();
 
-      if (menuItem) {
-        const handler = (e) => {
-          e.stopPropagation();
 
-          dropdownItems.forEach((other) => {
-            if (other !== dropdown) {
-              other.classList.remove('open');
-              const otherSubmenu = other.querySelector('.submenu');
-              otherSubmenu?.classList.remove('open');
-            }
-          });
+  const allHospital = await hospitalData.getAllHospitalAndMedicalCenter();
 
-          dropdown.classList.toggle('open');
-          const submenu = dropdown.querySelector('.submenu');
-          submenu?.classList.toggle('open');
-        };
 
-        menuItem.addEventListener('click', handler);
-        handlers.push({ element: menuItem, handler });
-      }
-    });
 
-    return () => {
-      // Clean up all attached listeners safely
-      hamburger?.removeEventListener('click', hamburgerClickHandler);
 
-      handlers.forEach(({ element, handler }) => {
-        element?.removeEventListener('click', handler);
-      });
-    };
-  }, []);
-
-  if (loc.default === true) {
+  if (locationFromStorage.default === true) {
     return (
       <>
-        <ToastContainer position='bottom-center' />
-        <HederCorporate hospital={activeHospital} />
+        <HederCorporate
+          hospital={hospital}
+          staticPageChecker={staticPageChecker}
+          staticTexts={staticTexts} 
+          allHospital={allHospital} 
+          locationData={locationAllData} 
+          selectedLangLoc={selectedLangLoc} 
+          speciality={speciality}
+        />
       </>
     );
   } else {
     return (
       <>
-        <ToastContainer position='bottom-center' />
-        <HeaderUnit hospital={activeHospital} />
+        <HeaderUnit
+          hospital={hospital}
+          staticPageChecker={staticPageChecker}
+          staticTexts={staticTexts} 
+          allHospital={allHospital} 
+          locationData={locationAllData} 
+          selectedLangLoc={selectedLangLoc} 
+          speciality={speciality}
+        />
       </>
     );
   }
