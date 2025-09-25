@@ -6,32 +6,28 @@ const getStaticPage = async () => {
     const getLangLoc = await getCurrentLangLocClient();
     const locId = getLangLoc.loc.id;
 
-    // console.log(getLangLoc)
-
     let staticData = {};
 
     let start;
-    const limit = 100;
-    // Step 2: Get all static text in selected locale
-    for (let i = 0; i < 2; i++) {
+    const limit = 100; // ✅ Fetch 100 per call
+    const iterations = 2; // adjust this depending on total count (example: 200 records)
+
+    for (let i = 0; i < iterations; i++) {
         start = i * limit;
-        const url = `${baseUrl}/static-page-contents?populate[0]=pageCategory&pagination[start]=${start}&fpagination[limit]=${limit}&filters[locations][id][$eq]=${locId}`;
+        const url = `${baseUrl}/static-page-contents?populate[0]=pageCategory&pagination[start]=${start}&pagination[limit]=${limit}&filters[locations][id][$eq]=${locId}`;
         const res = await fetch(url);
         const json = await res.json();
 
-        // Build slug:true map from this batch
+        console.log(url);
+
         const slugMap = Object.fromEntries(
             json.data.map(item => [item.pageCategory.slug, true])
         );
 
-        // Merge into staticData
         staticData = { ...staticData, ...slugMap };
     }
 
-
-
     return staticData;
-};
-
+}
 
 export default getStaticPage;
