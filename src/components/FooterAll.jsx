@@ -17,7 +17,7 @@ const FooterAll = ({ staticPageChecker, staticTexts, speciality, locationData, h
     const [basePathOnlyLang, setBasePathOnlyLang] = useState();
     const [allLocations, setAllLocations] = useState([]);
 
-
+ 
 
     useEffect(() => {
 
