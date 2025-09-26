@@ -27,6 +27,23 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
     const [loading, setLoading] = useState(false);
 
 
+    
+
+    const getMinDate = () => {
+        const now = new Date();
+        const today = new Date();
+        const tomorrow = new Date();
+        tomorrow.setDate(today.getDate() + 1);
+
+        // if time > 4PM, disable today
+        if (now.getHours() >= 21) {
+            return tomorrow.toISOString().split("T")[0];
+        } else {
+            return today.toISOString().split("T")[0];
+        }
+    };
+
+
     const sendMail = async () => {
         setLoading(true);
         if ([formData.name, formData.contactNumber, formData.emailID, formData.location, formData.hospital, formData.department, formData.doctor, formData.appoinmentDate].some((field) => !field || field === "")) {
@@ -46,6 +63,17 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                 type: 'error',
                 closeOnClick: true
             })
+            setLoading(false);
+            return;
+        }
+
+        // ✅ Validate appointment date
+        if (!formData.appoinmentDate || formData.appoinmentDate < getMinDate()) {
+            toast("Please select a valid appointment date", {
+                theme: "light",
+                type: "error",
+                closeOnClick: true,
+            });
             setLoading(false);
             return;
         }
@@ -98,7 +126,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
             window.location.href = `${basePath}/thank-you?msg=${encodedMsg}`;
 
             setFormData({
-                name: '', contactNumber: '',  emailID: '', location: '', hospital: '',
+                name: '', contactNumber: '', emailID: '', location: '', hospital: '',
                 department: "", doctor: '', appoinmentDate: '', appoinmentTime: ''
             });
             return
@@ -161,7 +189,6 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
 
         return data;
     }
-
 
     const getSpeciality = async ({ lang, loc, hospital }) => {
 
@@ -245,37 +272,37 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
 
 
     useEffect(() => {
-    const get = async () => {
-        let currentLangLoc = await getCurrentLangLocClient();
+        const get = async () => {
+            let currentLangLoc = await getCurrentLangLocClient();
 
-        // If no location is selected, set the default one
-        if (!selectedLocation) {
-            setSelectedLocation(currentLangLoc.loc.slug);
-            setFormData(prev => ({
-                ...prev,
-                location: currentLangLoc.loc.slug
+            // If no location is selected, set the default one
+            if (!selectedLocation) {
+                setSelectedLocation(currentLangLoc.loc.slug);
+                setFormData(prev => ({
+                    ...prev,
+                    location: currentLangLoc.loc.slug
+                }));
+                return; // stop here, let useEffect re-run with updated selectedLocation
+            }
+
+            // Fetch data only after location is set
+            setLocationList(await langLoc.getLocationsOnlyCMS());
+            setAllHospital(await getHospital({ loc: selectedLocation }));
+            setAllSpeciality(await getSpeciality({
+                loc: selectedLocation,
+                hospital: selectedHospital || ""
             }));
-            return; // stop here, let useEffect re-run with updated selectedLocation
-        }
-
-        // Fetch data only after location is set
-        setLocationList(await langLoc.getLocationsOnlyCMS());
-        setAllHospital(await getHospital({ loc: selectedLocation }));
-        setAllSpeciality(await getSpeciality({ 
-            loc: selectedLocation, 
-            hospital: selectedHospital || "" 
-        }));
-        await getDoctor({ 
-            loc: selectedLocation, 
-            hospital: selectedHospital || "", 
-            speciality: selectedSpeciality || "" 
-        });
-    };
-    get();
-}, [selectedLocation, selectedHospital, selectedSpeciality]);
+            await getDoctor({
+                loc: selectedLocation,
+                hospital: selectedHospital || "",
+                speciality: selectedSpeciality || ""
+            });
+        };
+        get();
+    }, [selectedLocation, selectedHospital, selectedSpeciality]);
 
 
-    
+
 
 
 
@@ -461,6 +488,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                                                                     name="appoinmentDate"
                                                                     className="form-control pe-0"
                                                                     autoComplete="off"
+                                                                    min={getMinDate()} // 🔥 dynamic min date
                                                                     value={formData.appoinmentDate}
                                                                     onClick={(e) => {
                                                                         // Force open date picker on click anywhere inside input
