@@ -36,7 +36,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
         tomorrow.setDate(today.getDate() + 1);
 
         // if time > 4PM, disable today
-        if (now.getHours() >= 21) {
+        if (now.getHours() >= 16) {
             return tomorrow.toISOString().split("T")[0];
         } else {
             return today.toISOString().split("T")[0];
