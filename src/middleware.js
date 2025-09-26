@@ -3,14 +3,6 @@ import redirects from './redirect';
 
 
 export async function middleware(request) {
-
-    //Force HTTPS redirection
-    if (request.headers.get("x-forwarded-proto") === "http") {
-        const url = request.nextUrl.clone();
-        url.protocol = "https";
-        return NextResponse.redirect(url, 301);
-    }
-
     // // Redirection:::::::::::::::::::::::::
     const redirectUrl = request.nextUrl.clone();
 
