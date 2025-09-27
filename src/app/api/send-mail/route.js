@@ -90,12 +90,20 @@ const emailFrom = {
   ip: "KIMSHEALTH International Patient <donotreply@kimsglobal.com>"
 };
 
-
+const emailDataHospital = {
+  "kimshealth-medical-centre-attingal": ["khmc.attingal@kimshealth.org"],
+  "kimshealth-medical-centre-pothencode": ["khmc.pothencode@kimshealth.org"],
+  "kimshealth-medical-centre-vattiyoorkavu": ["khmc.vattiyoorkavu@kimsglobal.com"],
+  "kimshealth-medical-centre-varkala": ["khmc.varkala@kimsglobal.com"],
+  "kimshealth-medical-centre-kamaleswaram-manacaud": ["khmc.manacaud@kimshealth.org"],
+  "kimshealth-medical-centre": ["kimsmedicalcentre.tvm@kimshealth.org"],
+  "kimshealth-medical-centre-ayoor": ["khmc.ayur@kimshealth.org"]
+};
 
 export async function POST(req) {
 
   try {
-    const { data, formType, subject, attachment, filename, docmentFilename, docmentAttachment, prescriptionFilename, prescriptionAttachment, locationData } = await req.json();
+    const { data, formType, subject, hospital, attachment, filename, docmentFilename, docmentAttachment, prescriptionFilename, prescriptionAttachment, locationData } = await req.json();
     const cookieStore = await cookies();
     const getLoc = JSON.parse(cookieStore.get("systemLocation")?.value);
     let loc = locationData ? locationData : getLoc.slug;
@@ -107,10 +115,14 @@ export async function POST(req) {
 
     let recipients = emailData?.[loc]?.[formType];
 
-    // console.log(recipients)
-    // console.log(data)
+    if (hospital) {
+      recipients = (emailDataHospital?.[hospital])?emailDataHospital?.[hospital]:recipients;
+    }
 
-    // console.log(!subject ? `${formType}` : `${formType} : ${subject}`,)
+    console.log(recipients)
+    console.log(data)
+
+    console.log(!subject ? `${formType}` : `${formType} : ${subject}`,)
 
     if (!recipients || recipients.length === 0) {
       return res.json({ err: "No email mapping found" }, { status: 404 });

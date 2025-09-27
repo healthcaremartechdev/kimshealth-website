@@ -27,7 +27,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
     const [loading, setLoading] = useState(false);
 
 
-    
+
 
     const getMinDate = () => {
         const now = new Date();
@@ -97,7 +97,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                 'headers': {
                     "Content-type": "application/json",
                 },
-                body: JSON.stringify({ data: htmlMsg, formType: "Book Appointment", locationData: formData.location }),
+                body: JSON.stringify({ data: htmlMsg, formType: "Book Appointment", locationData: formData.location, hospital: formData.hospital }),
                 // credentials: "include",
             });
 
