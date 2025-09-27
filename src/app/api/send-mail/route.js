@@ -119,10 +119,10 @@ export async function POST(req) {
       recipients = (emailDataHospital?.[hospital])?emailDataHospital?.[hospital]:recipients;
     }
 
-    console.log(recipients)
-    console.log(data)
+    // console.log(recipients)
+    // console.log(data)
 
-    console.log(!subject ? `${formType}` : `${formType} : ${subject}`,)
+    // console.log(!subject ? `${formType}` : `${formType} : ${subject}`,)
 
     if (!recipients || recipients.length === 0) {
       return res.json({ err: "No email mapping found" }, { status: 404 });
