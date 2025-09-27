@@ -247,6 +247,7 @@ $('.sub-speciality-slide2').owlCarousel({
 $('.expert').owlCarousel({
     loop: false,
     margin: 15,
+    autoplay: true,
     nav: true,
     navText: ["<img src='/img/left-arrow.svg'>", "<img src='/img/slider-right-arrow.svg'>"],
     dots: false,
