@@ -121,7 +121,6 @@ export async function POST(req) {
       html: data,
     };
 
-    console.log(!sub ? `${formType}` : `${formType} : ${sub}`,)
 
     // only add attachments if available
     if (attachment && filename) {

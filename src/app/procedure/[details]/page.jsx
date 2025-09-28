@@ -22,7 +22,7 @@ const ProcedureDetails = async ({ params }) => {
     const basePath = await getBaseUrl(true, true);
     const data = await procedureData.getSingleProcedure({ slug: params.details, langLoc: getLangLoc });
 
-    console.log(data)
+    
 
 
     // ::::::::: ALL DATA SETS :::::::::

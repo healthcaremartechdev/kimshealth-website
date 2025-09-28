@@ -215,7 +215,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
             ? pages
             : 0;
 
-        console.log(`${baseUrl}/specialty-details?${locationFilter}${hospitalFilter}`)
+        
 
         // Actual Data
         for (let i = 0; i < pagecount; i++) {

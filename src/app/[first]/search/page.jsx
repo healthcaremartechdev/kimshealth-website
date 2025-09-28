@@ -24,7 +24,6 @@ const SearchPage = async ({ searchParams }) => {
     const allDoctor = await serachData.getDoctor({ langLoc: getLangLoc, URLParams: URLParams });
     const allBlog = await serachData.allBlog({ langLoc: getLangLoc, URLParams: URLParams });
 
-    console.log(allPages);
     return (
         <>
             <Header />

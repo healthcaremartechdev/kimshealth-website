@@ -22,7 +22,6 @@ const DiseaseDetails = async ({ params }) => {
     const basePath = await getBaseUrl(true, true);
     const data = await diseaseData.getSingleDisease({ slug: params.details, langLoc: getLangLoc });
 
-    console.log(data)
 
 
     // ::::::::: ALL DATA SETS :::::::::

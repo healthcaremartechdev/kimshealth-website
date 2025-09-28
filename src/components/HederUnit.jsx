@@ -53,7 +53,6 @@ const HeaderUnit = ({ hospital }) => {
   useEffect(() => {
     const get = async () => {
       const LangLoc = await getCurrentLangLocClient();
-      // console.log(LangLoc, "in header");
       setselectedLangLoc(LangLoc);
 
       if (hospital)

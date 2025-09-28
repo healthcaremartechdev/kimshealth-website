@@ -25,7 +25,6 @@ const diseaseData = {
 
             const res = await fetch(url);
             const json = await res.json();
-            console.log("sf---------", json)
             allData = [...allData, ...json.data];
         }
 

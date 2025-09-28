@@ -67,7 +67,7 @@ const doctorData = {
 
         const req = await fetch(url);
         const res = await req.json();
-        console.log(url)
+        
         return res.data;
     },
 
@@ -159,7 +159,6 @@ const doctorData = {
         const req = await fetch(url);
         const res = await req.json();
 
-        console.log(url)
         return res.data;
     },
 

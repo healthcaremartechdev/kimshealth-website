@@ -90,7 +90,6 @@ const FormSpeciality = ({ title, speciality }) => {
 
 
         } catch (error) {
-            console.log(error)
             setLoading(false);
             return toast("Something went wrong", {
 

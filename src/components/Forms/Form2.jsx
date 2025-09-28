@@ -88,7 +88,6 @@ const Form2 = ({ title, type, subject }) => {
 
 
     } catch (error) {
-      console.log(error)
       setLoading(false);
       return toast("Something went wrong", {
         theme: 'light',

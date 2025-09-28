@@ -595,7 +595,6 @@ function showBox(id) {
 //             dayCell.addEventListener('click', function () {
 //                 document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('active'));
 //                 this.classList.add('active');
-//                 console.log("Selected date:", cellDate.toISOString().split('T')[0]);
 //             });
 
 //             // Highlight today
@@ -697,7 +696,7 @@ $(document).mouseup(function (e) {
     }
 });
 
-document.getElementById("sitemap-copy-button").addEventListener("click", function () {
+document.getElementById("sitemap-copy-button")?.addEventListener("click", function () {
     let table = document.getElementById("sitemap-table");
     let rows = table.querySelectorAll("tr");
     let text = "";

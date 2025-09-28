@@ -119,10 +119,7 @@ export async function POST(req) {
       recipients = (emailDataHospital?.[hospital])?emailDataHospital?.[hospital]:recipients;
     }
 
-    // console.log(recipients)
-    // console.log(data)
-
-    // console.log(!subject ? `${formType}` : `${formType} : ${subject}`,)
+  
 
     if (!recipients || recipients.length === 0) {
       return res.json({ err: "No email mapping found" }, { status: 404 });
@@ -184,7 +181,7 @@ export async function POST(req) {
       delete mailOptions.attachments;
     }
 
-    console.log(mailOptions)
+    
 
     const info = await transporter.sendMail(mailOptions);
 

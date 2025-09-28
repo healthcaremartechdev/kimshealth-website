@@ -96,7 +96,7 @@ const ContactUsForm = () => {
 
 
         } catch (error) {
-            console.log(error)
+            
             setLoading(false);
             return toast("Something went wrong", {
                 theme: 'light',

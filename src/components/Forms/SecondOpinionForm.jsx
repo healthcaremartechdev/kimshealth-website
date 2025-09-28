@@ -56,7 +56,6 @@ const SecondOpinionForm = ({ pageContent }) => {
                         <li><strong> Page URL: </strong> ${document.location.href}</li>
                     </ul>
                 `;
-            console.log(formData)
             const req = await fetch("/api/send-mail", {
                 method: 'POST',
                 'headers': {
@@ -102,7 +101,6 @@ const SecondOpinionForm = ({ pageContent }) => {
 
 
         } catch (error) {
-            console.log(error)
             setLoading(false);
             return toast("Something went wrong", {
 
@@ -185,7 +183,7 @@ const SecondOpinionForm = ({ pageContent }) => {
     useEffect(() => {
         const get = async () => {
             let currentLangLoc = await getCurrentLangLocClient();
-            console.log(currentLangLoc.loc.slug)
+            
             setLocationList(await langLoc.getLocationsOnlyCMS())
             await getSpeciality({ loc: currentLangLoc.loc.slug });
         }

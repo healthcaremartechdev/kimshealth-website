@@ -51,8 +51,6 @@ const ThankYou = async ({ searchParams }) => {
     updatedMsg = decoded.replace(/<li[\s\S]*?<\/li>\s*<\/ul>$/i, "</ul>");
   }
 
-  // small debug log (remove in production)
-  console.log('decoded length:', decoded.length, 'updated length:', updatedMsg.length);
 
   return (
     <>

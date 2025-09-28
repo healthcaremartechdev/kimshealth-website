@@ -141,7 +141,6 @@ const getSpecialityData = {
             const json = await res.json();
             data = [...data, ...json.data];
 
-            //console.log(url);
         }
 
 
@@ -312,10 +311,8 @@ const getSpecialityData = {
             const json = await res.json();
             data = [...data, ...json.data];
 
-            //console.log(url)
         }
 
-        //console.log(initialRes)
 
         return data;
     },

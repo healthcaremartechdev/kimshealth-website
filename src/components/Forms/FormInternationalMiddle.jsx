@@ -46,7 +46,6 @@ const FormInternationalMiddle = () => {
         e.preventDefault();
         setLoading(true);
 
-        console.log(formData)
 
         if ([formData.name, formData.number].some((f) => !f)) {
             toast("Fill the required fields", {
@@ -118,7 +117,6 @@ const FormInternationalMiddle = () => {
             return;
 
         } catch (error) {
-            console.log(error);
             toast("Something went wrong", {
 
                 theme: "light",

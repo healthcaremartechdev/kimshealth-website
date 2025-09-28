@@ -18,7 +18,6 @@ const getStaticPage = async () => {
         const res = await fetch(url);
         const json = await res.json();
 
-        console.log(url);
 
         const slugMap = Object.fromEntries(
             json.data.map(item => [item.pageCategory.slug, true])

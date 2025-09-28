@@ -15,7 +15,7 @@ const CsrInitiative = async () => {
     const pageMeta = data?.data[0]?.metaSection;
     const staticText = await getStaticText();
 
-    console.log(pageContent)
+    
 
     return (
         <>

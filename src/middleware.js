@@ -143,7 +143,6 @@ export async function middleware(request) {
     response.cookies.set("systemLocation", JSON.stringify(loc), { path: "/", maxAge: 60 * 60 * 24 * 365 });
 
 
-    //console.log(lang, loc)
 
     return response;
 

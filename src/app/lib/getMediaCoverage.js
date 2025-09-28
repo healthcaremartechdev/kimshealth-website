@@ -28,7 +28,7 @@ const mediaCoverData = {
                 data = [...data, ...json.data];
             }
 
-            console.log(url)
+            
 
             return data;
         }

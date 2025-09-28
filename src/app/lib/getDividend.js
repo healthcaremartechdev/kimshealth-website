@@ -28,7 +28,6 @@ const dividendData = {
     }
 
     const apiUrl = baseUrl + query;
-    console.log("API URL:", apiUrl);
 
     try {
       const req = await fetch(apiUrl);

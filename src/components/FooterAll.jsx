@@ -96,7 +96,6 @@ const FooterAll = ({ staticPageChecker, staticTexts, speciality, locationData, h
                     dayCell.addEventListener('click', function () {
                         document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('active'));
                         this.classList.add('active');
-                        console.log("Selected date:", cellDate.toISOString().split('T')[0]);
                     });
 
                     if (

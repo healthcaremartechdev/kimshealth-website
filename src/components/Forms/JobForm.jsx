@@ -53,7 +53,6 @@ const JobForm = ({ title, jobTitle }) => {
                         <li><strong> Page URL: </strong> ${document.location.href}</li>
                     </ul>
                 `;
-      console.log(formData)
       const req = await fetch("/api/send-mail", {
         method: 'POST',
         'headers': {
@@ -98,7 +97,6 @@ const JobForm = ({ title, jobTitle }) => {
 
 
     } catch (error) {
-      console.log(error)
       setLoading(false);
       return toast("Something went wrong", {
 

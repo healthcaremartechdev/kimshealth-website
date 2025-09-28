@@ -29,9 +29,9 @@ const CorporateForm = ({ dataSet }) => {
         }
         else if (formData.type === "Notice of General Meetings") {
             setLoading((prev) => ({...prev, notice: true}));
-            console.log(formData.report_notice_type)
+            
             let geFileArr = dataSet.generalMeeting.filter((item, _) => item.title === formData.report_notice_type);
-            console.log(geFileArr);
+            
             getFile = geFileArr?.[0]?.file?.[0]?.url;
         }
         else if (formData.type === "Download Draft Annual Return") {
@@ -71,7 +71,7 @@ const CorporateForm = ({ dataSet }) => {
             if (formData.type === "Download Draft Annual Return") setDraftForm({ email: "", report_notice_type: "", type: formData.type });
 
         } catch (error) {
-            console.log(error);
+            
             toast("Something went wrong", { theme: 'light', type: 'error', closeOnClick: true });
         }
 

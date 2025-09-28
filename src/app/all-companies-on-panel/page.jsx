@@ -15,7 +15,6 @@ const AllCompaniesPanel = async () => {
     const staticText = await getStaticText();
 
 
-    console.log(pageContent);
 
     return (
         <>
