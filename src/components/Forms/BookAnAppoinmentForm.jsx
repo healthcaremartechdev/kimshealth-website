@@ -431,7 +431,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                                                             <label htmlFor=''>{staticText['Select Department']}*</label>
                                                             <select className="form-select from-location" value={selectedSpeciality} onChange={(e) => {
                                                                 setSelectedSpeciality(e.target.value);
-                                                                setFormData({ ...formData, department: e.target.value });
+                                                                setFormData({ ...formData, department: e.target.value, doctor:"" });
                                                             }}>
                                                                 <option value={""}>{staticText['Select a Department']}</option>
                                                                 {
