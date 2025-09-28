@@ -110,10 +110,11 @@ const TestimonialSection = ({ dataSet }) => {
                             dataSet?.data?.map((t, index) => {
                                 return <div className="card border-0" key={index}>
                                     <div className="card-top">
-                                        <a href="#">
+                                        <a href={dataSet.baseUrl + "/testimonial/" + t.slug}>
                                             <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${t.thumbnailImage?.url}`} alt="" className="img-fluid w-100" />
+                                            <div className="play-icon"> <img src="/img/play-icon-small.png" alt="" /> </div>
                                         </a>
-                                        <div className="play-icon"> <img src="/img/play-icon-small.png" alt="" /> </div>
+                                        
                                     </div>
                                     <div className="testi-rightbox card-content">
                                         <h3>{t.title}</h3>
