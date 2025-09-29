@@ -54,7 +54,7 @@ const emailData = {
     "Corporate": ["relations@kimskerala.com"],
     "International": ["ipr.tvm@kimshealth.org"]
   },
-  alshifa: {
+  perintalmanna: {
     "Book Appointment": ["health.checkup@kimsalshifa.com"],
     "Bookhealth Checkup": ["health.checkup@kimsalshifa.com"],
     "Career": ["hrd@kimsalshifa.com"],
