@@ -85,7 +85,7 @@ const emailFrom = {
   trivandrum: "KIMSHEALTH Trivandrum <donotreply@kimsglobal.com>",
   kollam: "KIMSHEALTH Kollam <donotreply@kimsglobal.com>",
   kottayam: "KIMSHEALTH Kottayam <donotreply@kimsglobal.com>",
-  alshifa: "KIMSHEALTH Al-Shifa <donotreply@kimsglobal.com>",
+  perintalmanna: "KIMSHEALTH Al-Shifa <donotreply@kimsglobal.com>",
   nagercoil: "KIMSHEALTH Nagercoil <donotreply@kimsglobal.com>",
   ip: "KIMSHEALTH International Patient <donotreply@kimsglobal.com>"
 };
