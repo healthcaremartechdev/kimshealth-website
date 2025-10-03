@@ -16,7 +16,7 @@ const Procedure = async ({searchParams}) => {
     const staticText = await getStaticText();
     const basePath = await getBaseUrl(true, true);
     const baseUrlOnlyLang = await getBaseUrl(true, false);
-    const data = await getStaticPageContent("disease");
+    const data = await getStaticPageContent("procedure");
     const pageContent = data?.data[0]?.pageContent;
     const pageMeta = data?.data[0]?.metaSection;
 
