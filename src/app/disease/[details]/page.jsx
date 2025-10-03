@@ -18,7 +18,7 @@ import Form1 from '@/components/Forms/Form1'
 import { marked } from 'marked'
 import hospitalData from '@/app/lib/getHospital'
 
-const DiseaseDetails = async ({ params,searchParams }) => {
+const DiseaseDetails = async ({ params, searchParams }) => {
     const URLParams = await searchParams;
     const getLangLoc = await getCurrentLangLoc()
     const staticText = await getStaticText();
@@ -31,10 +31,10 @@ const DiseaseDetails = async ({ params,searchParams }) => {
     // ::::::::: ALL DATA SETS :::::::::
     const expertDataSet = {
         sectionTitle: data.expertSection?.title,
-        buttonText: 'View All', buttonURL: `${basePath + "/doctor?disease=" + data.disease?.slug}`,
-        data: await doctorData.getByDisease({ id: data.disease.id, langLoc: getLangLoc, hospital:URLParams.hospital }),
+        buttonText: 'View All', buttonURL: `${basePath}/doctor?disease=${data.disease?.slug}${URLParams.hospital ? `&hospital=${URLParams.hospital}` : ''}`,
+        data: await doctorData.getByDisease({ id: data.disease.id, langLoc: getLangLoc, hospital: URLParams.hospital }),
         hospitaldata: await hospitalData.getAllHospitalAndMedicalCenter(),
-        selectedHospital:URLParams.hospital,
+        selectedHospital: URLParams.hospital,
         baseUrl: basePath
     };
     const testimonialDataSet = {
@@ -56,7 +56,7 @@ const DiseaseDetails = async ({ params,searchParams }) => {
         <>
             <Header />
             <div role="main" className="main">
-                
+
 
 
                 {/* Desktop section */}
@@ -79,7 +79,10 @@ const DiseaseDetails = async ({ params,searchParams }) => {
                                         </div>
                                         <div className="details-banner">
                                             <div className="details-heading">
-                                                <h3>{data.title}</h3>
+                                                <h3 className='mb-5'>{data.title}</h3>
+
+                                                <a href="#request-call-back" className="form-btn w-auto px-5 me-3 reverse-btn">Request a Call Back</a>
+                                                <a href={`${basePath}/doctor?disease=${data.disease?.slug}${URLParams.hospital ? `&hospital=${URLParams.hospital}` : ''}`} className="form-btn w-auto px-5">Find a Doctor</a>
                                             </div>
                                         </div>
                                     </div>
@@ -143,8 +146,8 @@ const DiseaseDetails = async ({ params,searchParams }) => {
                                 <div dangerouslySetInnerHTML={{ __html: marked(data.overviewSection?.details) || "" }}></div>
                             </div>
                             <div className="col-md-4">
-                                <div className="association-form-card sticky-form mb-5">
-                                    <Form1 title={"Request a Call Back"} type={"Contact"} subject={"Disease:"+data.title} />
+                                <div className="association-form-card sticky-form mb-5" id='request-call-back'>
+                                    <Form1 title={"Request a Call Back"} type={"Contact"} subject={"Disease:" + data.title} />
                                 </div>
                             </div>
                         </div>
@@ -340,16 +343,16 @@ const DiseaseDetails = async ({ params,searchParams }) => {
 
 
                 <div className="line-divider"> </div>
-                <ExpertCarousel dataSet={expertDataSet}/>
+                <ExpertCarousel dataSet={expertDataSet} />
 
 
                 <div className="line-divider"></div>
-                <TestimonialSection dataSet={testimonialDataSet}/>
+                <TestimonialSection dataSet={testimonialDataSet} />
 
 
 
                 <div className="line-divider"></div>
-                <DocTalk dataSet={docTalkDataSet}/>
+                <DocTalk dataSet={docTalkDataSet} />
 
             </div>
             <Footer />

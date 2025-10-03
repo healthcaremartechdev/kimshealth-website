@@ -326,6 +326,21 @@ const Footer = () => {
                                             <a href={basePath + "/about-us"}>{staticTexts['About Us']}</a>
                                         </li>
                                     )}
+                                    {staticPageChecker['procedure'] && (
+                                        <li>
+                                            <a href={basePathOnlyLang + "/procedure"}>
+                                                {staticTexts['Procedures']}
+                                            </a>
+                                        </li>
+                                    )}
+                                    {staticPageChecker['disease'] && (
+                                        <li>
+                                            <a href={basePathOnlyLang + "/disease"}>
+                                                {staticTexts['Diseases']}
+                                            </a>
+                                        </li>
+                                    )}
+
                                     {staticPageChecker['blog'] && (
                                         <li>
                                             <a href={basePath + "/blog"}>{staticTexts['Blog']}</a>
@@ -546,6 +561,21 @@ const Footer = () => {
                                     {staticPageChecker['about-us'] && (
                                         <li>
                                             <a href={basePath + "/about-us"}>{staticTexts['About Us']}</a>
+                                        </li>
+                                    )}
+                                    
+                                    {staticPageChecker['procedure'] && (
+                                        <li>
+                                            <a href={basePathOnlyLang + "/procedure"}>
+                                                {staticTexts['Procedures']}
+                                            </a>
+                                        </li>
+                                    )}
+                                    {staticPageChecker['disease'] && (
+                                        <li>
+                                            <a href={basePathOnlyLang + "/disease"}>
+                                                {staticTexts['Diseases']}
+                                            </a>
                                         </li>
                                     )}
                                     {staticPageChecker['blog'] && (

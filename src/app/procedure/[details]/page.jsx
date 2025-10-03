@@ -27,11 +27,10 @@ const ProcedureDetails = async ({ params,searchParams }) => {
 
 
 
-
     // ::::::::: ALL DATA SETS :::::::::
     const expertDataSet = {
         sectionTitle: data.expertSection?.title,
-        buttonText: 'View All', buttonURL: `${basePath + "/doctor?procedure=" + data.procedure?.slug}`,
+        buttonText: 'View All', buttonURL: `${basePath}/doctor?procedure=${data.procedure?.slug}${URLParams.hospital ? `&hospital=${URLParams.hospital}` : ''}`,
         data: await doctorData.getByProcedure({ id: data.procedure.id, langLoc: getLangLoc, hospital:URLParams.hospital }),
         hospitaldata: await hospitalData.getAllHospitalAndMedicalCenter(),
         selectedHospital:URLParams.hospital,
@@ -82,7 +81,10 @@ const ProcedureDetails = async ({ params,searchParams }) => {
                                         </div>
                                         <div className="details-banner">
                                             <div className="details-heading">
-                                                <h3>{data.title}</h3>
+                                                <h3 className='mb-5'>{data.title}</h3>
+
+                                                <a href="#request-call-back" className="form-btn w-auto px-5 me-3 reverse-btn">Request a Call Back</a>
+                                                <a href={`${basePath}/doctor?procedure=${data.procedure?.slug}${URLParams.hospital ? `&hospital=${URLParams.hospital}` : ''}`} className="form-btn w-auto px-5">Find a Doctor</a>
                                             </div>
                                         </div>
                                     </div>
@@ -145,7 +147,7 @@ const ProcedureDetails = async ({ params,searchParams }) => {
                                 <div dangerouslySetInnerHTML={{ __html: marked(data.overviewSection?.details) || "" }}></div>
                             </div>
                             <div className="col-md-4">
-                                <div className="association-form-card sticky-form mb-5">
+                                <div className="association-form-card sticky-form mb-5" id='request-call-back'>
                                     <Form1 title={"Request a Call Back"} type={"Contact"} subject={"Procedure:"+data.title} />
                                 </div>
                             </div>
