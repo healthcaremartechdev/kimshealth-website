@@ -14,8 +14,12 @@ import doctorTalkData from '@/app/lib/getDoctorTalk'
 import testimonialData from '@/app/lib/getTestimonial'
 import doctorData from '@/app/lib/getDoctor'
 import Form2 from '@/components/Forms/Form2'
+import Form1 from '@/components/Forms/Form1'
+import { marked } from 'marked'
+import hospitalData from '@/app/lib/getHospital'
 
-const DiseaseDetails = async ({ params }) => {
+const DiseaseDetails = async ({ params,searchParams }) => {
+    const URLParams = await searchParams;
     const getLangLoc = await getCurrentLangLoc()
     const staticText = await getStaticText();
     const basePathOnlyLang = await getBaseUrl(true, false);
@@ -28,7 +32,9 @@ const DiseaseDetails = async ({ params }) => {
     const expertDataSet = {
         sectionTitle: data.expertSection?.title,
         buttonText: 'View All', buttonURL: `${basePath + "/doctor?disease=" + data.disease?.slug}`,
-        data: await doctorData.getByDisease({ id: data.disease.id, langLoc: getLangLoc }),
+        data: await doctorData.getByDisease({ id: data.disease.id, langLoc: getLangLoc, hospital:URLParams.hospital }),
+        hospitaldata: await hospitalData.getAllHospitalAndMedicalCenter(),
+        selectedHospital:URLParams.hospital,
         baseUrl: basePath
     };
     const testimonialDataSet = {
@@ -50,77 +56,102 @@ const DiseaseDetails = async ({ params }) => {
         <>
             <Header />
             <div role="main" className="main">
-                <section className="section details-page-before py-0">
-                    <div className="procedures-details-page-header">
-                        <div className="container">
+                
+
+
+                {/* Desktop section */}
+                <section className="section details-page-before py-0 d-lg-block d-none">
+                    <div className="procedures-details-page-header inner-pages-header">
+                        <div className="container-fluid px-0">
                             <div className="row">
                                 <div className="col-md-6 details-proceduce-banner-left-col">
-
-                                    <div className="breadcrumb-wrapper py-2 ps-2 ms-1">
-                                        <div className="row">
-                                            <div className="col-12 px-0">
-                                                <Breadcrumb
-                                                    activeTitle={data.title}
-                                                    middleTitle={"Diseases"}
-                                                    middleURL={basePathOnlyLang + "/disease"}
-                                                />
+                                    <div className="hospital-banner-container">
+                                        <div className="breadcrumb-wrapper py-2 ps-2 ms-1">
+                                            <div className="row">
+                                                <div className="col-12 px-0">
+                                                    <Breadcrumb
+                                                        activeTitle={data.title}
+                                                        middleTitle={"Diseases"}
+                                                        middleURL={basePathOnlyLang + "/disease"}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="details-banner">
+                                            <div className="details-heading">
+                                                <h3>{data.title}</h3>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="details-banner pb-5">
-                                        <div className="details-heading">
-                                            <Form2 title={"Have a query?"} type={"Disease"} subject={data.title}/>
+                                </div>
+
+                                <div className="col-md-6 details-proceduce-banner-right-col mt-lg-0 mt-4">
+                                    <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data.disease?.featuredImage?.url}`} className="img-fluid details-banner-image" alt={data.title} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                {/* mobile section */}
+                <section className="section details-page-before py-0 d-lg-none d-block">
+                    <div className="diseases-details-page-header inner-pages-header">
+                        <div className="container-fluid px-0">
+                            <div className="row">
+                                <div className="col-md-6 details-proceduce-banner-left-col mt-lg-auto">
+                                    <div className="hospital-banner-container">
+                                        <div className="breadcrumb-wrapper py-2 ps-2 ms-1">
+                                            <div className="row">
+                                                <div className="col-12">
+                                                    <Breadcrumb
+                                                        activeTitle={data.title}
+                                                        middleTitle={"Diseases"}
+                                                        middleURL={basePathOnlyLang + "/disease"}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="details-proceduce-banner-right-col mt-lg-0 mt-4">
+                                            <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${data.disease?.featuredImage?.url}`}
+                                                className="img-fluid details-banner-image" alt={data.title} />
                                         </div>
                                     </div>
                                 </div>
-
-                                <div className="col-md-6 details-proceduce-banner-right-col my-lg-auto pb-5">
-                                    <div className="d-flex align-items-center justify-content-end mb-4">
-                                        <img src={process.env.NEXT_PUBLIC_IMAGE_URL + data.disease?.iconImage?.url} className="img-fluid" alt={data.title}/>
-                                        <h4>{data.title}</h4>
-                                    </div>
-                                    <div className="d-flex align-items-center justify-content-lg-center">
-                                        <a href={basePath+"/second-opinion"} className="procedure-btn-left">{staticText['Get Second Opinion']}</a>
-                                        <a href="#" className="procedure-btn-right">Meet Our Cardiologist</a>
+                            </div>
+                            <div className="col-md-6 mt-lg-0 mt-4">
+                                <div className="details-banner">
+                                    <div className="details-heading">
+                                        <h3>{data.title}</h3>
                                     </div>
                                 </div>
-
-                                {/* <!-- <div className="col-md-6">
-                                    <img src="/img/details-banner.png" alt="" className="img-fluid w-100" />
-                                </div> --> */}
                             </div>
                         </div>
                     </div>
-
                 </section>
 
-                <section className="section">
+
+
+
+                <section className="section  health-pack-details-main-page">
                     <div className="container">
                         <div className="row">
-                            <div className="col-md-7 sub-heading mb-lg-0 mb-3 pe-lg-5">
+                            <div className="col-md-8 sub-heading mb-lg-0 mb-3 pe-lg-5">
                                 <div className="main-heading">
                                     <h2>{data.overviewSection?.title}</h2>
                                 </div>
-                                <div dangerouslySetInnerHTML={{ __html: data.overviewSection?.details || "" }}></div>
+                                <div dangerouslySetInnerHTML={{ __html: marked(data.overviewSection?.details) || "" }}></div>
                             </div>
-                            <div className="col-md-5 my-auto">
-                                <div className="details-right-col text-center">
-                                    <img src={process.env.NEXT_PUBLIC_IMAGE_URL + data.overviewSection?.thumbnail?.url} alt="" className="img-fluid w-100" />
-                                    <h5>{data.overviewSection?.caption}</h5>
-                                    <p>{data.overviewSection?.shortDetails&&data.overviewSection?.shortDetails?.slice(0,18)+"..."}</p>
-                                    <div className="main-btn">
-                                        <WatchVideoButton
-                                            id={data.overviewSection?.videoId}
-                                            txt={staticText['Watch Video']}
-                                        />
-                                    </div>
+                            <div className="col-md-4">
+                                <div className="association-form-card sticky-form mb-5">
+                                    <Form1 title={"Request a Call Back"} type={"Contact"} subject={"Disease:"+data.title} />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <div className="line-divider"> </div>
+                {/* <div className="line-divider"> </div>
 
                 <section className="section"
                     style={{ background: "linear-gradient(180deg,rgba(255, 255, 255, 1) 45%, rgba(248, 248, 248, 1) 74%)" }}>
@@ -305,7 +336,7 @@ const DiseaseDetails = async ({ params }) => {
                             </div>
                         </div>
                     </div>
-                </section>
+                </section> */}
 
 
                 <div className="line-divider"> </div>

@@ -162,16 +162,24 @@ const doctorData = {
         return res.data;
     },
 
-    getByProcedure: async ({ id, langLoc }) => {
-        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-details?populate=*&filters[procedures][id][$eq]=${id}&sort=manageAppearance.orderInMasterList:asc,name:asc`;
+    getByProcedure: async ({ id, langLoc,hospital }) => {
+        const hospitalFilter = hospital
+            ? `&filters[hospitals][slug][$eq]=${hospital}`
+            : ``
+
+        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-details?populate=*&filters[procedures][id][$eq]=${id}${hospitalFilter}&sort=manageAppearance.orderInMasterList:asc,name:asc`;
         const req = await fetch(url);
         const res = await req.json();
 
         return res.data;
     },
 
-    getByDisease: async ({ id, langLoc }) => {
-        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-details?populate=*&filters[diseases][id][$eq]=${id}&sort=manageAppearance.orderInMasterList:asc,name:asc`;
+    getByDisease: async ({ id, langLoc,hospital }) => {
+        const hospitalFilter = hospital
+            ? `&filters[hospitals][slug][$eq]=${hospital}`
+            : ``
+
+        const url = process.env.NEXT_PUBLIC_CMS_API_URL + `/doctor-details?populate=*&filters[diseases][id][$eq]=${id}${hospitalFilter}&sort=manageAppearance.orderInMasterList:asc,name:asc`;
         const req = await fetch(url);
         const res = await req.json();
 

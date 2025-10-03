@@ -15,7 +15,7 @@ const ExpertCarousel = ({ dataSet }) => {
     }, []);
 
 
-    if (dataSet.data.length < 1 || dataSet.sectionTitle==null) {
+    if (dataSet.data.length < 1 || dataSet.sectionTitle == null) {
         return;
     }
     return (
@@ -28,16 +28,69 @@ const ExpertCarousel = ({ dataSet }) => {
                                 <h2>{dataSet.sectionTitle}</h2>
                             </div>
                         </div>
-                        <div className="col-md-2  col-4">
-                            <div className="over-all-btn text-end">
-                                <a href={dataSet.buttonURL}>{staticTexts[dataSet.buttonText]}
-                                    <span>
-                                        <img src="/img/slider-right-arrow.svg" className="img-fluid" />
-                                    </span>
-                                </a>
+                        <div className="col-md-4  col-4">
+                            <div className="row justify-content-end">
+                                {dataSet.hospitaldata && <div className="col-md-8 d-lg-block d-none">
+                                    <div className="input-group">
+                                        <select value={dataSet.selectedHospital} className="form-select" aria-label="Default select example" onChange={(e) => {
+                                            const value = e.target.value;
+                                            const currentBaseURL = window.location.pathname;
+                                            if (value) {
+                                                // Add hospital param
+                                                location.href = `${currentBaseURL}?hospital=${value}`;
+                                            } else {
+                                                // If empty, go to page without hospital param
+                                                location.href = currentBaseURL;
+                                            }
+                                        }}>
+                                            <option value={''}>{staticTexts['Select Hospital']}</option>
+
+                                            {dataSet.hospitaldata?.map((loc, index) => (
+                                                <option value={loc.slug} key={index + "1"}>{loc.title}</option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </div>}
+
+                                <div className="col-md-4 my-auto">
+                                    <div className="over-all-btn text-end">
+                                        <a href={dataSet.buttonURL}>{staticTexts[dataSet.buttonText]}
+                                            <span>
+                                                <img src="/img/slider-right-arrow.svg" className="img-fluid" />
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
+                        {dataSet.hospitaldata && <div className="col-md-12 mb-4 d-lg-none d-block">
+                            <div className="input-group">
+                                <select value={dataSet.selectedHospital} className="form-select" aria-label="Default select example"
+                                    onChange={(e) => {
+                                        const value = e.target.value;
+                                        const currentBaseURL = window.location.pathname;
+                                        if (value) {
+                                            // Add hospital param
+                                            location.href = `${currentBaseURL}?hospital=${value}`;
+                                        } else {
+                                            // If empty, go to page without hospital param
+                                            location.href = currentBaseURL;
+                                        }
+                                    }}>
+                                    <option value={''}>{staticTexts['Select Hospital']}</option>
+
+                                    {dataSet.hospitaldata?.map((loc, index) => (
+                                        <option value={loc.slug} key={index + "1"}>{loc.title}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>}
                     </div>
+
+
+
 
                     <div className="owl-carousel owl-theme expert">
                         {

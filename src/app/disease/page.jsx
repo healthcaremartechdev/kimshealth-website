@@ -87,7 +87,7 @@ const Disease = async ({ searchParams }) => {
 
                                     </div>
                                 </a>
-                                <a href={`tel:${pageContent[1].card4Title}`}>
+                                <a href={`tel:${pageContent[1].card4Contact}`}>
                                     <div className="key-master-call-btn">
                                         <div className="key-master-book-appointment-content text-center">
                                             <h5>{pageContent[1].card4Title}</h5>

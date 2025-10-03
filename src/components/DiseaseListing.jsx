@@ -32,7 +32,7 @@ const DiseaseListing = ({ allDisease, allSpeciality, URLParams, baseUrlOnlyLang 
                             />
                         </div>
                         <div className="col-md-6 mb-2">
-                            <div className="input-group p-0 my-lg-4 my-1 position-relative justify-content-center">
+                            <div className="input-group p-0 mt-lg-0 mt-2 position-relative justify-content-center">
                                 <select name="" className="form-select rounded-from" value={URLParams.speciality} onChange={(e) => {
                                     location.href = `${baseUrlOnlyLang}/disease?speciality=${e.target.value.trim()}`;
                                     setSelectedSpeciality(e.target.value);
