@@ -326,7 +326,8 @@ const Footer = () => {
                                             <a href={basePath + "/about-us"}>{staticTexts['About Us']}</a>
                                         </li>
                                     )}
-                                    {staticPageChecker['procedure'] && (
+
+                                    {/* {staticPageChecker['procedure'] && (
                                         <li>
                                             <a href={basePathOnlyLang + "/procedure"}>
                                                 {staticTexts['Procedures']}
@@ -339,7 +340,7 @@ const Footer = () => {
                                                 {staticTexts['Diseases']}
                                             </a>
                                         </li>
-                                    )}
+                                    )} */}
 
                                     {staticPageChecker['blog'] && (
                                         <li>
@@ -564,7 +565,7 @@ const Footer = () => {
                                         </li>
                                     )}
                                     
-                                    {staticPageChecker['procedure'] && (
+                                    {/* {staticPageChecker['procedure'] && (
                                         <li>
                                             <a href={basePathOnlyLang + "/procedure"}>
                                                 {staticTexts['Procedures']}
@@ -577,7 +578,8 @@ const Footer = () => {
                                                 {staticTexts['Diseases']}
                                             </a>
                                         </li>
-                                    )}
+                                    )} */}
+
                                     {staticPageChecker['blog'] && (
                                         <li>
                                             <a href={basePath + "/blog"}>{staticTexts['Blog']}</a>
