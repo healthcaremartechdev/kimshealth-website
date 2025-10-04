@@ -44,6 +44,15 @@ const hospitalData = {
 
     },
 
+    getSingleHospitalClient: async ({slug, langLoc}) => {
+        let url = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL + `/hospitals/?filters[slug][$eq]=${slug}&populate[0]=featuredImage&populate[1]=manageAppearance&populate[2]=USPSection&populate[3]=USPSection.uspItem&populate[4]=hospitalsSection&populate[5]=specialitySection&populate[6]=pageBanner&populate[7]=pageBanner.bannerImageDesktop&populate[8]=pageBanner.bannerImageMobile&populate[9]=metaSection&populate[10]=overviewSection&populate[11]=blog&populate[12]=doctorTalk&populate[13]=testimonialSection&populate[14]=expertSection&populate[15]=overviewSection.thumbnail&populate[16]=location`;
+        const req = await fetch(url);
+        const res = await req.json();
+
+        return res.data[0];
+
+    },
+
     getFooterHospital: async ({langLoc}) => {
         const baseUrl = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL;
         // Get total count

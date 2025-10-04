@@ -88,6 +88,23 @@ const doctorData = {
 
     },
 
+
+    getSingleDoctorClient: async ({ slug, langLoc, isMeta }) => {
+        let url = process.env.NEXT_PUBLIC_CMS_CLIENT_API_URL + `/doctor-details/?filters[slug][$eq]=${slug}&populate[0]=doctorImage&populate[1]=hospitals&populate[2]=diseases&populate[3]=locations&populate[4]=procedures&populate[5]=specialities&populate[6]=manageAppearance&populate[7]=metaSection&populate[8]=blogSection&populate[9]=doctorTalk&populate[10]=timings&populate[11]=hospitals.location&populate[12]=specialities.specialities`;
+        const req = await fetch(url);
+        const res = await req.json();
+
+        // if slug not exists
+        if (isMeta && res.data.length === 0) {
+            return null;
+        }
+        else if (!isMeta && res.data.length === 0) {
+            return notFound();
+        }
+        return res.data[0];
+
+    },
+
     // USE IN DOCTOR LISTING
     allDoctorCount: async ({ langLoc, URLParams }) => {
         const base = process.env.NEXT_PUBLIC_CMS_API_URL;

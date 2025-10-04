@@ -330,7 +330,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                 let redirectURL = getBaseUrl(true, true) + "/book-an-appointment?"
 
                 //Doctor Name added
-                const doctoData = await doctorData.getSingleDoctor({ slug: URLParams['doctor-slug'] });
+                const doctoData = await doctorData.getSingleDoctorClient({ slug: URLParams['doctor-slug'] });
                 redirectURL = redirectURL + "doctor=" + `${doctoData.salutation ? doctoData.salutation + " " : ""}${doctoData.name}`;
 
                 //LOcation Added
@@ -349,7 +349,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                 redirectURL = redirectURL + "&location=" + location_appont
 
                 //Hospital Add
-                const hospitaData = await hospitalData.getSingleHospital({ slug: URLParams.hospital });
+                const hospitaData = await hospitalData.getSingleHospitalClient({ slug: URLParams.hospital });
 
                 if(hospitaData.location.slug==location_appont)
                     redirectURL = redirectURL + "&hospital=" + URLParams.hospital
