@@ -327,7 +327,7 @@ const Footer = () => {
                                         </li>
                                     )}
 
-                                    {staticPageChecker['procedure'] && (
+                                    {/* {staticPageChecker['procedure'] && (
                                         <li>
                                             <a href={basePathOnlyLang + "/procedure"}>
                                                 {staticTexts['Procedures']}
@@ -340,7 +340,7 @@ const Footer = () => {
                                                 {staticTexts['Diseases']}
                                             </a>
                                         </li>
-                                    )}
+                                    )} */}
 
                                     {staticPageChecker['blog'] && (
                                         <li>
@@ -565,7 +565,7 @@ const Footer = () => {
                                         </li>
                                     )}
                                     
-                                    {staticPageChecker['procedure'] && (
+                                    {/* {staticPageChecker['procedure'] && (
                                         <li>
                                             <a href={basePathOnlyLang + "/procedure"}>
                                                 {staticTexts['Procedures']}
@@ -578,7 +578,7 @@ const Footer = () => {
                                                 {staticTexts['Diseases']}
                                             </a>
                                         </li>
-                                    )}
+                                    )} */}
 
                                     {staticPageChecker['blog'] && (
                                         <li>
