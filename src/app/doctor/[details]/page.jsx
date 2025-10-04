@@ -92,8 +92,7 @@ const DoctorDetails = async ({ params }) => {
 
                                             {data.appointmentAvailable && (
                                                 <a
-                                                    href={`${basePath}/book-an-appointment/?doctor=${data?.salutation ? data?.salutation + " " : ""
-                                                        }${data?.name}&location=${data?.locations[0]?.slug === "generic"
+                                                    href={`${basePath}/book-an-appointment/?doctor-slug=${data?.slug}&location=${data?.locations[0]?.slug === "generic"
                                                             ? data?.locations[1]?.slug
                                                             : data?.locations[0]?.slug
                                                         }&hospital=${data?.hospitals[0]?.slug}&speciality=${data?.specialities?.[0]?.slug}`}

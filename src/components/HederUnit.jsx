@@ -298,7 +298,7 @@ const HeaderUnit = ({ hospital }) => {
                   </li>
                   <li><a href={`${basePath}/doctor${hospital ? '?hospital=' + hospital : ''}`} className="anchor-menu">{staticTexts['Find a Doctor']}</a></li>
                   <li><a href={`${basePathOnlyLang}/visa-medical`} className="anchor-menu">{staticTexts['Visa Medical']}</a></li>
-                  {/* <li><a href={`${basePathOnlyLang}/procedure`} className="anchor-menu">{staticTexts['Key Procedures']}</a></li> */}
+                  <li><a href={`${basePathOnlyLang}/procedure`} className="anchor-menu">{staticTexts['Key Procedures']}</a></li>
                   <li className="menu-item-has-children show-submenu d-lg-inline-block d-none">
                     <a href={basePathOnlyLang + "/hospital"} className="anchor-menu">{staticTexts['Locations']}</a>
                     <div className="sub-menu ">

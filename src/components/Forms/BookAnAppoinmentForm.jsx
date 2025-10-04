@@ -5,6 +5,8 @@ import langLoc from '@/helper/getLangLoc'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import { getBaseUrl } from '@/helper/getBaseUrl';
+import doctorData from '@/app/lib/getDoctor';
+import hospitalData from '@/app/lib/getHospital';
 
 
 
@@ -215,7 +217,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
             ? pages
             : 0;
 
-        
+
 
         // Actual Data
         for (let i = 0; i < pagecount; i++) {
@@ -318,6 +320,56 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
         get()
 
     }, [])
+
+
+    useEffect(() => {
+        console.log("Redirection testing.......");
+        const redirectDoctor = async () => {
+            if (URLParams['doctor-slug']) {
+                //Set Appointment Base URL
+                let redirectURL = getBaseUrl(true, true) + "/book-an-appointment?"
+
+                //Doctor Name added
+                const doctoData = await doctorData.getSingleDoctor({ slug: URLParams['doctor-slug'] });
+                redirectURL = redirectURL + "doctor=" + `${doctoData.salutation ? doctoData.salutation + " " : ""}${doctoData.name}`;
+
+                //LOcation Added
+                let currentLangLoc = await getCurrentLangLocClient();
+
+                let location_appont = ""
+                if (currentLangLoc.loc.slug == "generic") {
+                    location_appont = doctoData?.locations?.[0]?.slug === "generic"
+                        ? doctoData?.locations?.[1]?.slug
+                        : doctoData?.locations?.[0]?.slug
+                }
+                else {
+                    location_appont = currentLangLoc.loc.slug;
+                }
+
+                redirectURL = redirectURL + "&location=" + location_appont
+
+                //Hospital Add
+                const hospitaData = await hospitalData.getSingleHospital({ slug: URLParams.hospital });
+
+                if(hospitaData.location.slug==location_appont)
+                    redirectURL = redirectURL + "&hospital=" + URLParams.hospital
+                else
+                {
+                    const getHospital = doctoData.hospitals.find(d => d.location.slug === location_appont);
+                    redirectURL = redirectURL + "&hospital=" + getHospital.slug
+                }
+
+                //Speciality Add
+                const getSpeciality = doctoData.specialities.find(s => s.specialities.length === 0);
+                redirectURL = redirectURL + "&speciality=" + getSpeciality.slug
+                
+                location.href=redirectURL;
+            }
+        }
+
+        redirectDoctor()
+    }, [URLParams])
+
 
     return (
         <>
@@ -431,7 +483,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                                                             <label htmlFor=''>{staticText['Select Department']}*</label>
                                                             <select className="form-select from-location" value={selectedSpeciality} onChange={(e) => {
                                                                 setSelectedSpeciality(e.target.value);
-                                                                setFormData({ ...formData, department: e.target.value, doctor:"" });
+                                                                setFormData({ ...formData, department: e.target.value, doctor: "" });
                                                             }}>
                                                                 <option value={""}>{staticText['Select a Department']}</option>
                                                                 {

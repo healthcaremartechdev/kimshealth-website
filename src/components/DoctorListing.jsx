@@ -320,8 +320,7 @@ const DoctorListing = ({ baseURL, allLocation, allHospital, allSpeciality, allDo
 
                                                     {d.appointmentAvailable && (
                                                         <a
-                                                            href={`${baseURL}/book-an-appointment/?doctor=${d?.salutation ? d?.salutation + " " : ""
-                                                                }${d?.name}&location=${d?.locations?.[0]?.slug === "generic"
+                                                            href={`${baseURL}/book-an-appointment/?doctor-slug=${d?.slug}&location=${d?.locations?.[0]?.slug === "generic"
                                                                     ? d?.locations?.[1]?.slug
                                                                     : d?.locations?.[0]?.slug
                                                                 }&hospital=${d?.hospitals?.[0]?.slug}&speciality=${d?.specialities?.[0]?.slug}`}
