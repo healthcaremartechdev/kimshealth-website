@@ -24,7 +24,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
     const [doctorLoading, setDoctorLoading] = useState(true);
     const [formData, setFormData] = useState({
         name: '', contactNumber: '', emailID: '', location: URLParams.location, hospital: URLParams.hospital,
-        department: URLParams.speciality, doctor: URLParams.doctor, appoinmentDate: '', appoinmentTime: ''
+        department: URLParams.speciality, doctor: URLParams.doctor, appoinmentDate: '', appoinmentTime: '', mrNumber: ''
     });
     const [loading, setLoading] = useState(false);
 
@@ -91,6 +91,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                     <li><strong> Department: </strong> ${formData.department.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</li>
                     <li><strong> Doctor: </strong> ${formData.doctor}</li>
                     <li><strong> Appointment Date: </strong> ${formData.appoinmentDate}</li>
+                    <li><strong> MR Number: </strong> ${formData.mrNumber}</li>
                     <li><strong> Page URL: </strong> ${document.location.href}</li>
                 </ul>
             `;
@@ -129,7 +130,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
 
             setFormData({
                 name: '', contactNumber: '', emailID: '', location: '', hospital: '',
-                department: "", doctor: '', appoinmentDate: '', appoinmentTime: ''
+                department: "", doctor: '', appoinmentDate: '', appoinmentTime: '', mrNumber: ''
             });
             return
 
@@ -557,6 +558,20 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                                                                 />
 
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="custom-from bg-field mx-0">
+                                                    <div className="row justify-content-between">
+                                                        <div className="col-xl-12 col-lg-12 col-md-12 col-12 mb-3">
+                                                            <label htmlFor=''>{staticText['MR Number']}</label>
+                                                            <input type="text" placeholder={staticText["If you know your MR Number, please enter it."]} name=""
+                                                                className="form-control pe-0"
+                                                                onChange={(e) => setFormData({ ...formData, mrNumber: e.target.value })}
+                                                                value={formData.mrNumber}
+                                                            />
                                                         </div>
                                                     </div>
                                                 </div>
