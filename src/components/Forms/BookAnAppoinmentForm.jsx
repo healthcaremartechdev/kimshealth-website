@@ -20,6 +20,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
     const [selectedLocation, setSelectedLocation] = useState(URLParams.location || null)
     const [selectedHospital, setSelectedHospital] = useState(URLParams.hospital || null);
     const [selectedSpeciality, setSelectedSpeciality] = useState(URLParams.speciality);
+    const [selectedSpecialities, setSelectedSpecialities] = useState(JSON.parse(atob(decodeURIComponent(URLParams.specialities))));
     const [selectedDoctor, setSelectedDoctor] = useState(URLParams.doctor);
     const [doctorLoading, setDoctorLoading] = useState(true);
     const [formData, setFormData] = useState({
@@ -223,14 +224,27 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
         // Actual Data
         for (let i = 0; i < pagecount; i++) {
             const start = i * limit;
-            const url = `${baseUrl}/specialty-details?populate=*&pagination[start]=${start}&pagination[limit]=${limit}${locationFilter}${hospitalFilter}&filters[speciality][specialities][$null]=true&filters[appointmentAvailable][$eq]=true&sort=title:asc`;
+            const url = `${baseUrl}/specialty-details?populate=*&pagination[start]=${start}&pagination[limit]=${limit}${locationFilter}${hospitalFilter}&filters[appointmentAvailable][$eq]=true&sort=title:asc`;
             const res = await fetch(url);
             const json = await res.json();
             data = [...data, ...json.data];
         }
 
 
-        return data;
+
+        // ✅ Filter to keep only distinct titles
+        const unique = [];
+        const uniqueTitles = new Set();
+
+        data.forEach((item) => {
+            const title = item.title?.trim()?.toLowerCase();
+            if (title && !uniqueTitles.has(title)) {
+                uniqueTitles.add(title);
+                unique.push(item);
+            }
+        });
+
+        return unique;
     }
 
     const getDoctor = async ({ lang, loc, hospital, speciality }) => {
@@ -291,10 +305,15 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
             // Fetch data only after location is set
             setLocationList(await langLoc.getLocationsOnlyCMS());
             setAllHospital(await getHospital({ loc: selectedLocation }));
-            setAllSpeciality(await getSpeciality({
-                loc: selectedLocation,
-                hospital: selectedHospital || ""
-            }));
+            if (selectedSpecialities) {
+                setAllSpeciality(selectedSpecialities);
+            }
+            else {
+                setAllSpeciality(await getSpeciality({
+                    loc: selectedLocation,
+                    hospital: selectedHospital || ""
+                }));
+            }
             await getDoctor({
                 loc: selectedLocation,
                 hospital: selectedHospital || "",
@@ -302,7 +321,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
             });
         };
         get();
-    }, [selectedLocation, selectedHospital, selectedSpeciality]);
+    }, [selectedLocation, selectedHospital, selectedSpeciality,selectedSpecialities]);
 
 
 
@@ -323,8 +342,12 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
     }, [])
 
 
+
+
+
+
+
     useEffect(() => {
-        console.log("Redirection testing.......");
         const redirectDoctor = async () => {
             if (URLParams['doctor-slug']) {
                 //Set Appointment Base URL
@@ -352,10 +375,9 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                 //Hospital Add
                 const hospitaData = await hospitalData.getSingleHospitalClient({ slug: URLParams.hospital });
 
-                if(hospitaData.location.slug==location_appont)
+                if (hospitaData.location.slug == location_appont)
                     redirectURL = redirectURL + "&hospital=" + URLParams.hospital
-                else
-                {
+                else {
                     const getHospital = doctoData.hospitals.find(d => d.location.slug === location_appont);
                     redirectURL = redirectURL + "&hospital=" + getHospital.slug
                 }
@@ -363,8 +385,10 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                 //Speciality Add
                 const getSpeciality = doctoData.specialities.find(s => s.specialities.length === 0);
                 redirectURL = redirectURL + "&speciality=" + getSpeciality.slug
-                
-                location.href=redirectURL;
+
+                redirectURL = redirectURL + "&specialities=" + encodeURIComponent(btoa(JSON.stringify(doctoData.specialities)))
+
+                location.href = redirectURL;
             }
         }
 
@@ -436,6 +460,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                                                             <label htmlFor=''>{staticText['Location']}*</label>
                                                             <select className="form-select from-location" value={selectedLocation} onChange={(e) => {
                                                                 setSelectedLocation(e.target.value);
+                                                                setSelectedSpecialities("");
                                                                 setFormData({ ...formData, location: e.target.value });
                                                             }}>
                                                                 <option value={""}>{staticText['Select a Location']}</option>
@@ -462,6 +487,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                                                             <label htmlFor=''>{staticText['Hospital']}*</label>
                                                             <select className="form-select from-location" value={selectedHospital} onChange={(e) => {
                                                                 setSelectedHospital(e.target.value);
+                                                                setSelectedSpecialities("");
                                                                 setFormData({ ...formData, hospital: e.target.value });
                                                             }}>
                                                                 <option value={""}>{staticText['Select Hospital']}</option>
@@ -489,7 +515,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                                                                 <option value={""}>{staticText['Select a Department']}</option>
                                                                 {
                                                                     allSpeciality?.map((splty, i) => {
-                                                                        return <option value={splty.speciality?.slug} key={i}>{splty.title}</option>
+                                                                        return <option value={splty.speciality?.slug||splty.slug} key={i}>{splty.title}</option>
                                                                     })
                                                                 }
                                                             </select>
