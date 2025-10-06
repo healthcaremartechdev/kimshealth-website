@@ -931,6 +931,7 @@ header {
     width: 30%;
     height: 2px;
     background: #b71c2b;
+    margin-top: -2px;
 }
 
 

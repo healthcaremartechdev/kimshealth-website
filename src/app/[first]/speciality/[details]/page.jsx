@@ -77,7 +77,6 @@ const SpecialityDetails = async ({ params, searchParams }) => {
         baseUrl: baseUrl
     }
 
-    console.log(diseaseProcedureDataSet)
 
     return (
         <>
