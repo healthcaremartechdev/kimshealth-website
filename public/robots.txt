@@ -1,0 +1,14 @@
+User-Agent: *
+Disallow: :
+
+Sitemap: https://www.kimshealth.org/sitemap.xml
+
+Sitemap: https://www.kimshealth.org/trivandrum_sitemap.xml
+
+Sitemap: https://www.kimshealth.org/kollam_sitemap.xml
+
+Sitemap: https://www.kimshealth.org/perintalmanna_sitemap.xml
+
+Sitemap: https://www.kimshealth.org/nagercoil_sitemap.xml
+
+Sitemap: https://www.kimshealth.org/kottayam_sitemap.xml
