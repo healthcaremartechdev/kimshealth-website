@@ -20,7 +20,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
     const [selectedLocation, setSelectedLocation] = useState(URLParams.location || null)
     const [selectedHospital, setSelectedHospital] = useState(URLParams.hospital || null);
     const [selectedSpeciality, setSelectedSpeciality] = useState(URLParams.speciality);
-    const [selectedSpecialities, setSelectedSpecialities] = useState(JSON.parse(atob(decodeURIComponent(URLParams.specialities))));
+    const [selectedSpecialities, setSelectedSpecialities] = useState(URLParams.specialities?JSON.parse(atob(decodeURIComponent(URLParams.specialities))): null);
     const [selectedDoctor, setSelectedDoctor] = useState(URLParams.doctor);
     const [doctorLoading, setDoctorLoading] = useState(true);
     const [formData, setFormData] = useState({
