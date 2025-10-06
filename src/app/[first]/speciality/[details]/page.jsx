@@ -20,6 +20,7 @@ import WatchVideoButton from '@/components/WatchVideoButton'
 import { marked } from 'marked'
 import React from 'react'
 import Popup from '@/components/Popup'
+import DiseaseAndProcedure from '@/components/DiseaseAndProcedure'
 
 const SpecialityDetails = async ({ params, searchParams }) => {
     const URLParams = await searchParams;
@@ -32,14 +33,6 @@ const SpecialityDetails = async ({ params, searchParams }) => {
     const selectedHospital = URLParams.hospital ? URLParams.hospital : "";
 
     const allSubSpeciality = await getSpecialityData.getAllSubSpeciality({ langLoc: getLangLoc, id: data.speciality?.id, hospital: selectedHospital });
-
-    // const allDiseas = await diseaseData.getAll({langLoc: getLangLoc, URLParams:URLParams})
-    // const allProcedure = await procedureData.getAll({langLoc: getLangLoc, URLParams:URLParams})
-
-
-
-    const allDiseas = await diseaseData.getDiseaseBySpeciality({ langLoc: getLangLoc, speciality: data.speciality?.slug })
-    const allProcedure = await procedureData.getProcedureBySpeciality({ langLoc: getLangLoc, speciality: data.speciality?.slug })
 
 
 
@@ -68,7 +61,23 @@ const SpecialityDetails = async ({ params, searchParams }) => {
         data: await doctorTalkData.getBySpecialityWithDefault({ id: data.speciality.id, langLoc: getLangLoc }),
         baseUrl: baseUrl
     }
+    const diseaseProcedureDataSet = {
+        sectionTitle: data.diseasesAndProceduresSection?.title,
 
+        buttonTextDiseas: 'View All Diseases', 
+        buttonTextProcedure: 'View all Procedures', 
+
+        buttonURLDisease: `${baseUrlLangOnly + "/disease?speciality="+data.speciality.slug}`,
+        buttonURLProcedure: `${baseUrlLangOnly + "/procedure?speciality="+data.speciality.slug}`,
+
+        dataDiseas: await diseaseData.getDiseaseBySpeciality({ langLoc: getLangLoc, speciality: data.speciality?.slug }),
+        dataProcedure: await procedureData.getProcedureBySpeciality({ langLoc: getLangLoc, speciality: data.speciality?.slug }),
+
+        baseUrlLangOnly: baseUrlLangOnly,
+        baseUrl: baseUrl
+    }
+
+    console.log(diseaseProcedureDataSet)
 
     return (
         <>
@@ -242,148 +251,8 @@ const SpecialityDetails = async ({ params, searchParams }) => {
                         </div>
                     </section>
 
-                    {/* <div className="line-divider"> </div>
-                    <section className="section"
-                        style={{ background: "linear-gradient(180deg,rgba(255, 255, 255, 1) 45%, rgba(248, 248, 248, 1) 74%)" }}>
-                        <div className="container">
-                            <div className="details-card-wrapper pb-5">
-                                <div className="row position-relative" style={{ zIndex: "99" }}>
-
-                                    {
-                                        allSubSpeciality.map((subS, index) => {
-                                            return <div className="col-md-4 mb-lg-0 mb-3" key={index}>
-                                                <div className="details-card text-center">
-                                                    <div className="card-content">
-                                                        <h4>{subS.title}</h4>
-                                                        <p>{subS.overviewSection?.details.slice(0, 70)}</p>
-
-                                                        <div className="main-btn">
-                                                            <a href={baseUrl + "/speciality/" + subS?.speciality?.slug}>
-                                                                {staticText['Read More']}<span>
-                                                                    <i className="fa-solid fa-arrow-right"></i>
-                                                                </span>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        })
-                                    }
-
-                                </div>
-                            </div>
-
-                            <div className="detsils-key-procedures">
-                                <div className="main-heading text-center mb-5">
-                                    <h2>{data.diseasesAndProceduresSection?.title}</h2>
-                                </div>
-
-                                <div className="details-key-row">
-                                    <div className="row justify-content-between">
-                                        <div className="col-md-5 col-12 mt-lg-0 mt-3 d-none">
-                                            <form action="">
-                                                <div className="input-group p-0 my-lg-5 my-1 position-relative justify-content-center">
-
-                                                    <select className="form-select diseases-page-search">
-                                                        <option >Search for conditions/diseases </option>
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
-                                                    </select>
-                                                    <button className="input-group-text border-0 search-btn-page"><i
-                                                        className="fa-solid fa-magnifying-glass"></i></button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div className="col-md-5 col-12 mb-lg-0 mb-3 d-none">
-                                            <form action="">
-                                                <div className="input-group p-0 my-lg-5 my-1 position-relative justify-content-center">
-
-                                                    <select className="form-select treatments-page-search">
-                                                        <option >Search for procedures/treatments </option>
-                                                        <option value="1">One</option>
-                                                        <option value="2">Two</option>
-                                                        <option value="3">Three</option>
-                                                    </select>
-                                                    <button className="input-group-text border-0 search-btn-page"><i
-                                                        className="fa-solid fa-magnifying-glass"></i></button>
-                                                </div>
-                                            </form>
-                                        </div>
-
-                                        <div className="col-md-4 mb-lg-0 mb-3">
-                                            {
-                                                allDiseas.slice(0,allDiseas.length/2).map((d, index) => {
-                                                    return <a href={baseUrlLangOnly + "/disease/" + d.disease.slug} key={index}>
-                                                        <div className="details-key-box">
-                                                            <div className="details-key-left-col">
-                                                                <h5>{d.title}</h5>
-                                                            </div>
-                                                            <div className="details-key-right-col">
-                                                                <span>C</span>
-                                                            </div>
-                                                        </div>
-                                                    </a> 
-                                                })
-                                            }
-
-                                            <div className="over-all-btn text-start mt-3 ms-2 ps-1 d-lg-block d-none">
-                                                <a href={baseUrlLangOnly + "/disease?speciality="+data.speciality.slug}>View all Diseases <span><img src="/img/slider-right-arrow.svg"
-                                                    className="img-fluid" alt="" /></span></a>
-                                            </div>
-                                        </div>
-
-
-                                        <div className="col-md-4 mb-lg-0 mb-3">
-                                            {
-                                                allDiseas.slice(allDiseas.length/2,).map((d, index) => {
-                                                    return <a href={baseUrlLangOnly + "/disease/" + d.disease.slug} key={index}>
-                                                        <div className="details-key-box">
-                                                            <div className="details-key-left-col">
-                                                                <h5>{d.title}</h5>
-                                                            </div>
-                                                            <div className="details-key-right-col">
-                                                                <span>C</span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                })
-                                            }
-                                        </div>
-
-                                        <div className="over-all-btn text-start mb-3 ms-2 ps-1 d-lg-none d-block">
-                                            <a href={baseUrlLangOnly + "/disease?speciality="+data.speciality.slug}>View all Diseases <span><img src="/img/slider-right-arrow.svg"
-                                                className="img-fluid" alt="" /></span></a>
-                                        </div>
-
-
-                                        <div className="col-md-4 mb-lg-0 mb-3">
-                                            {
-                                                allProcedure.map((p, index) => {
-                                                    return <a href={baseUrlLangOnly + "/procedure/" + p.procedure.slug} key={index}>
-                                                        <div className="details-key-box">
-                                                            <div className="details-key-left-col">
-                                                                <h5>{p.title}</h5>
-                                                            </div>
-                                                            <div className="details-key-right-col">
-                                                                <span>T</span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                })
-                                            }
-
-                                            <div className="over-all-btn text-start mt-3 ms-2 ps-1">
-                                                <a href={baseUrlLangOnly + "/procedure?speciality="+data.speciality.slug}>View all Procedures<span><img src="/img/slider-right-arrow.svg"
-                                                    className="img-fluid" alt="" /></span></a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>  */}
+                    <div className="line-divider"> </div>
+                    <DiseaseAndProcedure dataSet={diseaseProcedureDataSet} />
 
 
                     <div className="line-divider"> </div>
