@@ -1892,7 +1892,7 @@ footer.footer {
     display: inline;
 }
 
-.detsils-key-procedures .main-heading h2::before {
+/* .detsils-key-procedures .main-heading h2::before {
     position: absolute;
     content: '';
     display: block;
@@ -1901,7 +1901,7 @@ footer.footer {
     background: linear-gradient(90deg, rgba(230, 189, 193, 1) 50%, rgba(246, 246, 246, 1) 50%);
     top: 100%;
     left: 0;
-}
+} */
 
 .details-key-row .select2-container--default .select2-selection--single .select2-selection__rendered {
     line-height: normal;

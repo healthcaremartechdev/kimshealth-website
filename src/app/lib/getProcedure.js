@@ -37,7 +37,7 @@ const procedureData = {
 
         // Step 1: Get total count
         const initialReq = await fetch(
-            `${baseUrl}/procedure-details?populate=*&filters[procedure][specialities][slug][$eq]=${speciality}&pagination[limit]=5&sort=manageAppearance.orderInMasterList:asc,title:asc`
+            `${baseUrl}/procedure-details?populate[0]=overviewSection&populate[1]=metaSection&populate[2]=manageAppearance&populate[3]=expertSection&populate[4]=testimonialSection&populate[5]=doctorTalk&populate[6]=procedure&populate[7]=procedure.featuredImage&populate[8]=procedure.iconImage&populate[9]=overviewSection.thumbnail&populate[10]=procedure.specialities&filters[procedure][specialities][slug][$eq]=${speciality}&pagination[limit]=5&sort=manageAppearance.orderInMasterList:asc,title:asc`
         );
         const initialRes = await initialReq.json();
 

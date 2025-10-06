@@ -155,7 +155,7 @@ const HeaderUnit = ({ hospital }) => {
           <div className="container d-flex align-items-center justify-content-between">
             <div className="navbar-logo py-2 ">
               <a href={activeLogoUrl}>
-                <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${locationData?.logo?.url}`} alt={locationData?.logo?.url?"KIMSHEALTH":""} className="img-fluid" />
+                <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${locationData?.logo?.url}`} alt={locationData?.logo?.url ? "KIMSHEALTH" : ""} className="img-fluid" />
               </a>
             </div>
             <div className="header-contact d-flex align-items-center justify-content-center position-relative">
@@ -232,7 +232,7 @@ const HeaderUnit = ({ hospital }) => {
             <nav className="header-menu-container justify-content-lg-end">
               <div className="navbar-brand">
                 <a href={activeLogoUrl} className="text-decoration-none">
-                  <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${locationData?.logo?.url}`} alt={locationData?.logo?.url?"KIMSHEALTH":""} height="55" className="img-fluid" />
+                  <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${locationData?.logo?.url}`} alt={locationData?.logo?.url ? "KIMSHEALTH" : ""} height="55" className="img-fluid" />
                 </a>
               </div>
               <div className="mobile_primary" id="primary-nav">
@@ -298,7 +298,8 @@ const HeaderUnit = ({ hospital }) => {
                   </li>
                   <li><a href={`${basePath}/doctor${hospital ? '?hospital=' + hospital : ''}`} className="anchor-menu">{staticTexts['Find a Doctor']}</a></li>
                   <li><a href={`${basePathOnlyLang}/visa-medical`} className="anchor-menu">{staticTexts['Visa Medical']}</a></li>
-                  {/* <li><a href={`${basePathOnlyLang}/procedure`} className="anchor-menu">{staticTexts['Key Procedures']}</a></li> */}
+                  <li><a href={`${basePathOnlyLang}/procedure`} className="anchor-menu">{staticTexts['Key Procedures']}</a></li>
+                  <li><a href={`${basePathOnlyLang}/disease`} className="anchor-menu d-lg-none d-block">{staticTexts['Diseases']}</a></li>
                   <li className="menu-item-has-children show-submenu d-lg-inline-block d-none">
                     <a href={basePathOnlyLang + "/hospital"} className="anchor-menu">{staticTexts['Locations']}</a>
                     <div className="sub-menu ">
@@ -721,7 +722,7 @@ const HeaderUnit = ({ hospital }) => {
                                   </a>
                                 </li>
                               )}
-                              
+
                               {staticPageChecker['organ-transplant-compliance'] && (
                                 <li>
                                   <a href={basePath + "/organ-transplant-compliance"}>
@@ -913,6 +914,13 @@ const HeaderUnit = ({ hospital }) => {
                           )}
                         </ul>
                       </li>
+                      {staticPageChecker['disease'] && (
+                        <li>
+                          <a href={basePathOnlyLang + "/disease"} className="menu-item">
+                            {staticTexts['Diseases']}
+                          </a>
+                        </li>
+                      )}
                       {staticPageChecker['donor-information'] && (
                         <li> <a href={basePath + "/donor-information"} className="menu-item "> {staticTexts['Donor Information']} </a> </li>
                       )}
@@ -935,14 +943,14 @@ const HeaderUnit = ({ hospital }) => {
                       {staticPageChecker['medical-representatives-appointments'] &&
                         <li> <a href={"https://medrep.kimshealth.org/"} target='_blank' className="menu-item ">{staticTexts['Medical Representatives - Appointments']}</a> </li>
                       }
-                      
-                              {staticPageChecker['organ-transplant-compliance'] && (
-                                <li>
-                                  <a href={basePath + "/organ-transplant-compliance"}  className="menu-item ">
-                                    {staticTexts['Organ Transplant Compliance']}
-                                  </a>
-                                </li>
-                              )}
+
+                      {staticPageChecker['organ-transplant-compliance'] && (
+                        <li>
+                          <a href={basePath + "/organ-transplant-compliance"} className="menu-item ">
+                            {staticTexts['Organ Transplant Compliance']}
+                          </a>
+                        </li>
+                      )}
 
                       {staticPageChecker['knee-implant-list'] && (
                         <li> <a href={basePath + "/knee-implant-list"} className="menu-item "> {staticTexts['Knee Implant List']} </a> </li>
@@ -974,6 +982,13 @@ const HeaderUnit = ({ hospital }) => {
                       </li>
                       {staticPageChecker['privacy-policy'] && (
                         <li> <a href={basePath + "/privacy-policy"} className="menu-item "> {staticTexts['Privacy Policies']} </a> </li>
+                      )}
+                      {staticPageChecker['procedure'] && (
+                        <li>
+                          <a href={basePathOnlyLang + "/procedure"} className="menu-item">
+                            {staticTexts['Procedures']}
+                          </a>
+                        </li>
                       )}
                       {staticPageChecker['quality-focus'] && (
                         <li> <a href={basePath + "/quality-focus"} className="menu-item "> {staticTexts['Quality Focus']} </a> </li>

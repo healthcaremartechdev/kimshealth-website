@@ -37,9 +37,7 @@ const diseaseData = {
         const limit = 100;
 
         // Step 1: Get total count
-        const initialReq = await fetch(
-            `${baseUrl}/disease-details?populate=*&filters[disease][specialities][slug][$eq]=${speciality}&pagination[limit]=5&sort=manageAppearance.orderInMasterList:asc,title:asc`
-        );
+        const initialReq = await fetch(process.env.NEXT_PUBLIC_CMS_API_URL + `/disease-details?populate[0]=overviewSection&populate[1]=metaSection&populate[2]=manageAppearance&populate[3]=expertSection&populate[4]=testimonialSection&populate[5]=doctorTalk&populate[6]=disease&populate[7]=disease.featuredImage&populate[8]=disease.iconImage&populate[9]=overviewSection.thumbnail&filters[disease][specialities][slug][$eq]=${speciality}&pagination[limit]=10&sort=manageAppearance.orderInMasterList:asc,title:asc`);
         const initialRes = await initialReq.json();
 
         return initialRes.data;
