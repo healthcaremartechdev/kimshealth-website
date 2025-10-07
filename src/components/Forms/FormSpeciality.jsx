@@ -6,20 +6,20 @@ import getCurrentLangLocClient from '@/helper/getCurrentLangLocClient';
 import { toast } from 'react-toastify';
 import { getBaseUrl } from '@/helper/getBaseUrl';
 
-const FormSpeciality = ({ title, speciality }) => {
+const FormSpeciality = ({ title, speciality,sub_speciality }) => {
     const [basePath, setBasePath] = useState();
     const [allLocation, setAllLocation] = useState();
     const [staticTexts, setStaticTexts] = useState({});
     const [selectedLocation, setSelectedLocation] = useState(null);
     const [formData, setFormData] = useState({
-        name: "", number: "", hospital: ''
+        name: "", number: "", hospital: '', speciality: speciality
     });
     const [loading, setLoading] = useState(false);
 
 
     const sendMail = async () => {
         setLoading(true);
-        if ([formData.name, formData.number, formData.hospital].some((field) => !field || field === "")) {
+        if ([formData.name, formData.number, formData.hospital, formData.speciality].some((field) => !field || field === "")) {
             toast("Fill the required fields", {
 
                 theme: 'light',
@@ -44,7 +44,7 @@ const FormSpeciality = ({ title, speciality }) => {
         try {
             const htmlMsg = `
                 <ul>
-                    <li><strong> Subject: </strong> ${`Speciality : ${speciality}`}</li>
+                    <li><strong> Subject: </strong> ${`Speciality : ${formData.speciality}`}</li>
                     <li><strong> First Name: </strong> ${formData.name}</li>
                     <li><strong> Mobile Number: </strong> ${formData.number}</li>
                     <li><strong> Hospital: </strong> ${formData.hospital.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</li>
@@ -144,6 +144,37 @@ const FormSpeciality = ({ title, speciality }) => {
                                         {
                                             allLocation?.map((loc, i) => {
                                                 return <option value={loc.slug} key={i}>{loc.title}</option>
+                                            })
+                                        }
+                                    </select>
+                                    <span onClick={(e) => {
+                                        const selectEl = e.currentTarget.closest(".input-group")?.querySelector("select");
+
+                                        if (selectEl) {
+                                            if (typeof selectEl.showPicker === "function") {
+                                                // ✅ Chrome / Edge
+                                                selectEl.showPicker();
+                                            } else {
+                                                // 🔄 Safari / Firefox fallback
+                                                selectEl.focus();
+                                            }
+                                        }
+                                    }} className="input-group-text">
+                                        <i className="fa-solid fa-chevron-down"></i>
+                                    </span>
+                                </div>
+
+                            </div>
+                            <div className="col-xl-12 col-lg-12 col-md-12 col-12 mb-3">
+                                <div className="input-group">
+                                    <select className="form-select" value={formData.speciality} onChange={(e) => {
+                                        setFormData({ ...formData, speciality: e.target.value });
+                                    }}>
+                                        <option value={""}>{`${staticTexts['Select Speciality']} *`}</option>
+                                        <option value={speciality}>{speciality}</option>
+                                        {
+                                            sub_speciality?.map((s, i) => {
+                                                return <option value={s.title} key={i}>{s.title}</option>
                                             })
                                         }
                                     </select>

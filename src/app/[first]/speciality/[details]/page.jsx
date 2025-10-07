@@ -103,7 +103,7 @@ const SpecialityDetails = async ({ params, searchParams }) => {
                                             </div>
                                             <div className="details-banner pt-2">
                                                 <div className="details-heading">
-                                                    <FormSpeciality title={"Have a query?"} speciality={data.title} />
+                                                    <FormSpeciality title={"Have a query?"} speciality={data.title} sub_speciality={allSubSpeciality} />
                                                 </div>
                                             </div>
                                         </div>
@@ -144,7 +144,7 @@ const SpecialityDetails = async ({ params, searchParams }) => {
 
                                             <div className="details-banner pt-lg-5 pt-4">
                                                 <div className="details-heading">
-                                                    <FormSpeciality title={"Have a query?"} speciality={data.title} />
+                                                    <FormSpeciality title={"Have a query?"} speciality={data.title} sub_speciality={allSubSpeciality} />
                                                 </div>
                                             </div>
                                         </div>

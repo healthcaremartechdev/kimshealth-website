@@ -84,7 +84,7 @@ const SpecialityDetails = async ({ params, searchParams }) => {
 
             <div role="main" className="main">
                 <div className="speciality-details-page">
-                    <section className="section details-page-before py-0 d-lg-block d-none">
+                    <section className="section details-page-before py-0 d-lg-block d-none SPECIALITY-DETAILS-BANNER">
                         <div className="procedures-details-page-header inner-pages-header details-page-header">
                             <div className="container-fluid px-0">
                                 <div className="row">
@@ -103,7 +103,7 @@ const SpecialityDetails = async ({ params, searchParams }) => {
                                             </div>
                                             <div className="details-banner pt-2">
                                                 <div className="details-heading">
-                                                    <FormSpeciality title={"Have a query?"} speciality={data.title} />
+                                                    <FormSpeciality title={"Have a query?"} speciality={data.title} sub_speciality={allSubSpeciality} />
                                                 </div>
                                             </div>
                                         </div>
@@ -144,7 +144,7 @@ const SpecialityDetails = async ({ params, searchParams }) => {
 
                                             <div className="details-banner pt-lg-5 pt-4">
                                                 <div className="details-heading">
-                                                    <FormSpeciality title={"Have a query?"} speciality={data.title} />
+                                                    <FormSpeciality title={"Have a query?"} speciality={data.title} sub_speciality={allSubSpeciality} />
                                                 </div>
                                             </div>
                                         </div>
