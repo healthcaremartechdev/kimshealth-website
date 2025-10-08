@@ -383,8 +383,16 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                 }
 
                 //Speciality Add
-                const getSpeciality = doctoData.specialities.find(s => s.specialities.length === 0);
-                redirectURL = redirectURL + "&speciality=" + getSpeciality.slug
+                if(URLParams.speciality)
+                {
+                    redirectURL = redirectURL + "&speciality=" + URLParams.speciality
+                }
+                else
+                {
+                    const getSpeciality = doctoData.specialities.find(s => s.specialities.length === 0);
+                    redirectURL = redirectURL + "&speciality=" + getSpeciality.slug
+                }
+                
 
                 redirectURL = redirectURL + "&specialities=" + encodeURIComponent(btoa(JSON.stringify(doctoData.specialities)))
 
