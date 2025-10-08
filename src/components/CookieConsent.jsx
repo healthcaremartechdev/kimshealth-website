@@ -3,22 +3,20 @@ import { useEffect, useState } from "react";
 
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   useEffect(() => {
     const consent = localStorage.getItem("cookieConsent");
     if (!consent) {
-      setVisible(true); // show modal if no choice yet
+      setVisible(true);
     }
   }, []);
 
-  const handleAccept = () => {
-    localStorage.setItem("cookieConsent", "accepted");
-    setVisible(false);
-  };
-
-  const handleReject = () => {
-    localStorage.setItem("cookieConsent", "rejected");
-    setVisible(false);
+  const handleSubmit = () => {
+    if (checked) {
+      localStorage.setItem("cookieConsent", "accepted");
+      setVisible(false);
+    }
   };
 
   if (!visible) return null;
@@ -26,39 +24,60 @@ export default function CookieConsent() {
   return (
     <div
       className="modal show fade"
-      style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}
+      style={{ display: "block", backgroundColor: "rgba(0,0,0,0.5)" }}
       tabIndex="-1"
     >
       <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content" style={{ backgroundColor: '#b71c2b', color: 'white' }}>
-          <div className="modal-header border-0">
-            <h5 className="modal-title">Cookie Consent</h5>
-          </div>
+        <div
+          className="modal-content"
+          style={{ backgroundColor: "#b71c2b", color: "white" }}
+        >
           <div className="modal-body">
-            <p>
-              We use cookies to improve your browsing experience, analyze website traffic, and provide personalized content. Cookies help us understand how you interact with our website and enhance your experience.
-            </p>
-            <p>
-              By clicking <strong>Accept</strong>, you consent to the use of non-essential cookies. If you choose <strong>Reject</strong>, only essential cookies necessary for the website to function will be used.
-            </p>
-            <p>
-              You can change your preferences at any time by clearing your cookies or updating your browser settings.
-            </p>
+
+            <div className="form-check mt-3">
+              <input
+                type="checkbox"
+                id="consentCheck"
+                className="form-check-input"
+                checked={checked}
+                onChange={(e) => setChecked(e.target.checked)}
+              />
+              <label
+                htmlFor="consentCheck"
+                className="form-check-label"
+                style={{ marginLeft: "8px" }}
+              >
+                I acknowledge and agree that I have read and understood this <a
+                href="/privacy-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: "white",
+                  textDecoration: "underline",
+                  fontWeight: "bold",
+                  textDecorationThickness: "2px",
+                  textUnderlineOffset: "3px",
+                }}
+              >
+                Privacy Policy
+              </a>  and hereby expressly authorize and consent to the processing of my personal information for the purposes and in the manner set out in this Privacy Policy.
+              </label>
+            </div>
           </div>
-          <div className="modal-footer border-0">
+
+          <div className="modal-footer border-0 justify-content-center">
             <button
               className="btn"
-              style={{ backgroundColor: 'black', color: 'white' }}
-              onClick={handleReject}
+              style={{
+                backgroundColor: checked ? "white" : "gray",
+                color: checked ? "#b71c2b" : "white",
+                cursor: checked ? "pointer" : "not-allowed",
+                minWidth: "120px",
+              }}
+              disabled={!checked}
+              onClick={handleSubmit}
             >
-              Reject
-            </button>
-            <button
-              className="btn"
-              style={{ backgroundColor: 'white', color: '#b71c2b' }}
-              onClick={handleAccept}
-            >
-              Accept
+              Submit
             </button>
           </div>
         </div>
