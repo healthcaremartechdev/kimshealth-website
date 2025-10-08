@@ -20,7 +20,9 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
     const [selectedLocation, setSelectedLocation] = useState(URLParams.location || null)
     const [selectedHospital, setSelectedHospital] = useState(URLParams.hospital || null);
     const [selectedSpeciality, setSelectedSpeciality] = useState(URLParams.speciality);
-    const [selectedSpecialities, setSelectedSpecialities] = useState(URLParams.specialities?JSON.parse(atob(decodeURIComponent(URLParams.specialities))): null);
+    const [selectedSpecialities, setSelectedSpecialities] = useState(URLParams.specialities?JSON.parse(atob(decodeURIComponent(URLParams.specialities))).filter((obj, index, self) =>
+  index === self.findIndex(t => t.title.toLowerCase() === obj.title.toLowerCase())
+): null);
     const [selectedDoctor, setSelectedDoctor] = useState(URLParams.doctor);
     const [doctorLoading, setDoctorLoading] = useState(true);
     const [formData, setFormData] = useState({
@@ -522,6 +524,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                                                             }}>
                                                                 <option value={""}>{staticText['Select a Department']}</option>
                                                                 {
+                                                                    
                                                                     allSpeciality?.map((splty, i) => {
                                                                         return <option value={splty.speciality?.slug||splty.slug} key={i}>{splty.title}</option>
                                                                     })
