@@ -3,6 +3,7 @@ import { getStaticPageContent } from "./lib/getStaticPageContent";
 import { headers } from "next/headers";
 import parse from "html-react-parser";
 import getMetadata from "./lib/getMetaData";
+import CookieConsent from "@/components/CookieConsent";
 
 
 // *******************************
@@ -85,6 +86,7 @@ export default async function RootLayout({ children }) {
 
       <body>
         {children}
+        <CookieConsent /> {/* Banner appears above footer */}
       </body>
     </html>
 

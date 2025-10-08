@@ -59,6 +59,7 @@ const ClinicalSkills = async () => {
                     </section>
 
                     {/* ::::::: JOURNAL :::::: */}
+                    {pageContent[2]?.title && <>
                     <div className="line-divider"></div>
                     <section className="section journal-section">
                         <div className="container">
@@ -85,6 +86,8 @@ const ClinicalSkills = async () => {
                             </div>
                         </div>
                     </section>
+                    </>}
+                    
                 </div>
             </div>
             <Footer />

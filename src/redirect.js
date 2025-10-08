@@ -18250,11 +18250,6 @@ const redirect = [
 
 	},
 	{
-		source: "/trivandrum/teletriage",
-		destination: "/trivandrum",
-
-	},
-	{
 		source: "/trivandrum/terms-condition",
 		destination: "/trivandrum/terms-and-conditions",
 

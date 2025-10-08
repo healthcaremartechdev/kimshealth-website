@@ -96,7 +96,7 @@ const InternalMedicine = async () => {
                                 </div>
                                 <div className="col-md-4">
                                     <div className="association-form-card mb-0 mt-2 sticky-from" id='imtApply'>
-                                        <Form1 title={"GET A CALLBACK FROM OUR HEALTH ADVISOR"} type={"IMT"}/>
+                                        <Form1 title={"GET A CALLBACK FROM OUR HEALTH ADVISOR"} type={"IMT"} />
                                         <h3 className="mt-3">{pageContent[7]?.title}</h3>
                                         <div
                                             dangerouslySetInnerHTML={{ __html: pageContent[7]?.details || "" }}
@@ -109,32 +109,36 @@ const InternalMedicine = async () => {
                         </div>
                     </section>
 
-                    <div className="line-divider"> </div>
-                    <section className="section journal-section">
-                        <div className="container">
-                            <div className="main-heading">
-                                <h2>{pageContent[6]?.title}</h2>
-                            </div>
-                            <div className="owl-carousel owl-theme journal-slider">
-                                {
-                                    pageContent[6]?.journal.map((j, index) => {
-                                        return <div className="expert-card" data-aos="fade-right" key={index}>
-                                            <a download href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${j.file?.url}`} >
-                                                <div className="card border-0">
-                                                    <div className="card-top">
-                                                        <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${j.thumbnailImage?.url}`} className="img-fluid w-100" alt={j.title} />
+                    {pageContent[6]?.title && <>
+                        <div className="line-divider"> </div>
+                        <section className="section journal-section">
+                            <div className="container">
+                                <div className="main-heading">
+                                    <h2>{pageContent[6]?.title}</h2>
+                                </div>
+                                <div className="owl-carousel owl-theme journal-slider">
+                                    {
+                                        pageContent[6]?.journal.map((j, index) => {
+                                            return <div className="expert-card" data-aos="fade-right" key={index}>
+                                                <a download href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${j.file?.url}`} >
+                                                    <div className="card border-0">
+                                                        <div className="card-top">
+                                                            <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${j.thumbnailImage?.url}`} className="img-fluid w-100" alt={j.title} />
+                                                        </div>
+                                                        <div className="card-content">
+                                                            <h5>{j.title}</h5>
+                                                        </div>
                                                     </div>
-                                                    <div className="card-content">
-                                                        <h5>{j.title}</h5>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    })
-                                }
+                                                </a>
+                                            </div>
+                                        })
+                                    }
+                                </div>
                             </div>
-                        </div>
-                    </section>
+                        </section>
+                    </>}
+
+
 
                     {/* <JournalCarousel data={[]}/> */}
 

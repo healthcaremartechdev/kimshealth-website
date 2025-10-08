@@ -20,7 +20,7 @@ const ClinicalSkills = async () => {
             <Header />
             <div role="main" className="main">
                 <div className="emergency-medicine-main-page">
-                    
+
                     {/* Desktop section */}
                     <section className="section details-page-before py-0 d-lg-block d-none">
                         <div className="procedures-details-page-header inner-pages-header">
@@ -139,7 +139,7 @@ const ClinicalSkills = async () => {
                                 <div className="col-md-4">
                                     <div className="association-left-col">
                                         <div className="association-form-card mb-5">
-                                            <Form1 title={"Request a Call Back"} type={"KIMSHEALTH Clinical Skills and Simulation Centre"}/>
+                                            <Form1 title={"Request a Call Back"} type={"KIMSHEALTH Clinical Skills and Simulation Centre"} />
                                             <h4>{pageContent[3]?.sectionTitle}</h4>
                                             <p><strong>{pageContent[3]?.contactPerson}</strong></p>
                                             <p> {pageContent[3]?.designation}</p>
@@ -158,32 +158,37 @@ const ClinicalSkills = async () => {
                     </section>
 
                     {/* ::::::: JOURNAL :::::: */}
-                    <div className="line-divider"></div>
-                    <section className="section journal-section">
-                        <div className="container">
-                            <div className="main-heading">
-                                <h2>{pageContent[7]?.title}</h2>
-                            </div>
-                            <div className="owl-carousel owl-theme journal-slider">
-                                {
-                                    pageContent[7]?.journal?.map((j, index) => {
-                                        return <div className="expert-card" data-aos="fade-right" key={index}>
-                                            <a download href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${j.file.url}`} >
-                                                <div className="card border-0">
-                                                    <div className="card-top">
-                                                        <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${j.thumbnailImage?.url}`} className="img-fluid w-100" alt={j.title} />
-                                                    </div>
-                                                    <div className="card-content">
-                                                        <h5>{j.title}</h5>
-                                                    </div>
+                    {pageContent[7]?.title &&
+                        <>
+                            <div className="line-divider"></div>
+                            <section className="section journal-section">
+                                <div className="container">
+                                    <div className="main-heading">
+                                        <h2>{pageContent[7]?.title}</h2>
+                                    </div>
+                                    <div className="owl-carousel owl-theme journal-slider">
+                                        {
+                                            pageContent[7]?.journal?.map((j, index) => {
+                                                return <div className="expert-card" data-aos="fade-right" key={index}>
+                                                    <a download href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${j.file.url}`} >
+                                                        <div className="card border-0">
+                                                            <div className="card-top">
+                                                                <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${j.thumbnailImage?.url}`} className="img-fluid w-100" alt={j.title} />
+                                                            </div>
+                                                            <div className="card-content">
+                                                                <h5>{j.title}</h5>
+                                                            </div>
+                                                        </div>
+                                                    </a>
                                                 </div>
-                                            </a>
-                                        </div>
-                                    })
-                                }
-                            </div>
-                        </div>
-                    </section>
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                            </section>
+                        </>
+                    }
+
                 </div>
             </div>
             <Footer />

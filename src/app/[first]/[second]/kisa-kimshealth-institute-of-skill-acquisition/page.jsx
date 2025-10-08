@@ -60,7 +60,7 @@ const KisaHealth = async () => {
                                     </div>
 
                                     <div className="col-md-6 details-proceduce-banner-right-col">
-                                        <img src={pageContent[1]?.bannerItem[0]?.bannerImageDesktop?.url ? process.env.NEXT_PUBLIC_IMAGE_URL + pageContent[1]?.bannerItem[0]?.bannerImageDesktop?.url : "/img/no-image.jpg"} className="img-fluid details-banner-image" alt={pageContent[0].title}/>
+                                        <img src={pageContent[1]?.bannerItem[0]?.bannerImageDesktop?.url ? process.env.NEXT_PUBLIC_IMAGE_URL + pageContent[1]?.bannerItem[0]?.bannerImageDesktop?.url : "/img/no-image.jpg"} className="img-fluid details-banner-image" alt={pageContent[0].title} />
                                     </div>
                                 </div>
                             </div>
@@ -122,7 +122,7 @@ const KisaHealth = async () => {
                                                                                     </li>}
                                                                                     {l.internshipStipend && <li>{staticText['Internship (stipend)']}: {l.internshipStipend}</li>}
                                                                                 </ul>
-                                                                                <CourseButton corseCategory={l.courseCategory.title} courseName={l.title}/>
+                                                                                <CourseButton corseCategory={l.courseCategory.title} courseName={l.title} />
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -144,33 +144,35 @@ const KisaHealth = async () => {
                             </div>
                         </div>
                     </section>
+                    {pageContent[5]?.title && <>
+                        <div className="line-divider"> </div>
+                        <section className="section journal-section">
+                            <div className="container">
+                                <div className="main-heading">
+                                    <h2>{pageContent[5]?.title}</h2>
+                                </div>
+                                <div className="owl-carousel owl-theme journal-slider">
+                                    {
+                                        pageContent[5]?.journal?.map((j, index) => {
+                                            return <div className="expert-card" data-aos="fade-right" key={index}>
+                                                <a download href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${j.file?.url}`} >
+                                                    <div className="card border-0">
+                                                        <div className="card-top">
+                                                            <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${j.thumbnailImage?.url}`} className="img-fluid w-100" alt={j.title} />
+                                                        </div>
+                                                        <div className="card-content">
+                                                            <h5>{j.title}</h5>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        })
+                                    }
+                                </div>
+                            </div>
+                        </section>
+                    </>}
 
-                    <div className="line-divider"> </div>
-                    <section className="section journal-section">
-                        <div className="container">
-                            <div className="main-heading">
-                                <h2>{pageContent[5]?.title}</h2>
-                            </div>
-                            <div className="owl-carousel owl-theme journal-slider">
-                                {
-                                    pageContent[5]?.journal?.map((j, index) => {
-                                        return <div className="expert-card" data-aos="fade-right" key={index}>
-                                            <a download href={`${process.env.NEXT_PUBLIC_IMAGE_URL}${j.file?.url}`} >
-                                                <div className="card border-0">
-                                                    <div className="card-top">
-                                                        <img src={`${process.env.NEXT_PUBLIC_IMAGE_URL}${j.thumbnailImage?.url}`} className="img-fluid w-100" alt={j.title} />
-                                                    </div>
-                                                    <div className="card-content">
-                                                        <h5>{j.title}</h5>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    })
-                                }
-                            </div>
-                        </div>
-                    </section>
                 </div>
             </div>
             <Footer />
