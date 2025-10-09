@@ -244,6 +244,27 @@ const doctorData = {
 
         return doctors;
     },
+    
+    getMultipleDoctorBySlug: async ({ langLoc, slug }) => {
+        const baseUrl = process.env.NEXT_PUBLIC_CMS_API_URL;
+
+        // Split comma-separated string into an array
+        const slugArray = slug.split(',').map(s => s.trim());
+
+        // Build $in filter
+        const slugFilter = slugArray.map((s, i) => `filters[slug][$in][${i}]=${encodeURIComponent(s)}`).join('&');
+
+        const url = `${baseUrl}/doctor-details?populate=*&filters[locations][id][$eq]=${langLoc.loc.id}&${slugFilter}&sort=manageAppearance.orderInMasterList:asc,name:asc`;
+
+        console.log(url);
+
+        const req = await fetch(url);
+        const res = await req.json();
+        return res.data;
+    },
+
+
+
 
 
     getDoctorByHospital: async ({ langLoc, hospitalId }) => {

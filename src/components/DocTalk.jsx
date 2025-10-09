@@ -72,7 +72,7 @@ const FromDoctor = ({ dataSet }) => {
                         <div className="col-xl-4 col-lg-4 col-md-4 col-12 blog-right-col">
                             <div className="row g-2">
                                 {dataSet.data[1] && <div className="col-md-12 col-6 mb-lg-3">
-                                    <a href="">
+                                    <a href={dataSet.baseUrl + "/doctor-talk/" + dataSet.data[2]?.slug}>
                                         <div className="position-relative overflow-hidden hear-doc-overlay" data-aos="fade-up">
                                             <img src={dataSet.data[1]?.thumbnailImage?.url ? process.env.NEXT_PUBLIC_IMAGE_URL + dataSet.data[1]?.thumbnailImage?.url : "/img/no-image.jpg"}
                                                 className="img-fluid w-100 hear-doc-image d-lg-block d-none" alt="" />

@@ -20,9 +20,9 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
     const [selectedLocation, setSelectedLocation] = useState(URLParams.location || null)
     const [selectedHospital, setSelectedHospital] = useState(URLParams.hospital || null);
     const [selectedSpeciality, setSelectedSpeciality] = useState(URLParams.speciality);
-    const [selectedSpecialities, setSelectedSpecialities] = useState(URLParams.specialities?JSON.parse(atob(decodeURIComponent(URLParams.specialities))).filter((obj, index, self) =>
-  index === self.findIndex(t => t.title.toLowerCase() === obj.title.toLowerCase())
-): null);
+    const [selectedSpecialities, setSelectedSpecialities] = useState(URLParams.specialities ? JSON.parse(atob(decodeURIComponent(URLParams.specialities))).filter((obj, index, self) =>
+        index === self.findIndex(t => t.title.toLowerCase() === obj.title.toLowerCase())
+    ) : null);
     const [selectedDoctor, setSelectedDoctor] = useState(URLParams.doctor);
     const [doctorLoading, setDoctorLoading] = useState(true);
     const [formData, setFormData] = useState({
@@ -233,6 +233,20 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
         }
 
 
+        //Get only Specialities where doctor available
+        const docData = await getDoctor({ loc, hospital })
+
+        const allSpecialities = [];
+
+        for (const doctor of docData) {
+            const specialities = doctor.specialities || [];
+
+            for (const spec of specialities) {
+                allSpecialities.push({ title: spec.title, slug: spec.slug });
+            }
+        }
+
+
 
         // ✅ Filter to keep only distinct titles
         const unique = [];
@@ -240,7 +254,10 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
 
         data.forEach((item) => {
             const title = item.title?.trim()?.toLowerCase();
-            if (title && !uniqueTitles.has(title)) {
+
+            console.log(item.speciality.slug)
+
+            if (title && !uniqueTitles.has(title) && allSpecialities.some(specData => specData.slug === item.speciality.slug)) {
                 uniqueTitles.add(title);
                 unique.push(item);
             }
@@ -285,6 +302,8 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
 
         setAllDoctors(data);
         setDoctorLoading(false)
+
+        return data;
     }
 
 
@@ -323,7 +342,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
             });
         };
         get();
-    }, [selectedLocation, selectedHospital, selectedSpeciality,selectedSpecialities]);
+    }, [selectedLocation, selectedHospital, selectedSpeciality, selectedSpecialities]);
 
 
 
@@ -385,16 +404,14 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                 }
 
                 //Speciality Add
-                if(URLParams.speciality)
-                {
+                if (URLParams.speciality) {
                     redirectURL = redirectURL + "&speciality=" + URLParams.speciality
                 }
-                else
-                {
+                else {
                     const getSpeciality = doctoData.specialities.find(s => s.specialities.length === 0);
                     redirectURL = redirectURL + "&speciality=" + getSpeciality.slug
                 }
-                
+
 
                 redirectURL = redirectURL + "&specialities=" + encodeURIComponent(btoa(JSON.stringify(doctoData.specialities)))
 
@@ -472,6 +489,11 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                                                                 setSelectedLocation(e.target.value);
                                                                 setSelectedSpecialities("");
                                                                 setFormData({ ...formData, location: e.target.value });
+
+                                                                setSelectedHospital("")
+                                                                setSelectedSpeciality("")
+                                                                setSelectedDoctor("")
+                                                                setFormData({ ...formData, hospital: "",department:"",doctor:"" });
                                                             }}>
                                                                 <option value={""}>{staticText['Select a Location']}</option>
                                                                 {
@@ -524,9 +546,9 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                                                             }}>
                                                                 <option value={""}>{staticText['Select a Department']}</option>
                                                                 {
-                                                                    
+
                                                                     allSpeciality?.map((splty, i) => {
-                                                                        return <option value={splty.speciality?.slug||splty.slug} key={i}>{splty.title}</option>
+                                                                        return <option value={splty.speciality?.slug || splty.slug} key={i}>{splty.title}</option>
                                                                     })
                                                                 }
                                                             </select>

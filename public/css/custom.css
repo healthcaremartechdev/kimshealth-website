@@ -6340,3 +6340,12 @@ a.form-btn {
     background-size: contain;
     height: 432px;
 }
+
+.travel-clinic-main-page input,
+.travel-clinic-main-page textarea,
+.travel-clinic-main-page select {
+    background: #f8fafa;
+    border: 1px solid #b71c2b;
+    border-radius: 40px;
+    padding: 10px 30px;
+}

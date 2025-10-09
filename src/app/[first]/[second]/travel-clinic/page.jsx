@@ -6,14 +6,24 @@ import { getStaticPageContent } from '@/app/lib/getStaticPageContent'
 import Breadcrumb from '@/components/Breadcrumb'
 import getStaticText from '@/app/lib/getStaticTextServer'
 import getCurrentLangLoc from '@/app/lib/getCurrentLangLoc'
+import doctorData from '@/app/lib/getDoctor'
+import { getBaseUrl } from '@/app/lib/getBaseUrl';
+import TravelClinicForm from '@/components/Forms/TravelClinicForm'
 
 const TravelClinic = async () => {
+  const basePath = await getBaseUrl(true, true);
     const getLangLoc = await getCurrentLangLoc()
     const data = await getStaticPageContent("travel-clinic");
     const pageContent = data?.data[0]?.pageContent;
     const pageMeta = data?.data[0]?.metaSection;
-     const staticText = await getStaticText();
+    const staticText = await getStaticText();
 
+    const expertDataSet = {
+        sectionTitle: "Meet the Experts",
+        buttonText: 'View All', buttonURL: `${basePath + "/doctor"}`,
+        data: await doctorData.getMultipleDoctorBySlug({ langLoc: getLangLoc, slug:'dr-surej-kumar-l-k,dr-rajalakshmi-a,dr-muhammed-niyas' }),
+        baseUrl: basePath
+    };
 
     return (
         <>
@@ -71,7 +81,18 @@ const TravelClinic = async () => {
                     </section>
                     <div className="line-divider"> </div>
 
-                    {/* <ExpertCarousel /> */}
+                    <ExpertCarousel dataSet={expertDataSet} /> 
+
+
+                    <div className="line-divider"></div>
+                    <section className="section">
+                        <div className="container">
+                            <div className="main-heading main-list sub-heading">
+                                <h2>Enquire Now</h2>
+                                <TravelClinicForm/>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
             <Footer />

@@ -80,8 +80,14 @@ const BookAnAppoinmentShort = ({ basePath, extraClass, currentLangLoc, currentHo
         const pages = Math.ceil(totalCount / limit);
         let data = [];
 
+        const pagecount = hospital
+            ? pages
+            : 0;
+
+
+
         // Actual Data
-        for (let i = 0; i < pages; i++) {
+        for (let i = 0; i < pagecount; i++) {
             const start = i * limit;
             const url = `${baseUrl}/specialty-details?populate=*&pagination[start]=${start}&pagination[limit]=${limit}${locationFilter}${hospitalFilter}&filters[appointmentAvailable][$eq]=true&sort=title:asc`;
             const res = await fetch(url);
@@ -90,13 +96,31 @@ const BookAnAppoinmentShort = ({ basePath, extraClass, currentLangLoc, currentHo
         }
 
 
+        //Get only Specialities where doctor available
+        const docData = await getDoctor({ loc, hospital })
+
+        const allSpecialities = [];
+
+        for (const doctor of docData) {
+            const specialities = doctor.specialities || [];
+
+            for (const spec of specialities) {
+                allSpecialities.push({ title: spec.title, slug: spec.slug });
+            }
+        }
+
+
+
         // ✅ Filter to keep only distinct titles
         const unique = [];
         const uniqueTitles = new Set();
 
         data.forEach((item) => {
             const title = item.title?.trim()?.toLowerCase();
-            if (title && !uniqueTitles.has(title)) {
+
+            console.log(item.speciality.slug)
+
+            if (title && !uniqueTitles.has(title) && allSpecialities.some(specData => specData.slug === item.speciality.slug)) {
                 uniqueTitles.add(title);
                 unique.push(item);
             }
@@ -141,6 +165,8 @@ const BookAnAppoinmentShort = ({ basePath, extraClass, currentLangLoc, currentHo
 
         setAllDoctors(data);
         setDoctorLoading(false)
+
+        return data;
     }
 
 
