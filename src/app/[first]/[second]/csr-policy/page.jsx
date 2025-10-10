@@ -95,16 +95,16 @@ const CsrPolicy = async () => {
                         <div className="container">
                             <div className="row">
                                 <div className="col-md-8 ps-lg-0 ">
-                                    <section className="section pt-0">
+                                    {pageContent[2]?.title && <section className="section pt-0">
                                         <div className="container">
                                             <div className="main-heading sub-heading">
                                                 <h2>{pageContent[2]?.title}</h2>
                                                 <div dangerouslySetInnerHTML={{ __html: pageContent[2]?.details || "" }}></div>
                                             </div>
                                         </div>
-                                    </section>
+                                    </section>}
                                     <div className="line-divider"></div>
-                                    <section className="section">
+                                    {pageContent[3]?.title && <section className="section">
                                         <div className="container">
                                             <div className="main-heading sub-heading main-list-black">
                                                 <h2>{pageContent[3]?.title}</h2>
@@ -112,76 +112,76 @@ const CsrPolicy = async () => {
 
                                             </div>
                                         </div>
-                                    </section>
+                                    </section>}
                                     <div className="line-divider"></div>
-                                    <section className="section">
+                                    {pageContent[5]?.title && <section className="section">
                                         <div className="container">
                                             <div className="main-heading sub-heading main-list-black">
                                                 <h2>{pageContent[5]?.title}</h2>
                                                 <div dangerouslySetInnerHTML={{ __html: pageContent[5]?.details || "" }}></div>
                                             </div>
                                         </div>
-                                    </section>
+                                    </section>}
                                     <div className="line-divider"></div>
-                                    <section className="section">
+                                    {pageContent[6]?.title && <section className="section">
                                         <div className="container">
                                             <div className="main-heading sub-heading main-list-black">
                                                 <h2>{pageContent[6]?.title}</h2>
                                                 <div dangerouslySetInnerHTML={{ __html: pageContent[6]?.details || "" }}></div>
                                             </div>
                                         </div>
-                                    </section>
+                                    </section>}
 
                                     <div className="line-divider"></div>
-                                    <section className="section">
+                                    {pageContent[7]?.title && <section className="section">
                                         <div className="container">
                                             <div className="main-heading sub-heading main-list-black">
                                                 <h2>{pageContent[7]?.title}</h2>
                                                 <div dangerouslySetInnerHTML={{ __html: pageContent[7]?.details || "" }}></div>
                                             </div>
                                         </div>
-                                    </section>
+                                    </section>}
                                     <div className="line-divider"></div>
-                                    <section className="section">
+                                    {pageContent[8]?.title && <section className="section">
                                         <div className="container">
                                             <div className="main-heading sub-heading main-list-black">
                                                 <h2>{pageContent[8]?.title}</h2>
                                                 <div dangerouslySetInnerHTML={{ __html: pageContent[8]?.details || "" }}></div>
                                             </div>
                                         </div>
-                                    </section>
+                                    </section>}
                                     <div className="line-divider"></div>
-                                    <section className="section">
+                                    {pageContent[9]?.title && <section className="section">
                                         <div className="container">
                                             <div className="main-heading sub-heading main-list-black">
                                                 <h2>{pageContent[9]?.title}</h2>
                                                 <div dangerouslySetInnerHTML={{ __html: pageContent[9]?.details || "" }}></div>
                                             </div>
                                         </div>
-                                    </section>
+                                    </section>}
 
                                     <div className="line-divider"></div>
-                                    <section className="section">
+                                    {pageContent[10]?.title && <section className="section">
                                         <div className="container">
                                             <div className="main-heading sub-heading main-list-black">
                                                 <h2>{pageContent[10]?.title}</h2>
                                                 <div dangerouslySetInnerHTML={{ __html: pageContent[10]?.details || "" }}></div>
                                             </div>
                                         </div>
-                                    </section>
+                                    </section>}
 
                                     <div className="line-divider"></div>
-                                    <section className="section">
+                                    {pageContent[11]?.title && <section className="section">
                                         <div className="container">
                                             <div className="main-heading sub-heading main-list-black">
                                                 <h2>{pageContent[11]?.title}</h2>
                                                 <div dangerouslySetInnerHTML={{ __html: pageContent[11]?.details || "" }}></div>
                                             </div>
                                         </div>
-                                    </section>
+                                    </section>}
 
                                     <div className="line-divider"></div>
-                                    <section className="section primary-table">
+                                    {pageContent[12]?.title && <section className="section primary-table">
                                         <div className="container">
                                             <div className="main-heading">
                                                 <h2 className="mb-1">{pageContent[12]?.title}</h2>
@@ -192,7 +192,7 @@ const CsrPolicy = async () => {
                                                 className="table-responsive">
                                             </div>
                                         </div>
-                                    </section>
+                                    </section>}
                                 </div>
 
                                 <div className="col-md-4">
