@@ -288,8 +288,8 @@ const HeaderCorporate = ({ hospital }) => {
                   </li>
                   <li><a href={`${basePath}/doctor${hospital ? '?hospital=' + hospital : ''}`} className="anchor-menu">{staticTexts['Find a Doctor']}</a></li>
                   <li><a href={`${basePathOnlyLang}/visa-medical`} className="anchor-menu">{staticTexts['Visa Medical']}</a></li>
-                  <li><a href={`${basePathOnlyLang}/procedure`} className="anchor-menu">{staticTexts['Key Procedures']}</a></li>
-                  <li><a href={`${basePathOnlyLang}/disease`} className="anchor-menu d-lg-none d-block">{staticTexts['Diseases']}</a></li>
+                  {/* <li><a href={`${basePathOnlyLang}/procedure`} className="anchor-menu">{staticTexts['Key Procedures']}</a></li>
+                  <li><a href={`${basePathOnlyLang}/disease`} className="anchor-menu d-lg-none d-block">{staticTexts['Diseases']}</a></li> */}
                   <li className="menu-item-has-children show-submenu d-lg-inline-block d-none">
                     <a href={basePathOnlyLang + "/hospital"} className="anchor-menu">{staticTexts['Locations']}</a>
                     <div className="sub-menu ">
@@ -908,13 +908,13 @@ const HeaderCorporate = ({ hospital }) => {
                           )}
                         </ul>
                       </li>
-                      {staticPageChecker['disease'] && (
+                      {/* {staticPageChecker['disease'] && (
                         <li>
                           <a href={basePathOnlyLang + "/disease"} className="menu-item">
                             {staticTexts['Diseases']}
                           </a>
                         </li>
-                      )}
+                      )} */}
                       {staticPageChecker['donor-information'] && (
                         <li> <a href={basePath + "/donor-information"} className="menu-item "> {staticTexts['Donor Information']} </a> </li>
                       )}
@@ -979,13 +979,13 @@ const HeaderCorporate = ({ hospital }) => {
                         <li> <a href={basePath + "/privacy-policy"} className="menu-item "> {staticTexts['Privacy Policies']} </a> </li>
                       )}
                       
-                      {staticPageChecker['procedure'] && (
+                      {/* {staticPageChecker['procedure'] && (
                         <li>
                           <a href={basePathOnlyLang + "/procedure"} className="menu-item">
                             {staticTexts['Procedures']}
                           </a>
                         </li>
-                      )}
+                      )} */}
 
                       {staticPageChecker['quality-focus'] && (
                         <li> <a href={basePath + "/quality-focus"} className="menu-item "> {staticTexts['Quality Focus']} </a> </li>
