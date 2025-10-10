@@ -15,7 +15,6 @@ const DiseaseAndProcedure = ({ dataSet }) => {
         fetchTexts();
     }, []);
 
-    return; //Removable
     if (dataSet.dataDiseas.length < 1 && dataSet.dataProcedure.length < 1) {
         return;
     }

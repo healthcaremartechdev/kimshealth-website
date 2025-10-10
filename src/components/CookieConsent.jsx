@@ -19,7 +19,6 @@ export default function CookieConsent() {
     }
   };
 
-  return; //Removable
 
   if (!visible) return null;
 

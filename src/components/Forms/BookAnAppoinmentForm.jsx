@@ -20,9 +20,16 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
     const [selectedLocation, setSelectedLocation] = useState(URLParams.location || null)
     const [selectedHospital, setSelectedHospital] = useState(URLParams.hospital || null);
     const [selectedSpeciality, setSelectedSpeciality] = useState(URLParams.speciality);
-    const [selectedSpecialities, setSelectedSpecialities] = useState(URLParams.specialities ? JSON.parse(atob(decodeURIComponent(URLParams.specialities))).filter((obj, index, self) =>
-        index === self.findIndex(t => t.title.toLowerCase() === obj.title.toLowerCase())
-    ) : null);
+    const [selectedSpecialities, setSelectedSpecialities] = useState(
+  URLParams.specialities
+    ? URLParams.specialities
+        .split("|")
+        .map(pair => {
+          const [title, slug] = pair.split(":").map(decodeURIComponent);
+          return { title, slug };
+        })
+    : null
+);
     const [selectedDoctor, setSelectedDoctor] = useState(URLParams.doctor);
     const [doctorLoading, setDoctorLoading] = useState(true);
     const [formData, setFormData] = useState({
@@ -255,7 +262,6 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
         data.forEach((item) => {
             const title = item.title?.trim()?.toLowerCase();
 
-            console.log(item.speciality.slug)
 
             if (title && !uniqueTitles.has(title) && allSpecialities.some(specData => specData.slug === item.speciality.slug)) {
                 uniqueTitles.add(title);
@@ -412,8 +418,30 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                     redirectURL = redirectURL + "&speciality=" + getSpeciality.slug
                 }
 
+                // ✅ Filter to keep only distinct titles
+                const unique = [];
+                const uniqueTitles = new Set();
 
-                redirectURL = redirectURL + "&specialities=" + encodeURIComponent(btoa(JSON.stringify(doctoData.specialities)))
+                doctoData.specialities.forEach((item) => {
+                    const title = item.title?.trim()?.toLowerCase();
+
+                    if (title && !uniqueTitles.has(title)) {
+                        uniqueTitles.add(title);
+                        unique.push(item);
+                    }
+                });
+
+                // Build compact list of title:slug pairs
+                let specialities = "";
+                if (Array.isArray(unique) && unique.length > 0) {
+                    const pairs = unique.map(s =>
+                        `${encodeURIComponent(s.title)}:${encodeURIComponent(s.slug)}`
+                    );
+                    specialities = pairs.join("|");
+                }
+
+
+                redirectURL = redirectURL + "&specialities=" + specialities
 
                 location.href = redirectURL;
             }
@@ -493,7 +521,7 @@ const BookAnAppoinmentForm = ({ pageContent, URLParams }) => {
                                                                 setSelectedHospital("")
                                                                 setSelectedSpeciality("")
                                                                 setSelectedDoctor("")
-                                                                setFormData({ ...formData, hospital: "",department:"",doctor:"" });
+                                                                setFormData({ ...formData, hospital: "", department: "", doctor: "" });
                                                             }}>
                                                                 <option value={""}>{staticText['Select a Location']}</option>
                                                                 {
